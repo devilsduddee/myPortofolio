@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { SectionContainer } from '../shared/SectionContainer';
 import { CTAButton } from '../shared/CTAButton';
 import { AnimatedSection } from '../shared/AnimatedSection';
@@ -80,10 +81,13 @@ export function HeroSection({
             
             {profile.profile_photo ? (
               <div className="relative w-64 h-64 md:w-80 md:h-80 lg:w-[460px] lg:h-[460px] rounded-[2rem] overflow-hidden bg-slate-100 shrink-0 z-10 transition-transform duration-700 hover:-translate-y-2 group border-[3px] border-white/80 shadow-[0_20px_40px_rgba(0,0,0,0.04)]">
-                <img 
+                <Image 
                   src={profile.profile_photo} 
                   alt={profile.full_name}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  fill
+                  sizes="(max-width: 768px) 256px, (max-width: 1024px) 320px, 460px"
+                  priority
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 rounded-[2rem] ring-1 ring-inset ring-black/5 pointer-events-none"></div>
               </div>
