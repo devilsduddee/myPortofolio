@@ -1,0 +1,75 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Profile {
+  id            String   @id @default(uuid())
+  full_name     String
+  title         String
+  tagline       String
+  about_me      String   @db.Text
+  profile_photo String?
+  cv_file       String?
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+
+  @@map("profiles")
+}
+
+model Experience {
+  id           String    @id @default(uuid())
+  company_name String
+  position     String
+  start_date   DateTime
+  end_date     DateTime?
+  description  String    @db.Text
+  created_at   DateTime  @default(now())
+  updated_at   DateTime  @updatedAt
+
+  @@map("experiences")
+}
+
+model Project {
+  id             String   @id @default(uuid())
+  project_name   String
+  description    String   @db.Text
+  tech_stack     String
+  image_url      String?
+  demo_url       String?
+  repository_url String?
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
+
+  @@map("projects")
+}
+
+model Achievement {
+  id              String   @id @default(uuid())
+  title           String
+  description     String   @db.Text
+  achievement_date DateTime
+  certificate_url String?
+  created_at      DateTime @default(now())
+  updated_at      DateTime @updatedAt
+
+  @@map("achievements")
+}
+
+model Contact {
+  id           String   @id @default(uuid())
+  email        String
+  phone        String?
+  linkedin_url String?
+  github_url   String?
+  website_url  String?
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
+
+  @@map("contacts")
+}
