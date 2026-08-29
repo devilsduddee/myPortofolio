@@ -7,12 +7,12 @@ import { ExternalLink } from 'lucide-react';
 export function AchievementCard({ achievement }: { achievement: Achievement }) {
   return (
     <div className="h-full hover:-translate-y-2 transition-transform duration-500 group relative">
-      <Card className="h-full flex flex-col hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] transition-all border border-white/60 border-t-white/90 overflow-hidden bg-white/50 backdrop-blur-2xl relative z-10 rounded-[2rem] group-hover:border-white/90">
+      <Card className="h-full flex flex-col transition-all border border-white/10 border-t-white/20 overflow-hidden bg-white/5 backdrop-blur-2xl relative z-10 rounded-[2rem] group-hover:border-white/20">
         {/* Layer 4: Glass reflection internal highlight */}
-        <div className="absolute inset-0 rounded-[2rem] ring-1 ring-inset ring-white/50 pointer-events-none z-20"></div>
-        <div className="absolute inset-0 rounded-[2rem] bg-gradient-to-tr from-white/20 via-transparent to-white/5 pointer-events-none z-20 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+        <div className="absolute inset-0 rounded-[2rem] ring-1 ring-inset ring-white/10 pointer-events-none z-20"></div>
+        <div className="absolute inset-0 rounded-[2rem] bg-gradient-to-tr from-white/10 via-transparent to-white/5 pointer-events-none z-20 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
         {achievement.certificate_url && (
-          <div className="relative w-full overflow-hidden bg-slate-100 flex items-center justify-center shrink-0 border-b border-white/50">
+          <div className="relative w-full overflow-hidden bg-slate-900 flex items-center justify-center shrink-0 border-b border-white/10">
             {achievement.certificate_url.toLowerCase().endsWith('.pdf') ? (
               <div className="w-full h-40 relative group/pdf overflow-hidden bg-white">
                 <iframe 
@@ -49,12 +49,12 @@ export function AchievementCard({ achievement }: { achievement: Achievement }) {
         )}
         <div className="p-6 flex flex-col flex-1">
           <div className="flex justify-between items-start mb-3 gap-3">
-            <h3 className="text-lg font-bold text-slate-900 leading-snug group-hover:text-indigo-600 transition-colors tracking-tight">{achievement.title}</h3>
-            <span className="text-[11px] font-semibold text-slate-500 bg-white/80 border border-slate-200/50 px-2.5 py-1 rounded-full shrink-0 shadow-sm mt-0.5">
+            <h3 className="text-lg font-bold text-slate-100 leading-snug group-hover:text-indigo-400 transition-colors tracking-tight">{achievement.title}</h3>
+            <span className="text-[11px] font-semibold text-slate-300 bg-white/5 border border-white/10 px-2.5 py-1 rounded-full shrink-0 shadow-sm mt-0.5">
               {format(new Date(achievement.achievement_date), 'MMM yyyy')}
             </span>
           </div>
-          <p className="text-slate-600 flex-1 text-[13px] leading-relaxed font-normal tracking-tight line-clamp-4 mt-1">{achievement.description}</p>
+          <p className="text-slate-300 flex-1 text-[13px] leading-relaxed font-normal tracking-tight line-clamp-4 mt-1">{achievement.description}</p>
         </div>
       </Card>
     </div>

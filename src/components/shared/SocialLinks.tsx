@@ -7,25 +7,25 @@ export function SocialLinks({ className = '', contact }: { className?: string, c
   return (
     <div className={`flex flex-wrap items-center justify-center gap-4 ${className}`}>
       {contact.email && (
-        <a href={`mailto:${contact.email}`} className="flex items-center gap-2 px-4 py-2 bg-white/60 hover:bg-white/90 text-slate-600 hover:text-slate-900 rounded-full transition-all border border-slate-200/50 shadow-sm hover:shadow-md" aria-label="Email">
+        <a href={`mailto:${contact.email}`} className="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white rounded-full transition-all border border-white/10 shadow-lg shadow-black/20" aria-label="Email">
           <Mail size={18} />
           <span className="font-medium text-sm">Email</span>
         </a>
       )}
       {contact.linkedin_url && (
-        <a href={contact.linkedin_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 bg-white/60 hover:bg-white/90 text-slate-600 hover:text-slate-900 rounded-full transition-all border border-slate-200/50 shadow-sm hover:shadow-md" aria-label="LinkedIn">
+        <a href={contact.linkedin_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white rounded-full transition-all border border-white/10 shadow-lg shadow-black/20" aria-label="LinkedIn">
           <Linkedin size={18} />
           <span className="font-medium text-sm">LinkedIn</span>
         </a>
       )}
       {contact.github_url && (
-        <a href={contact.github_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 bg-white/60 hover:bg-white/90 text-slate-600 hover:text-slate-900 rounded-full transition-all border border-slate-200/50 shadow-sm hover:shadow-md" aria-label="GitHub">
+        <a href={contact.github_url} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white rounded-full transition-all border border-white/10 shadow-lg shadow-black/20" aria-label="GitHub">
           <Github size={18} />
           <span className="font-medium text-sm">GitHub</span>
         </a>
       )}
       {contact.phone && (
-        <a href={`https://wa.me/${contact.phone.replace(/[^0-9]/g, '')}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 bg-white/60 hover:bg-white/90 text-slate-600 hover:text-slate-900 rounded-full transition-all border border-slate-200/50 shadow-sm hover:shadow-md" aria-label="WhatsApp">
+        <a href={`https://wa.me/${contact.phone.replace(/[^0-9]/g, '')}`} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white rounded-full transition-all border border-white/10 shadow-lg shadow-black/20" aria-label="WhatsApp">
           <MessageCircle size={18} />
           <span className="font-medium text-sm">WhatsApp</span>
         </a>
