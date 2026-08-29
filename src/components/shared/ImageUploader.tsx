@@ -70,17 +70,17 @@ export function ImageUploader({ value, onChange, bucket = 'portfolio', pathPrefi
       {value && (
         <div className="mb-4">
           {isPdfValue ? (
-            <div className="flex items-center gap-3 p-4 bg-slate-50 border border-slate-200 rounded-lg max-w-sm">
+            <div className="flex items-center gap-3 p-4 bg-white/5 backdrop-blur-xl border border-white/10 rounded-lg max-w-sm">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
               </svg>
               <div className="flex flex-col">
-                <span className="text-sm font-medium text-slate-700">Document Uploaded</span>
-                <a href={value} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline text-sm">View File</a>
+                <span className="text-sm font-medium text-slate-200">Document Uploaded</span>
+                <a href={value} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline text-sm">View File</a>
               </div>
             </div>
           ) : (
-            <div className="relative w-32 h-32 rounded-lg overflow-hidden border-4 border-slate-100 shadow-sm">
+            <div className="relative w-32 h-32 rounded-lg overflow-hidden border-2 border-white/10 shadow-xl shadow-black/20 shadow-sm">
               <Image src={value} alt="Preview" fill className="object-cover" sizes="128px" />
             </div>
           )}
@@ -101,7 +101,7 @@ export function ImageUploader({ value, onChange, bucket = 'portfolio', pathPrefi
           type="button"
           onClick={() => fileInputRef.current?.click()}
           disabled={isUploading}
-          className="px-4 py-2 bg-slate-100 text-slate-700 text-sm font-medium rounded hover:bg-slate-200 transition-colors disabled:opacity-50"
+          className="px-4 py-2 bg-white/10 border border-white/10 text-white text-sm font-medium rounded-xl hover:bg-white/20 transition-all disabled:opacity-50"
         >
           {isUploading ? 'Uploading...' : (value ? 'Change File' : 'Upload File')}
         </button>

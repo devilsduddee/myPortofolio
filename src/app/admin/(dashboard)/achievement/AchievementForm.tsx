@@ -40,7 +40,7 @@ export function AchievementForm({ initialData }: { initialData?: any }) {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl shadow-xl shadow-black/20 p-6">
       
       {status && (
         <div className={`p-4 rounded-lg text-sm ${status.type === 'success' ? 'bg-emerald-50 text-emerald-700' : 'bg-red-50 text-red-700'}`}>
@@ -49,19 +49,19 @@ export function AchievementForm({ initialData }: { initialData?: any }) {
       )}
 
       <div>
-        <label className="block text-sm font-medium text-slate-700 mb-1">Title</label>
-        <input {...register('title')} className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" required />
+        <label className="block text-sm font-medium text-slate-300 mb-1">Title</label>
+        <input {...register('title')} className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-slate-400 focus:border-white/30 focus:bg-white/10 focus:outline-none transition-all" required />
         {errors.title && <p className="text-red-500 text-sm mt-1">{errors.title.message}</p>}
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-slate-700 mb-1">Date</label>
-        <input type="date" {...register('date')} className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" required />
+        <label className="block text-sm font-medium text-slate-300 mb-1">Date</label>
+        <input type="date" {...register('date')} className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-slate-400 focus:border-white/30 focus:bg-white/10 focus:outline-none transition-all" required />
         {errors.date && <p className="text-red-500 text-sm mt-1">{errors.date.message}</p>}
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-slate-700 mb-2">Certificate Image/Document</label>
+        <label className="block text-sm font-medium text-slate-300 mb-2">Certificate Image/Document</label>
         <Controller
           name="certificateUrl"
           control={control}
@@ -79,15 +79,15 @@ export function AchievementForm({ initialData }: { initialData?: any }) {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-slate-700 mb-1">Description</label>
-        <textarea {...register('description')} rows={5} className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none" required />
+        <label className="block text-sm font-medium text-slate-300 mb-1">Description</label>
+        <textarea {...register('description')} rows={5} className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-slate-400 focus:border-white/30 focus:bg-white/10 focus:outline-none transition-all" required />
         {errors.description && <p className="text-red-500 text-sm mt-1">{errors.description.message}</p>}
       </div>
 
       <button 
         type="submit" 
         disabled={isSubmitting}
-        className="bg-slate-900 text-white px-6 py-3 rounded-lg font-medium hover:bg-slate-800 transition-colors shadow-sm disabled:opacity-50"
+        className="bg-white/10 backdrop-blur-md border border-white/20 px-6 py-3 rounded-xl hover:bg-white/20 hover:scale-[1.02] transition-all text-white font-semibold disabled:opacity-50"
       >
         {isSubmitting ? 'Saving...' : 'Save Achievement'}
       </button>

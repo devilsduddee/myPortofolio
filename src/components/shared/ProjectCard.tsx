@@ -13,7 +13,7 @@ export function ProjectCard({ project }: { project: Project }) {
         <div className="absolute inset-0 rounded-[2rem] ring-1 ring-inset ring-white/10 pointer-events-none z-20"></div>
         <div className="absolute inset-0 rounded-[2rem] bg-gradient-to-tr from-white/10 via-transparent to-white/5 pointer-events-none z-20 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
         {project.image_url && (
-          <div className="relative w-full h-40 overflow-hidden bg-slate-900 shrink-0 border-b border-white/10">
+          <div className="relative w-full aspect-video overflow-hidden bg-slate-900 shrink-0 border-b border-white/10">
             <Image 
               src={project.image_url} 
               alt={project.project_name}
@@ -23,13 +23,13 @@ export function ProjectCard({ project }: { project: Project }) {
             />
           </div>
         )}
-        <div className="p-6 flex flex-col flex-1">
+        <div className="p-5 md:p-6 flex flex-col flex-1">
           <div className="mb-2">
             <h3 className="text-lg font-bold text-slate-100 group-hover:text-blue-400 transition-colors tracking-tight leading-snug">{project.project_name}</h3>
           </div>
           
           <div className="space-y-3 flex-1 mt-1">
-            <p className="text-slate-300 text-[13px] leading-relaxed font-normal tracking-tight line-clamp-3">{project.description}</p>
+            <p className="text-slate-300 text-sm md:text-base leading-relaxed md:leading-loose font-normal tracking-tight line-clamp-3 md:line-clamp-4">{project.description}</p>
           </div>
 
           {techStackList.length > 0 && (

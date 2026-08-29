@@ -29,7 +29,7 @@ export function CvForm({ initialData }: { initialData?: any }) {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl shadow-xl shadow-black/20 p-6">
       
       {status && (
         <div className={`p-4 rounded-lg text-sm ${status.type === 'success' ? 'bg-emerald-50 text-emerald-700' : 'bg-red-50 text-red-700'}`}>
@@ -38,7 +38,7 @@ export function CvForm({ initialData }: { initialData?: any }) {
       )}
 
       <div>
-        <label className="block text-sm font-medium text-slate-700 mb-2">Resume / CV Document</label>
+        <label className="block text-sm font-medium text-slate-300 mb-2">Resume / CV Document</label>
         <Controller
           name="fileUrl"
           control={control}
@@ -58,7 +58,7 @@ export function CvForm({ initialData }: { initialData?: any }) {
       <button 
         type="submit" 
         disabled={isSubmitting}
-        className="w-full bg-slate-900 text-white py-3 rounded-lg font-medium hover:bg-slate-800 transition-colors shadow-sm disabled:opacity-50"
+        className="w-full bg-white/10 backdrop-blur-md border border-white/20 py-3 rounded-xl hover:bg-white/20 hover:scale-[1.02] transition-all text-white font-semibold disabled:opacity-50"
       >
         {isSubmitting ? 'Saving...' : 'Save CV'}
       </button>

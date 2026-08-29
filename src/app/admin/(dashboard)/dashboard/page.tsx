@@ -49,9 +49,9 @@ export default async function DashboardPage() {
         />
       </div>
 
-      <div className="bg-white p-6 rounded-xl border border-slate-200">
-        <h3 className="text-lg font-bold text-slate-900 mb-4">Content Summary</h3>
-        <p className="text-slate-500 text-sm">
+      <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl shadow-xl shadow-black/20 p-6">
+        <h3 className="text-lg font-bold text-white mb-4">Content Summary</h3>
+        <p className="text-slate-400 text-sm">
           Your portfolio currently has {projects.length} projects, {experiences.length} experience records, and {achievements.length} achievements. 
           Navigate through the sidebar to manage your content.
         </p>

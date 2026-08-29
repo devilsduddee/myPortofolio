@@ -1,9 +1,16 @@
+'use client';
 import { ReactNode } from 'react';
+import { motion, HTMLMotionProps } from 'framer-motion';
 
-export function Card({ children, className = '' }: { children: ReactNode, className?: string }) {
+export function Card({ children, className = '', ...props }: { children: ReactNode, className?: string } & HTMLMotionProps<"div">) {
   return (
-    <div className={`bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl shadow-black/20 transition-all duration-300 hover:bg-white/10 hover:border-white/20 hover:-translate-y-1 ${className}`}>
+    <motion.div 
+      className={`bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl shadow-black/20 ${className}`}
+      whileHover={{ y: -6, scale: 1.02, backgroundColor: "rgba(255, 255, 255, 0.1)", borderColor: "rgba(255, 255, 255, 0.2)" }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      {...props}
+    >
       {children}
-    </div>
+    </motion.div>
   );
 }
