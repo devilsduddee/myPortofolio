@@ -11,6 +11,17 @@ const config: Config = {
   theme: {
   	extend: {
   		colors: {
+        neo: {
+          blue: '#2563EB',
+          yellow: '#FFD60A',
+          pink: '#FF006E',
+          green: '#22C55E',
+          bg: '#F8F8F8',
+          surface: '#FFFFFF',
+          border: '#000000',
+          text: '#000000',
+          muted: '#404040',
+        },
   			background: 'var(--background)',
   			foreground: 'var(--foreground)',
   			card: {
@@ -44,40 +55,26 @@ const config: Config = {
   			border: 'var(--border)',
   			input: 'var(--input)',
   			ring: 'var(--ring)',
-  			chart: {
-  				'1': 'var(--chart-1)',
-  				'2': 'var(--chart-2)',
-  				'3': 'var(--chart-3)',
-  				'4': 'var(--chart-4)',
-  				'5': 'var(--chart-5)'
-  			}
   		},
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
-  			sm: 'calc(var(--radius) - 4px)'
+  			sm: 'calc(var(--radius) - 4px)',
+        'brutal': '20px',
   		},
-  		animation: {
-  			blob: "blob 7s infinite"
-  		},
-  		keyframes: {
-  			blob: {
-  				"0%": {
-  					transform: "translate(0px, 0px) scale(1)"
-  				},
-  				"33%": {
-  					transform: "translate(30px, -50px) scale(1.1)"
-  				},
-  				"66%": {
-  					transform: "translate(-20px, 20px) scale(0.9)"
-  				},
-  				"100%": {
-  					transform: "translate(0px, 0px) scale(1)"
-  				}
-  			}
-  		}
+      boxShadow: {
+        'brutal-sm': '5px 5px 0px #000000',
+        'brutal': '8px 8px 0px #000000',
+        'brutal-lg': '12px 12px 0px #000000',
+        'brutal-active': '2px 2px 0px #000000',
+      },
+      borderWidth: {
+        '3': '3px',
+        '4': '4px',
+      },
   	}
   },
   plugins: [require("tailwindcss-animate")],
 };
 export default config;
+

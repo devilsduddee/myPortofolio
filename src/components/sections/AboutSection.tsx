@@ -1,25 +1,43 @@
+'use client';
+
 import { SectionContainer } from '../shared/SectionContainer';
 import { SectionHeader } from '../shared/SectionHeader';
-import { AnimatedSection } from '../shared/AnimatedSection';
+import { motion } from 'framer-motion';
 import type { Profile } from '@prisma/client';
+import { Sparkles } from 'lucide-react';
 
 export function AboutSection({ profile }: { profile: Profile | null }) {
-  if (!profile) return null;
+  if (!profile || !profile.about_me) return null;
 
   return (
-    <SectionContainer id="about" className="bg-transparent relative">
-      <AnimatedSection>
-        <SectionHeader title="About Me" subtitle="Who I Am & What I Do" />
-        <div className="max-w-[800px] mx-auto relative mt-8">
-          <div className="relative z-10 bg-white/5 backdrop-blur-xl p-5 md:p-8 lg:p-14 rounded-[2.5rem] border border-white/10 shadow-xl shadow-black/20 hover:shadow-2xl hover:shadow-black/40 transition-all duration-700 ease-out">
-            <div className="prose prose-slate w-full max-w-none">
-              <p className="text-slate-200 leading-relaxed md:leading-loose font-normal text-sm md:text-base whitespace-pre-wrap tracking-tight">
-                {profile.about_me}
-              </p>
-            </div>
+    <SectionContainer id="about">
+      <SectionHeader title="About Me" subtitle="Professional Summary" />
+      
+      <div className="mt-8">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="bg-neo-surface border-4 border-neo-border p-6 sm:p-8 lg:p-12 rounded-[20px] shadow-brutal brutal-card-hover relative"
+        >
+          {/* Header Badge */}
+          <div className="inline-flex items-center gap-2 bg-neo-yellow border-3 border-neo-border px-3.5 py-1.5 rounded-full text-xs font-black uppercase tracking-wider mb-6 shadow-brutal-sm">
+            <Sparkles className="w-4 h-4 stroke-[3] text-neo-text" />
+            <span>Profile Summary</span>
           </div>
-        </div>
-      </AnimatedSection>
+
+          <h3 className="text-2xl sm:text-3xl font-black text-neo-text uppercase tracking-tight mb-4">
+            {profile.full_name} — {profile.title}
+          </h3>
+
+          <div className="text-neo-text text-base sm:text-lg font-medium leading-relaxed whitespace-pre-line">
+            {profile.about_me}
+          </div>
+        </motion.div>
+      </div>
     </SectionContainer>
   );
 }
+
+

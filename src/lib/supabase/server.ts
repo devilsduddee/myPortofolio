@@ -15,14 +15,17 @@ export async function createClient() {
         setAll(cookiesToSet: any[]) {
           try {
             cookiesToSet.forEach(({ name, value, options }) => {
-              cookieStore.set(name, value, options)
-            })
+              // Convert cookie to Session Cookie (expires on browser close)
+              const sessionOptions = { ...options };
+              delete sessionOptions.maxAge;
+              delete sessionOptions.expires;
+              cookieStore.set(name, value, sessionOptions);
+            });
           } catch (error) {
             // The `set` method was called from a Server Component.
-            // This can be ignored if you have middleware refreshing
-            // user sessions.
           }
         },
+
       },
     }
   );

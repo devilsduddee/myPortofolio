@@ -33,40 +33,56 @@ export function ProfileForm({ initialData }: { initialData: any }) {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl shadow-xl shadow-black/20 p-6">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 bg-neo-surface border-4 border-neo-border rounded-[20px] shadow-brutal p-6 sm:p-8">
       
       {status && (
-        <div className={`p-4 rounded-lg text-sm ${status.type === 'success' ? 'bg-emerald-50 text-emerald-700' : 'bg-red-50 text-red-700'}`}>
+        <div className={`p-4 rounded-xl border-3 border-neo-border font-extrabold text-sm shadow-brutal-sm ${
+          status.type === 'success' ? 'bg-emerald-100 text-emerald-950' : 'bg-neo-pink/20 text-neo-pink'
+        }`}>
           {status.msg}
         </div>
       )}
 
-      <div>
-        <label className="block text-sm font-medium text-slate-300 mb-1">Full Name</label>
-        <input {...register('name')} className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-slate-400 focus:border-white/30 focus:bg-white/10 focus:outline-none transition-all" />
-        {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>}
+      <div className="space-y-2">
+        <label className="block text-xs font-black uppercase text-neo-text tracking-wider">Full Name</label>
+        <input 
+          {...register('name')} 
+          className="w-full px-4 py-3 bg-neo-surface border-3 border-neo-border rounded-xl font-bold text-neo-text placeholder:text-neo-muted/60 focus:bg-neo-yellow/10 focus:shadow-brutal-sm outline-none transition-all" 
+        />
+        {errors.name && <p className="text-neo-pink text-xs font-black mt-1">{errors.name.message}</p>}
       </div>
 
-      <div>
-        <label className="block text-sm font-medium text-slate-300 mb-1">Professional Title</label>
-        <input {...register('title')} className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-slate-400 focus:border-white/30 focus:bg-white/10 focus:outline-none transition-all" />
-        {errors.title && <p className="text-red-500 text-sm mt-1">{errors.title.message}</p>}
+      <div className="space-y-2">
+        <label className="block text-xs font-black uppercase text-neo-text tracking-wider">Professional Title (Comma separated for badges)</label>
+        <input 
+          {...register('title')} 
+          placeholder="e.g. Data Analyst, Product Manager"
+          className="w-full px-4 py-3 bg-neo-surface border-3 border-neo-border rounded-xl font-bold text-neo-text placeholder:text-neo-muted/60 focus:bg-neo-yellow/10 focus:shadow-brutal-sm outline-none transition-all" 
+        />
+        {errors.title && <p className="text-neo-pink text-xs font-black mt-1">{errors.title.message}</p>}
       </div>
 
-      <div>
-        <label className="block text-sm font-medium text-slate-300 mb-1">Tagline</label>
-        <input {...register('tagline')} className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-slate-400 focus:border-white/30 focus:bg-white/10 focus:outline-none transition-all" />
-        {errors.tagline && <p className="text-red-500 text-sm mt-1">{errors.tagline.message}</p>}
+      <div className="space-y-2">
+        <label className="block text-xs font-black uppercase text-neo-text tracking-wider">Tagline</label>
+        <input 
+          {...register('tagline')} 
+          className="w-full px-4 py-3 bg-neo-surface border-3 border-neo-border rounded-xl font-bold text-neo-text placeholder:text-neo-muted/60 focus:bg-neo-yellow/10 focus:shadow-brutal-sm outline-none transition-all" 
+        />
+        {errors.tagline && <p className="text-neo-pink text-xs font-black mt-1">{errors.tagline.message}</p>}
       </div>
 
-      <div>
-        <label className="block text-sm font-medium text-slate-300 mb-1">About Me</label>
-        <textarea {...register('aboutMe')} rows={5} className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-slate-400 focus:border-white/30 focus:bg-white/10 focus:outline-none transition-all" />
-        {errors.aboutMe && <p className="text-red-500 text-sm mt-1">{errors.aboutMe.message}</p>}
+      <div className="space-y-2">
+        <label className="block text-xs font-black uppercase text-neo-text tracking-wider">About Me Summary</label>
+        <textarea 
+          {...register('aboutMe')} 
+          rows={5} 
+          className="w-full px-4 py-3 bg-neo-surface border-3 border-neo-border rounded-xl font-bold text-neo-text placeholder:text-neo-muted/60 focus:bg-neo-yellow/10 focus:shadow-brutal-sm outline-none transition-all" 
+        />
+        {errors.aboutMe && <p className="text-neo-pink text-xs font-black mt-1">{errors.aboutMe.message}</p>}
       </div>
 
-      <div>
-        <label className="block text-sm font-medium text-slate-300 mb-2">Profile Photo (Optional)</label>
+      <div className="space-y-2">
+        <label className="block text-xs font-black uppercase text-neo-text tracking-wider">Profile Photo</label>
         <Controller
           name="avatarUrl"
           control={control}
@@ -79,16 +95,17 @@ export function ProfileForm({ initialData }: { initialData: any }) {
             />
           )}
         />
-        {errors.avatarUrl && <p className="text-red-500 text-sm mt-1">{errors.avatarUrl.message}</p>}
+        {errors.avatarUrl && <p className="text-neo-pink text-xs font-black mt-1">{errors.avatarUrl.message}</p>}
       </div>
 
       <button 
         type="submit" 
         disabled={isSubmitting}
-        className="w-full bg-white/10 backdrop-blur-md border border-white/20 py-3 rounded-xl hover:bg-white/20 hover:scale-[1.02] transition-all text-white font-semibold disabled:opacity-50"
+        className="w-full py-3.5 bg-neo-blue text-white font-extrabold text-sm uppercase tracking-wider rounded-xl border-3 border-neo-border shadow-brutal-sm hover:-translate-y-0.5 hover:shadow-brutal active:translate-y-0.5 transition-all text-center disabled:opacity-50"
       >
-        {isSubmitting ? 'Saving...' : 'Save Profile'}
+        {isSubmitting ? 'Saving Profile...' : 'Save Profile Changes'}
       </button>
     </form>
   );
 }
+

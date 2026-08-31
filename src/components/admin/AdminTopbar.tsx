@@ -12,21 +12,21 @@ export function AdminTopbar({ toggleSidebar }: { toggleSidebar?: () => void }) {
   };
 
   return (
-    <header className="h-16 sticky top-0 z-30 bg-white/5 backdrop-blur-md border-b border-white/10 flex items-center justify-between px-4 lg:px-8 shrink-0">
+    <header className="h-16 sticky top-0 z-30 bg-neo-surface border-b-4 border-neo-border flex items-center justify-between px-4 lg:px-8 shrink-0">
       <div className="flex items-center gap-4">
-        <button onClick={toggleSidebar} className="md:hidden text-slate-400 hover:text-white transition-colors w-10 h-10 flex items-center justify-center -ml-2 rounded-lg hover:bg-white/10">
-          <Menu className="w-6 h-6" />
+        <button onClick={toggleSidebar} className="md:hidden text-neo-text hover:text-neo-blue transition-colors w-10 h-10 flex items-center justify-center -ml-2 rounded-lg border-2 border-transparent hover:border-neo-border hover:shadow-[2px_2px_0px_#000000] hover:bg-neo-yellow">
+          <Menu className="w-6 h-6 stroke-[3]" />
         </button>
-        <h1 className="text-xl font-bold text-white hidden sm:block">{formatTitle(pathname)}</h1>
+        <h1 className="text-xl md:text-2xl font-black text-neo-text hidden sm:block uppercase tracking-tight">{formatTitle(pathname)}</h1>
       </div>
       
       <div className="flex items-center gap-3">
         <div className="hidden sm:block text-right">
-          <p className="text-sm font-medium text-slate-200">Ahmad Ridho</p>
-          <p className="text-xs text-slate-400">Administrator</p>
+          <p className="text-sm font-bold text-neo-text">Ahmad Ridho</p>
+          <p className="text-xs font-bold text-neo-muted">Administrator</p>
         </div>
-        <div className="w-10 h-10 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/20 text-slate-300 shadow-sm">
-          <UserCircle className="w-6 h-6" />
+        <div className="w-10 h-10 bg-neo-yellow rounded-full flex items-center justify-center border-2 border-neo-border text-neo-text shadow-[2px_2px_0px_#000000]">
+          <UserCircle className="w-6 h-6 stroke-[2.5]" />
         </div>
       </div>
     </header>

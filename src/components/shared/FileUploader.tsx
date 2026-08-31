@@ -57,9 +57,11 @@ export function FileUploader({ value, onChange, bucket = 'portfolio', pathPrefix
   return (
     <div className="space-y-4">
       {value && (
-        <div className="p-4 bg-slate-50 border border-slate-200 rounded-lg flex items-center justify-between">
-          <span className="text-sm text-slate-700 truncate max-w-xs">{value.split('/').pop()}</span>
-          <a href={value} target="_blank" rel="noreferrer" className="text-blue-600 hover:underline text-sm font-medium">View File</a>
+        <div className="p-4 bg-neo-surface border-3 border-neo-border rounded-xl shadow-brutal-sm flex items-center justify-between max-w-md">
+          <span className="text-xs font-black uppercase text-neo-text truncate max-w-xs">{value.split('/').pop()}</span>
+          <a href={value} target="_blank" rel="noreferrer" className="text-neo-blue font-extrabold hover:underline text-xs uppercase tracking-wider">
+            View PDF
+          </a>
         </div>
       )}
       
@@ -77,13 +79,14 @@ export function FileUploader({ value, onChange, bucket = 'portfolio', pathPrefix
           type="button"
           onClick={() => fileInputRef.current?.click()}
           disabled={isUploading}
-          className="px-6 py-2 bg-slate-900 text-white text-sm font-medium rounded hover:bg-slate-800 transition-colors disabled:opacity-50"
+          className="px-5 py-2.5 bg-neo-yellow text-neo-text font-black text-xs uppercase tracking-wider rounded-xl border-3 border-neo-border shadow-brutal-sm hover:-translate-y-0.5 active:translate-y-0.5 transition-all disabled:opacity-50"
         >
-          {isUploading ? 'Uploading...' : (value ? 'Update Document' : 'Upload Document')}
+          {isUploading ? 'Uploading Document...' : (value ? 'Update Document File' : 'Upload Document File')}
         </button>
         
-        {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
+        {error && <p className="text-neo-pink text-xs font-black mt-2">{error}</p>}
       </div>
     </div>
   );
 }
+

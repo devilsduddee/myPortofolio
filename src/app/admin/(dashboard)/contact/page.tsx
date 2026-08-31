@@ -2,7 +2,10 @@ import { ContactService } from '@/features/contact/services/ContactService';
 import { PageHeader } from '@/components/admin/PageHeader';
 import { ContactForm } from './ContactForm';
 
+export const dynamic = 'force-dynamic';
+
 export default async function ContactPage() {
+
   const data = await ContactService.get();
   return (
     <div>

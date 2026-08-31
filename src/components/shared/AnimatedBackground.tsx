@@ -1,29 +1,18 @@
 'use client';
-import { motion } from 'framer-motion';
 
 export function AnimatedBackground() {
   return (
-    <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10 bg-slate-950">
-      {/* Deep Purple Blob - Always visible but smaller on mobile */}
-      <motion.div
-        animate={{ x: [0, 30, -20, 0], y: [0, -30, 20, 0] }}
-        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-[-10%] left-[-10%] w-[80vw] h-[80vw] md:w-[50vw] md:h-[50vw] bg-purple-600/30 rounded-full blur-[80px] md:blur-[120px]"
-      />
+    <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10 bg-neo-bg">
+      {/* Neo Brutalist Dot Grid Overlay */}
+      <div className="absolute inset-0 bg-dot-grid" />
       
-      {/* Vivid Blue Blob - Hidden on mobile to save performance */}
-      <motion.div
-        animate={{ x: [0, -30, 20, 0], y: [0, 30, -20, 0] }}
-        transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
-        className="hidden md:block absolute top-[10%] right-[-10%] w-[45vw] h-[45vw] bg-blue-600/30 rounded-full blur-[120px]"
-      />
-      
-      {/* Soft Pink Blob - Hidden on mobile to save performance */}
-      <motion.div
-        animate={{ x: [0, 20, -30, 0], y: [0, -20, 30, 0] }}
-        transition={{ duration: 13, repeat: Infinity, ease: "easeInOut" }}
-        className="hidden md:block absolute bottom-[-20%] left-[10%] w-[60vw] h-[60vw] bg-pink-600/20 rounded-full blur-[120px]"
-      />
+      {/* Decorative Geometric Elements (Safely positioned below the 80px header) */}
+      <div className="absolute top-28 left-8 w-16 h-16 border-4 border-neo-border bg-neo-yellow rounded-2xl rotate-12 shadow-brutal-sm hidden lg:block opacity-40" />
+      <div className="absolute top-1/3 right-12 w-20 h-20 border-4 border-neo-border bg-neo-pink rounded-full -rotate-6 shadow-brutal-sm hidden lg:block opacity-40" />
+      <div className="absolute bottom-24 left-16 w-24 h-12 border-4 border-neo-border bg-neo-blue rounded-xl rotate-4 shadow-brutal-sm hidden lg:block opacity-40" />
+      <div className="absolute top-2/3 right-20 w-14 h-14 border-4 border-neo-border bg-neo-green rounded-lg rotate-45 shadow-brutal-sm hidden lg:block opacity-40" />
     </div>
   );
 }
+
+

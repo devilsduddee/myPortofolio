@@ -41,28 +41,38 @@ export function ProjectForm({ initialData }: { initialData?: any }) {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl shadow-xl shadow-black/20 p-6">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 bg-neo-surface border-4 border-neo-border rounded-[20px] shadow-brutal p-6 sm:p-8">
       
       {status && (
-        <div className={`p-4 rounded-lg text-sm ${status.type === 'success' ? 'bg-emerald-50 text-emerald-700' : 'bg-red-50 text-red-700'}`}>
+        <div className={`p-4 rounded-xl border-3 border-neo-border font-extrabold text-sm shadow-brutal-sm ${
+          status.type === 'success' ? 'bg-emerald-100 text-emerald-950' : 'bg-neo-pink/20 text-neo-pink'
+        }`}>
           {status.msg}
         </div>
       )}
 
-      <div>
-        <label className="block text-sm font-medium text-slate-300 mb-1">Project Name</label>
-        <input {...register('projectName')} className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-slate-400 focus:border-white/30 focus:bg-white/10 focus:outline-none transition-all" />
-        {errors.projectName && <p className="text-red-500 text-sm mt-1">{errors.projectName.message}</p>}
+      <div className="space-y-2">
+        <label className="block text-xs font-black uppercase text-neo-text tracking-wider">Project Name</label>
+        <input 
+          {...register('projectName')} 
+          placeholder="e.g. Questify — AI EdTech Web Platform"
+          className="w-full px-4 py-3 bg-neo-surface border-3 border-neo-border rounded-xl font-bold text-neo-text placeholder:text-neo-muted/60 focus:bg-neo-yellow/10 focus:shadow-brutal-sm outline-none transition-all" 
+        />
+        {errors.projectName && <p className="text-neo-pink text-xs font-black mt-1">{errors.projectName.message}</p>}
       </div>
 
-      <div>
-        <label className="block text-sm font-medium text-slate-300 mb-1">Tech Stack (comma separated)</label>
-        <input {...register('techStack')} className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-slate-400 focus:border-white/30 focus:bg-white/10 focus:outline-none transition-all" placeholder="Next.js, TailwindCSS, Prisma" />
-        {errors.techStack && <p className="text-red-500 text-sm mt-1">{errors.techStack.message}</p>}
+      <div className="space-y-2">
+        <label className="block text-xs font-black uppercase text-neo-text tracking-wider">Tech Stack (comma separated)</label>
+        <input 
+          {...register('techStack')} 
+          placeholder="React, TypeScript, Vite, Tailwind CSS, Supabase" 
+          className="w-full px-4 py-3 bg-neo-surface border-3 border-neo-border rounded-xl font-bold text-neo-text placeholder:text-neo-muted/60 focus:bg-neo-yellow/10 focus:shadow-brutal-sm outline-none transition-all" 
+        />
+        {errors.techStack && <p className="text-neo-pink text-xs font-black mt-1">{errors.techStack.message}</p>}
       </div>
 
-      <div>
-        <label className="block text-sm font-medium text-slate-300 mb-2">Project Image</label>
+      <div className="space-y-2">
+        <label className="block text-xs font-black uppercase text-neo-text tracking-wider">Project Cover Image</label>
         <Controller
           name="imageUrl"
           control={control}
@@ -75,35 +85,51 @@ export function ProjectForm({ initialData }: { initialData?: any }) {
             />
           )}
         />
-        {errors.imageUrl && <p className="text-red-500 text-sm mt-1">{errors.imageUrl.message}</p>}
+        {errors.imageUrl && <p className="text-neo-pink text-xs font-black mt-1">{errors.imageUrl.message}</p>}
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
-        <div>
-          <label className="block text-sm font-medium text-slate-300 mb-1">Demo URL</label>
-          <input {...register('demoUrl')} type="url" className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-slate-400 focus:border-white/30 focus:bg-white/10 focus:outline-none transition-all" />
-          {errors.demoUrl && <p className="text-red-500 text-sm mt-1">{errors.demoUrl.message}</p>}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="space-y-2">
+          <label className="block text-xs font-black uppercase text-neo-text tracking-wider">Live Demo URL</label>
+          <input 
+            {...register('demoUrl')} 
+            type="url" 
+            placeholder="https://..."
+            className="w-full px-4 py-3 bg-neo-surface border-3 border-neo-border rounded-xl font-bold text-neo-text placeholder:text-neo-muted/60 focus:bg-neo-yellow/10 focus:shadow-brutal-sm outline-none transition-all" 
+          />
+          {errors.demoUrl && <p className="text-neo-pink text-xs font-black mt-1">{errors.demoUrl.message}</p>}
         </div>
-        <div>
-          <label className="block text-sm font-medium text-slate-300 mb-1">Repository URL</label>
-          <input {...register('repositoryUrl')} type="url" className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-slate-400 focus:border-white/30 focus:bg-white/10 focus:outline-none transition-all" />
-          {errors.repositoryUrl && <p className="text-red-500 text-sm mt-1">{errors.repositoryUrl.message}</p>}
+        <div className="space-y-2">
+          <label className="block text-xs font-black uppercase text-neo-text tracking-wider">Repository URL</label>
+          <input 
+            {...register('repositoryUrl')} 
+            type="url" 
+            placeholder="https://github.com/..."
+            className="w-full px-4 py-3 bg-neo-surface border-3 border-neo-border rounded-xl font-bold text-neo-text placeholder:text-neo-muted/60 focus:bg-neo-yellow/10 focus:shadow-brutal-sm outline-none transition-all" 
+          />
+          {errors.repositoryUrl && <p className="text-neo-pink text-xs font-black mt-1">{errors.repositoryUrl.message}</p>}
         </div>
       </div>
 
-      <div>
-        <label className="block text-sm font-medium text-slate-300 mb-1">Description</label>
-        <textarea {...register('description')} rows={5} className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-slate-400 focus:border-white/30 focus:bg-white/10 focus:outline-none transition-all" />
-        {errors.description && <p className="text-red-500 text-sm mt-1">{errors.description.message}</p>}
+      <div className="space-y-2">
+        <label className="block text-xs font-black uppercase text-neo-text tracking-wider">Project Description</label>
+        <textarea 
+          {...register('description')} 
+          rows={5} 
+          placeholder="Describe your project, key problems solved, architecture, and features..."
+          className="w-full px-4 py-3 bg-neo-surface border-3 border-neo-border rounded-xl font-bold text-neo-text placeholder:text-neo-muted/60 focus:bg-neo-yellow/10 focus:shadow-brutal-sm outline-none transition-all" 
+        />
+        {errors.description && <p className="text-neo-pink text-xs font-black mt-1">{errors.description.message}</p>}
       </div>
 
       <button 
         type="submit" 
         disabled={isSubmitting}
-        className="bg-white/10 backdrop-blur-md border border-white/20 px-6 py-3 rounded-xl hover:bg-white/20 hover:scale-[1.02] transition-all text-white font-semibold disabled:opacity-50"
+        className="w-full py-3.5 bg-neo-blue text-white font-extrabold text-sm uppercase tracking-wider rounded-xl border-3 border-neo-border shadow-brutal-sm hover:-translate-y-0.5 hover:shadow-brutal active:translate-y-0.5 transition-all text-center disabled:opacity-50"
       >
-        {isSubmitting ? 'Saving...' : 'Save Project'}
+        {isSubmitting ? 'Saving Project...' : 'Save Project Entry'}
       </button>
     </form>
   );
 }
+

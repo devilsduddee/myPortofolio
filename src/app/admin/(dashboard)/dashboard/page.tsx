@@ -7,6 +7,8 @@ import { ExperienceService } from '@/features/experience/services/ExperienceServ
 import { AchievementService } from '@/features/achievement/services/AchievementService';
 import { ProfileService } from '@/services/ProfileService';
 
+export const dynamic = 'force-dynamic';
+
 export default async function DashboardPage() {
   const [projects, experiences, achievements, profile] = await Promise.all([
     ProjectService.getAll(),
@@ -19,10 +21,10 @@ export default async function DashboardPage() {
     <div>
       <PageHeader 
         title="Portfolio Dashboard" 
-        description="Overview of your portfolio content and data."
+        description="Overview of your portfolio content and dynamic data."
       />
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
         <DashboardCard 
           title="Total Projects" 
           value={projects.length.toString()} 
@@ -49,13 +51,15 @@ export default async function DashboardPage() {
         />
       </div>
 
-      <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl shadow-xl shadow-black/20 p-6">
-        <h3 className="text-lg font-bold text-white mb-4">Content Summary</h3>
-        <p className="text-slate-400 text-sm">
-          Your portfolio currently has {projects.length} projects, {experiences.length} experience records, and {achievements.length} achievements. 
-          Navigate through the sidebar to manage your content.
+      {/* Neo Brutalist Summary Card */}
+      <div className="bg-neo-surface border-4 border-neo-border rounded-[20px] shadow-brutal p-6 sm:p-8">
+        <h3 className="text-xl font-black text-neo-text uppercase tracking-tight mb-3">Content Summary</h3>
+        <p className="text-neo-muted font-medium text-base leading-relaxed">
+          Your portfolio currently has <strong className="text-neo-blue">{projects.length} projects</strong>, <strong className="text-neo-pink">{experiences.length} experience records</strong>, and <strong className="text-neo-text">{achievements.length} achievements</strong>. 
+          Use the sidebar menu to create, update, or delete content dynamically.
         </p>
       </div>
     </div>
   );
 }
+

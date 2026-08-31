@@ -33,51 +33,80 @@ export function ContactForm({ initialData }: { initialData?: any }) {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl shadow-xl shadow-black/20 p-6">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 bg-neo-surface border-4 border-neo-border rounded-[20px] shadow-brutal p-6 sm:p-8">
       
       {status && (
-        <div className={`p-4 rounded-lg text-sm ${status.type === 'success' ? 'bg-emerald-50 text-emerald-700' : 'bg-red-50 text-red-700'}`}>
+        <div className={`p-4 rounded-xl border-3 border-neo-border font-extrabold text-sm shadow-brutal-sm ${
+          status.type === 'success' ? 'bg-emerald-100 text-emerald-950' : 'bg-neo-pink/20 text-neo-pink'
+        }`}>
           {status.msg}
         </div>
       )}
 
-      <div>
-        <label className="block text-sm font-medium text-slate-300 mb-1">Email</label>
-        <input type="email" {...register('email')} className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-slate-400 focus:border-white/30 focus:bg-white/10 focus:outline-none transition-all" required />
-        {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
+      <div className="space-y-2">
+        <label className="block text-xs font-black uppercase text-neo-text tracking-wider">Primary Email Address</label>
+        <input 
+          type="email" 
+          {...register('email')} 
+          placeholder="your.email@domain.com"
+          className="w-full px-4 py-3 bg-neo-surface border-3 border-neo-border rounded-xl font-bold text-neo-text placeholder:text-neo-muted/60 focus:bg-neo-yellow/10 focus:shadow-brutal-sm outline-none transition-all" 
+          required 
+        />
+        {errors.email && <p className="text-neo-pink text-xs font-black mt-1">{errors.email.message}</p>}
       </div>
 
-      <div>
-        <label className="block text-sm font-medium text-slate-300 mb-1">Phone Number (Optional)</label>
-        <input type="text" {...register('phoneNumber')} className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-slate-400 focus:border-white/30 focus:bg-white/10 focus:outline-none transition-all" />
-        {errors.phoneNumber && <p className="text-red-500 text-sm mt-1">{errors.phoneNumber.message}</p>}
+      <div className="space-y-2">
+        <label className="block text-xs font-black uppercase text-neo-text tracking-wider">Phone Number (Optional)</label>
+        <input 
+          type="text" 
+          {...register('phoneNumber')} 
+          placeholder="+62 812-3456-7890"
+          className="w-full px-4 py-3 bg-neo-surface border-3 border-neo-border rounded-xl font-bold text-neo-text placeholder:text-neo-muted/60 focus:bg-neo-yellow/10 focus:shadow-brutal-sm outline-none transition-all" 
+        />
+        {errors.phoneNumber && <p className="text-neo-pink text-xs font-black mt-1">{errors.phoneNumber.message}</p>}
       </div>
 
-      <div>
-        <label className="block text-sm font-medium text-slate-300 mb-1">LinkedIn URL</label>
-        <input type="url" {...register('linkedinUrl')} className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-slate-400 focus:border-white/30 focus:bg-white/10 focus:outline-none transition-all" />
-        {errors.linkedinUrl && <p className="text-red-500 text-sm mt-1">{errors.linkedinUrl.message}</p>}
+      <div className="space-y-2">
+        <label className="block text-xs font-black uppercase text-neo-text tracking-wider">LinkedIn Profile URL</label>
+        <input 
+          type="url" 
+          {...register('linkedinUrl')} 
+          placeholder="https://linkedin.com/in/username"
+          className="w-full px-4 py-3 bg-neo-surface border-3 border-neo-border rounded-xl font-bold text-neo-text placeholder:text-neo-muted/60 focus:bg-neo-yellow/10 focus:shadow-brutal-sm outline-none transition-all" 
+        />
+        {errors.linkedinUrl && <p className="text-neo-pink text-xs font-black mt-1">{errors.linkedinUrl.message}</p>}
       </div>
 
-      <div>
-        <label className="block text-sm font-medium text-slate-300 mb-1">GitHub URL</label>
-        <input type="url" {...register('githubUrl')} className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-slate-400 focus:border-white/30 focus:bg-white/10 focus:outline-none transition-all" />
-        {errors.githubUrl && <p className="text-red-500 text-sm mt-1">{errors.githubUrl.message}</p>}
+      <div className="space-y-2">
+        <label className="block text-xs font-black uppercase text-neo-text tracking-wider">GitHub Profile URL</label>
+        <input 
+          type="url" 
+          {...register('githubUrl')} 
+          placeholder="https://github.com/username"
+          className="w-full px-4 py-3 bg-neo-surface border-3 border-neo-border rounded-xl font-bold text-neo-text placeholder:text-neo-muted/60 focus:bg-neo-yellow/10 focus:shadow-brutal-sm outline-none transition-all" 
+        />
+        {errors.githubUrl && <p className="text-neo-pink text-xs font-black mt-1">{errors.githubUrl.message}</p>}
       </div>
 
-      <div>
-        <label className="block text-sm font-medium text-slate-300 mb-1">Personal Website (Optional)</label>
-        <input type="url" {...register('personalWebsite')} className="w-full px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-white placeholder:text-slate-400 focus:border-white/30 focus:bg-white/10 focus:outline-none transition-all" />
-        {errors.personalWebsite && <p className="text-red-500 text-sm mt-1">{errors.personalWebsite.message}</p>}
+      <div className="space-y-2">
+        <label className="block text-xs font-black uppercase text-neo-text tracking-wider">Personal Website URL (Optional)</label>
+        <input 
+          type="url" 
+          {...register('personalWebsite')} 
+          placeholder="https://yourwebsite.com"
+          className="w-full px-4 py-3 bg-neo-surface border-3 border-neo-border rounded-xl font-bold text-neo-text placeholder:text-neo-muted/60 focus:bg-neo-yellow/10 focus:shadow-brutal-sm outline-none transition-all" 
+        />
+        {errors.personalWebsite && <p className="text-neo-pink text-xs font-black mt-1">{errors.personalWebsite.message}</p>}
       </div>
 
       <button 
         type="submit" 
         disabled={isSubmitting}
-        className="w-full bg-white/10 backdrop-blur-md border border-white/20 py-3 rounded-xl hover:bg-white/20 hover:scale-[1.02] transition-all text-white font-semibold disabled:opacity-50"
+        className="w-full py-3.5 bg-neo-blue text-white font-extrabold text-sm uppercase tracking-wider rounded-xl border-3 border-neo-border shadow-brutal-sm hover:-translate-y-0.5 hover:shadow-brutal active:translate-y-0.5 transition-all text-center disabled:opacity-50"
       >
-        {isSubmitting ? 'Saving...' : 'Save Contact Info'}
+        {isSubmitting ? 'Saving Contact Info...' : 'Save Contact Information'}
       </button>
     </form>
   );
 }
+

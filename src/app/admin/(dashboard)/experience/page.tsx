@@ -4,41 +4,60 @@ import { EmptyState } from '@/components/admin/EmptyState';
 import { DeleteButton } from '@/components/admin/DeleteButton';
 import { deleteExperienceAction } from '@/features/experience/actions/actions';
 import Link from 'next/link';
+import { Plus } from 'lucide-react';
+
+export const dynamic = 'force-dynamic';
 
 export default async function ExperiencePage() {
+
   const items = await ExperienceService.getAll();
+  
   return (
     <div>
       <PageHeader 
         title="Manage Experiences" 
-        description="View and manage your experiences."
-        action={<Link href="/admin/experience/create" className="bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2 rounded-xl text-white hover:bg-white/20 hover:scale-[1.02] transition-all font-semibold">Add New</Link>}
+        description="View, edit, and manage your career timeline records."
+        action={
+          <Link 
+            href="/admin/experience/create" 
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-neo-blue text-white font-extrabold text-xs uppercase tracking-wider rounded-xl border-3 border-neo-border shadow-brutal-sm hover:-translate-y-0.5 hover:shadow-brutal transition-all"
+          >
+            <Plus className="w-4 h-4 stroke-[3]" />
+            <span>Add Experience</span>
+          </Link>
+        }
       />
+
       {items.length === 0 ? (
-        <EmptyState title="No experiences found" description="Get started by creating a new experience." />
+        <EmptyState title="No experiences found" description="Get started by creating a new career experience entry." />
       ) : (
-        <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl shadow-xl shadow-black/20 overflow-x-auto">
-          <table className="w-full min-w-[800px] text-left text-sm text-slate-600">
-            <thead className="bg-white/5 border-b border-white/10 text-slate-300">
+        <div className="bg-neo-surface border-4 border-neo-border rounded-[20px] shadow-brutal overflow-x-auto">
+          <table className="w-full min-w-[700px] text-left text-sm text-neo-text">
+            <thead className="bg-neo-yellow border-b-4 border-neo-border text-neo-text font-black uppercase text-xs tracking-wider">
               <tr>
-                <th className="px-6 py-4 font-medium">Company</th>
-                <th className="px-6 py-4 font-medium">Position</th>
-                <th className="px-6 py-4 font-medium">Duration</th>
-                <th className="px-6 py-4 font-medium text-right">Actions</th>
+                <th className="px-6 py-4">Company</th>
+                <th className="px-6 py-4">Position</th>
+                <th className="px-6 py-4">Duration</th>
+                <th className="px-6 py-4 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-200">
+            <tbody className="divide-y-2 divide-neo-border font-bold">
               {items.map((item: any) => (
-                <tr key={item.id} className="border-b border-white/5 hover:bg-white/5 transition-colors">
-                  <td className="px-6 py-4 font-medium text-white">{item.company_name}</td>
+                <tr key={item.id} className="hover:bg-neo-yellow/10 transition-colors">
+                  <td className="px-6 py-4 text-base font-black text-neo-text">{item.company_name}</td>
                   <td className="px-6 py-4">{item.position}</td>
-                  <td className="px-6 py-4">
+                  <td className="px-6 py-4 text-xs font-black uppercase text-neo-muted">
                     {new Date(item.start_date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })} 
-                    {' - '} 
+                    {' — '} 
                     {item.end_date ? new Date(item.end_date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }) : 'Present'}
                   </td>
-                  <td className="px-6 py-4 text-right space-x-3">
-                    <Link href={`/admin/experience/${item.id}/edit`} className="text-blue-600 hover:text-blue-800 font-medium">Edit</Link>
+                  <td className="px-6 py-4 text-right space-x-2">
+                    <Link 
+                      href={`/admin/experience/${item.id}/edit`} 
+                      className="px-3 py-1.5 bg-neo-yellow text-neo-text font-black text-xs uppercase tracking-wider rounded-xl border-2 border-neo-border shadow-[2px_2px_0px_#000000] hover:-translate-y-0.5 transition-all inline-block"
+                    >
+                      Edit
+                    </Link>
                     <DeleteButton id={item.id} action={deleteExperienceAction} />
                   </td>
                 </tr>
@@ -49,4 +68,4 @@ export default async function ExperiencePage() {
       )}
     </div>
   );
-}
+}

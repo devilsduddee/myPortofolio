@@ -2,7 +2,10 @@ import { CvService } from '@/features/cv/services/CvService';
 import { PageHeader } from '@/components/admin/PageHeader';
 import { CvForm } from './CvForm';
 
+export const dynamic = 'force-dynamic';
+
 export default async function CvPage() {
+
   const data = await CvService.get();
   return (
     <div>
