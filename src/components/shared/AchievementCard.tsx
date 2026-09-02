@@ -1,20 +1,72 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import type { Achievement } from '@prisma/client';
 import { format } from 'date-fns';
 import Image from 'next/image';
 import { ExternalLink, X, Calendar, Trophy, Eye } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { gsap } from 'gsap';
+import { useGSAP } from '@gsap/react';
 
 export function AchievementCard({ achievement }: { achievement: Achievement }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
   const isPdf = achievement.certificate_url?.toLowerCase().endsWith('.pdf');
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  useGSAP(() => {
+    if (!cardRef.current) return;
+    const card = cardRef.current;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (window.matchMedia('(pointer: coarse)').matches) return;
+
+      const rect = card.getBoundingClientRect();
+
+      const x = (e.clientX - rect.left - rect.width / 2) / (rect.width / 2);
+      const y = (e.clientY - rect.top - rect.height / 2) / (rect.height / 2);
+
+      gsap.to(card, {
+        rotateY: x * 10,
+        rotateX: -y * 10,
+        transformPerspective: 800,
+        duration: 0.3,
+        ease: 'power2.out',
+      });
+    };
+
+    const handleMouseLeave = () => {
+      gsap.to(card, {
+        rotateY: 0,
+        rotateX: 0,
+        duration: 0.7,
+        ease: 'elastic.out(1, 0.4)',
+      });
+    };
+
+    card.addEventListener('mousemove', handleMouseMove);
+    card.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      card.removeEventListener('mousemove', handleMouseMove);
+      card.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, { scope: cardRef });
 
   return (
     <>
       {/* Achievement Card */}
-      <div className="h-full group relative brutal-card-hover bg-neo-surface border-4 border-neo-border shadow-brutal rounded-[20px] flex flex-col justify-between overflow-hidden">
+      <div 
+        ref={cardRef}
+        className="h-full group relative brutal-card-hover bg-neo-surface border-4 border-neo-border shadow-brutal rounded-[20px] flex flex-col justify-between overflow-hidden"
+      >
+
         <div className="flex flex-col flex-1">
           {achievement.certificate_url && (
             <div 
@@ -89,112 +141,117 @@ export function AchievementCard({ achievement }: { achievement: Achievement }) {
         </div>
       </div>
 
-      {/* Neo Brutalist Popup Modal for Achievement Details */}
-      <AnimatePresence>
-        {isModalOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
-            {/* Backdrop Overlay */}
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setIsModalOpen(false)}
-              className="fixed inset-0 bg-black/70 backdrop-blur-sm"
-            />
-
-            {/* Modal Dialog Box */}
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              transition={{ type: "spring", duration: 0.4 }}
-              className="relative z-10 bg-neo-surface border-4 border-neo-border shadow-brutal-lg rounded-[24px] max-w-2xl w-full p-6 sm:p-8 my-auto max-h-[85vh] overflow-y-auto no-scrollbar"
-            >
-              {/* Close Button Top Right */}
-              <button 
+      {/* Neo Brutalist Popup Modal rendered via Portal to Document Body */}
+      {isMounted && createPortal(
+        <AnimatePresence>
+          {isModalOpen && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+              {/* Backdrop Overlay */}
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
                 onClick={() => setIsModalOpen(false)}
-                className="absolute top-4 right-4 sm:top-6 sm:right-6 w-10 h-10 rounded-xl bg-neo-pink text-white border-3 border-neo-border shadow-brutal-sm flex items-center justify-center font-black hover:scale-105 active:translate-y-0.5 transition-all z-20"
-                aria-label="Close modal"
+                className="fixed inset-0 bg-black/70 backdrop-blur-sm"
+              />
+
+              {/* Modal Dialog Box */}
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.85, y: 30, rotate: -2 }}
+                animate={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
+                exit={{ opacity: 0, scale: 0.85, y: 30, rotate: -2 }}
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                className="relative z-10 bg-neo-surface border-4 border-neo-border shadow-brutal-lg rounded-[24px] max-w-2xl w-full p-6 sm:p-8 my-auto max-h-[85vh] overflow-y-auto no-scrollbar"
               >
-                <X className="w-6 h-6 stroke-[3]" />
-              </button>
 
-              {/* Certificate Preview Banner */}
-              {achievement.certificate_url && (
-                <div className="relative w-full h-44 sm:h-56 max-h-[220px] rounded-2xl overflow-hidden border-3 border-neo-border shadow-brutal-sm mb-6 bg-neo-bg">
-                  {isPdf ? (
-                    <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center bg-neo-yellow/20">
-                      <Trophy className="w-12 h-12 text-neo-pink mb-3 stroke-[2.5]" />
-                      <span className="text-sm font-black uppercase text-neo-text mb-4">Official PDF Certificate Document</span>
-                      <a 
-                        href={achievement.certificate_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 px-5 py-2.5 bg-neo-yellow text-neo-text font-black text-xs uppercase tracking-wider rounded-xl border-3 border-neo-border shadow-brutal-sm hover:-translate-y-0.5 transition-all"
-                      >
-                        <ExternalLink size={16} className="stroke-[3]" />
-                        <span>Open Certificate PDF</span>
-                      </a>
-                    </div>
-                  ) : (
-                    <Image 
-                      src={achievement.certificate_url} 
-                      alt={achievement.title}
-                      fill
-                      className="object-cover"
-                    />
-                  )}
-                </div>
-              )}
-
-
-              {/* Title & Issued Date */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 pr-10">
-                <h2 className="text-2xl sm:text-3xl font-black text-neo-text uppercase tracking-tight">
-                  {achievement.title}
-                </h2>
-                
-                <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-neo-yellow text-neo-text border-2 border-neo-border shadow-[2px_2px_0px_#000000] font-black text-xs uppercase tracking-wider shrink-0 self-start sm:self-auto">
-                  <Calendar className="w-3.5 h-3.5 stroke-[2.5]" />
-                  <span>{format(new Date(achievement.achievement_date), 'MMMM yyyy')}</span>
-                </div>
-              </div>
-
-              {/* Full Description Text */}
-              <div className="border-t-3 border-b-3 border-neo-border py-5 mb-6">
-                <h4 className="text-xs font-black uppercase tracking-wider text-neo-muted mb-2">Achievement Details</h4>
-                <p className="text-neo-text text-base leading-relaxed font-medium whitespace-pre-line">
-                  {achievement.description}
-                </p>
-              </div>
-
-              {/* Actions & Close Button */}
-              <div className="flex flex-col sm:flex-row items-center gap-3">
-                {achievement.certificate_url && (
-                  <a 
-                    href={achievement.certificate_url} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="w-full sm:flex-1 flex items-center justify-center gap-2 px-5 py-3.5 bg-neo-blue text-white font-black text-xs uppercase tracking-wider rounded-xl border-3 border-neo-border shadow-brutal-sm hover:-translate-y-0.5 transition-all text-center"
-                  >
-                    <ExternalLink size={16} className="stroke-[3]" />
-                    <span>View Official Certificate</span>
-                  </a>
-                )}
-
+                {/* Close Button Top Right */}
                 <button 
                   onClick={() => setIsModalOpen(false)}
-                  className="w-full sm:w-auto px-6 py-3.5 bg-neo-pink text-white font-black text-xs uppercase tracking-wider rounded-xl border-3 border-neo-border shadow-brutal-sm hover:scale-105 active:translate-y-0.5 transition-all text-center"
+                  className="absolute top-4 right-4 sm:top-6 sm:right-6 w-10 h-10 rounded-xl bg-neo-pink text-white border-3 border-neo-border shadow-brutal-sm flex items-center justify-center font-black hover:scale-105 active:translate-y-0.5 transition-all z-20"
+                  aria-label="Close modal"
                 >
-                  Close
+                  <X className="w-6 h-6 stroke-[3]" />
                 </button>
-              </div>
 
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
+                {/* Certificate Preview Banner */}
+                {achievement.certificate_url && (
+                  <div className="relative w-full h-44 sm:h-56 max-h-[220px] rounded-2xl overflow-hidden border-3 border-neo-border shadow-brutal-sm mb-6 bg-neo-bg">
+                    {isPdf ? (
+                      <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center bg-neo-yellow/20">
+                        <Trophy className="w-12 h-12 text-neo-pink mb-3 stroke-[2.5]" />
+                        <span className="text-sm font-black uppercase text-neo-text mb-4">Official PDF Certificate Document</span>
+                        <a 
+                          href={achievement.certificate_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 px-5 py-2.5 bg-neo-yellow text-neo-text font-black text-xs uppercase tracking-wider rounded-xl border-3 border-neo-border shadow-brutal-sm hover:-translate-y-0.5 transition-all"
+                        >
+                          <ExternalLink size={16} className="stroke-[3]" />
+                          <span>Open Certificate PDF</span>
+                        </a>
+                      </div>
+                    ) : (
+                      <Image 
+                        src={achievement.certificate_url} 
+                        alt={achievement.title}
+                        fill
+                        className="object-cover"
+                      />
+                    )}
+                  </div>
+                )}
+
+
+                {/* Title & Issued Date */}
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 pr-10">
+                  <h2 className="text-2xl sm:text-3xl font-black text-neo-text uppercase tracking-tight">
+                    {achievement.title}
+                  </h2>
+                  
+                  <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-neo-yellow text-neo-text border-2 border-neo-border shadow-[2px_2px_0px_#000000] font-black text-xs uppercase tracking-wider shrink-0 self-start sm:self-auto">
+                    <Calendar className="w-3.5 h-3.5 stroke-[2.5]" />
+                    <span>{format(new Date(achievement.achievement_date), 'MMMM yyyy')}</span>
+                  </div>
+                </div>
+
+                {/* Full Description Text */}
+                <div className="border-t-3 border-b-3 border-neo-border py-5 mb-6">
+                  <h4 className="text-xs font-black uppercase tracking-wider text-neo-muted mb-2">Achievement Details</h4>
+                  <p className="text-neo-text text-base leading-relaxed font-medium whitespace-pre-line">
+                    {achievement.description}
+                  </p>
+                </div>
+
+                {/* Actions & Close Button */}
+                <div className="flex flex-col sm:flex-row items-center gap-3">
+                  {achievement.certificate_url && (
+                    <a 
+                      href={achievement.certificate_url} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="w-full sm:flex-1 flex items-center justify-center gap-2 px-5 py-3.5 bg-neo-blue text-white font-black text-xs uppercase tracking-wider rounded-xl border-3 border-neo-border shadow-brutal-sm hover:-translate-y-0.5 transition-all text-center"
+                    >
+                      <ExternalLink size={16} className="stroke-[3]" />
+                      <span>View Official Certificate</span>
+                    </a>
+                  )}
+
+                  <button 
+                    onClick={() => setIsModalOpen(false)}
+                    className="w-full sm:w-auto px-6 py-3.5 bg-neo-pink text-white font-black text-xs uppercase tracking-wider rounded-xl border-3 border-neo-border shadow-brutal-sm hover:scale-105 active:translate-y-0.5 transition-all text-center"
+                  >
+                    Close
+                  </button>
+                </div>
+
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
     </>
   );
 }
+
 

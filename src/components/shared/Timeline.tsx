@@ -1,7 +1,14 @@
 'use client';
 
-import { Building2, Calendar, Sparkles, CheckCircle2, Rocket } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { useRef } from 'react';
+import { Building2, Calendar, CheckCircle2, Rocket } from 'lucide-react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger, useGSAP);
+}
 
 interface TimelineItemProps {
   position: string;
@@ -11,15 +18,40 @@ interface TimelineItemProps {
 }
 
 export function Timeline({ items }: { items: TimelineItemProps[] }) {
-  const containerVariants = {
-    hidden: {},
-    show: { transition: { staggerChildren: 0.15 } }
-  };
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  const itemVariants = {
-    hidden: { opacity: 0, x: -20 },
-    show: { opacity: 1, x: 0, transition: { duration: 0.5, ease: [0.25, 0.4, 0.25, 1] } }
-  };
+  useGSAP(() => {
+    if (!containerRef.current) return;
+
+    const timelineItems = containerRef.current.querySelectorAll('.timeline-item');
+    if (timelineItems.length > 0) {
+      timelineItems.forEach((item, index) => {
+        gsap.fromTo(
+          item,
+          { 
+            opacity: 0, 
+            x: -40, 
+            scale: 0.92,
+            rotate: index % 2 === 0 ? -2 : 2 
+          },
+          {
+            opacity: 1,
+            x: 0,
+            scale: 1,
+            rotate: 0,
+            duration: 0.75,
+            ease: 'back.out(1.6)',
+            scrollTrigger: {
+              trigger: item,
+              start: 'top 88%',
+              toggleActions: 'play none play reset',
+            },
+          }
+        );
+      });
+    }
+  }, { scope: containerRef });
+
 
   return (
     <div className="max-w-4xl mx-auto pt-4 pb-6">
@@ -35,18 +67,14 @@ export function Timeline({ items }: { items: TimelineItemProps[] }) {
       </div>
 
       {/* Main Timeline Container with Vertical Line */}
-      <motion.div 
+      <div 
+        ref={containerRef}
         className="relative pl-6 sm:pl-10 space-y-10 border-l-4 border-neo-border ml-6 sm:ml-6"
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.1 }}
       >
         {items.map((item, index) => (
-          <motion.div 
+          <div 
             key={index} 
-            variants={itemVariants} 
-            className="relative flex items-start gap-4 sm:gap-6 group"
+            className="timeline-item relative flex items-start gap-4 sm:gap-6 group"
           >
             {/* Timeline Node Icon (Positioned over vertical line) */}
             <div className="absolute -left-[3.15rem] sm:-left-[3.65rem] top-1.5 w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-neo-surface border-4 border-neo-border shadow-brutal-sm flex items-center justify-center shrink-0 z-10 group-hover:bg-neo-yellow group-hover:rotate-6 group-hover:scale-110 transition-all duration-300">
@@ -84,9 +112,9 @@ export function Timeline({ items }: { items: TimelineItemProps[] }) {
               </p>
 
             </div>
-          </motion.div>
+          </div>
         ))}
-      </motion.div>
+      </div>
 
       {/* End Cap Node */}
       <div className="flex items-center gap-4 mt-6 ml-6 sm:ml-6 pl-6 sm:pl-10 relative">
@@ -100,4 +128,5 @@ export function Timeline({ items }: { items: TimelineItemProps[] }) {
     </div>
   );
 }
+
 

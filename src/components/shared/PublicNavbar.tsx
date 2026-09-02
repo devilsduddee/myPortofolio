@@ -17,6 +17,7 @@ export function PublicNavbar() {
     { name: 'Contact', id: 'contact', href: '#contact' },
   ];
 
+
   // ScrollSpy observer checking bounding rectangle & bottom of page for Contact section
   useEffect(() => {
     const handleScroll = () => {
@@ -69,6 +70,12 @@ export function PublicNavbar() {
     <>
       {/* Fixed Top Navbar anchored at top-0 at all times */}
       <header className="fixed top-0 left-0 right-0 z-50 h-[80px] bg-neo-surface border-b-4 border-neo-border flex items-center px-4 sm:px-8 md:px-12 justify-between">
+
+
+
+
+
+
 
         
         {/* Brand Logo / Sticker Badge */}

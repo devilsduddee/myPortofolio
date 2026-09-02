@@ -6,6 +6,7 @@ import { AchievementSection } from '@/components/sections/AchievementSection';
 import { ContactSection } from '@/components/sections/ContactSection';
 import { FooterSection } from '@/components/sections/FooterSection';
 import { PublicNavbar } from '@/components/shared/PublicNavbar';
+import { TechMarquee } from '@/components/shared/TechMarquee';
 import type { Metadata } from "next";
 
 import { ProfileService } from '@/services/ProfileService';
@@ -44,6 +45,7 @@ export default async function Home() {
     <>
       <PublicNavbar />
       <HeroSection profile={profile} experiences={experiences} projects={projects} achievements={achievements} />
+      <TechMarquee projects={projects} />
       <AboutSection profile={profile} />
       <ExperienceSection experiences={experiences} />
       <ProjectsSection projects={projects} />
@@ -53,3 +55,4 @@ export default async function Home() {
     </>
   );
 }
+

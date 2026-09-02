@@ -709,165 +709,268 @@ Menu
 
 ---
 
-# Animation System
+---
 
-## Animation Philosophy
+### GSAP Animation Library
 
-Animasi harus:
+https://gsap.com/
 
-- Cepat
+GSAP digunakan sebagai standar utama untuk seluruh animation system pada website.
+
+Seluruh motion, page transition, micro interaction, dan scroll animation harus menggunakan GSAP untuk memastikan performa yang smooth, konsisten, dan profesional di semua browser.
+
+Referensi penggunaan:
+
+- Hero entrance animation
+- Scroll reveal animation
+- Stagger animation
+- Page transition
+- Text reveal animation
+- Marquee animation
+- Counter animation
+- Hover interaction
+- Floating decorative elements
+- CTA emphasis animation
+
+Plugin yang direkomendasikan:
+
+- ScrollTrigger
+- SplitText
+- Flip
+- Observer
+
+---
+
+### Animation Reference
+
+Inspirasi animasi berasal dari:
+
+- GSAP Showcase
+- Award-winning Portfolio Websites
+- Framer Motion Interactions
+- Linear Website
+- Modern Startup Landing Pages
+
+Karakter animasi yang diadopsi:
+
 - Smooth
-- Menyenangkan
-- Tidak mengganggu
+- Fast
+- Purposeful
+- Premium
+- Interactive
+- High Performance
 
 ---
 
-## Initial Load
+# Animation Guidelines
 
-Hero Elements
+## Animation Principle
 
-Animation:
+Animasi harus terasa:
 
-- Fade In
-- Scale In
-- Slide Up
+- Responsive
+- Premium
+- Smooth
+- Natural
 
-Duration:
+Bukan sekadar dekorasi.
 
-600ms
+Setiap animasi harus membantu meningkatkan pengalaman pengguna dan memperjelas hierarki informasi.
 
 ---
 
-## Scroll Reveal
+## Hero Animation
 
-Animation:
+Saat halaman pertama kali dimuat:
+
+- Heading reveal animation
+- Stagger text animation
+- CTA fade-up animation
+- Profile image scale animation
+- Background decorative motion
+
+Plugin:
+
+GSAP + SplitText
+
+---
+
+## Scroll Animation
+
+Setiap section menggunakan:
 
 - Fade Up
-- Small Translate
-- Opacity Transition
+- Fade In
+- Scale In
+- Stagger Reveal
 
-Duration:
+Plugin:
 
-400ms
+GSAP ScrollTrigger
+
+Tujuan:
+
+Membuat website terasa hidup tanpa mengganggu proses membaca.
 
 ---
 
-## Card Hover
+## Project Card Animation
 
-Animation:
+Saat card muncul:
 
+- Fade
 - Lift
-- Rotate
+- Slight Rotation
+
+Saat hover:
+
+- Lift Effect
 - Shadow Shift
+- Scale Up
 
-Duration:
+Plugin:
 
-200ms
-
----
-
-## Button Interaction
-
-Hover:
-
-Lift Effect
-
-Active:
-
-Pressed Effect
-
-Duration:
-
-150ms
+GSAP
 
 ---
 
-## Stagger Animation
+## Text Reveal Animation
+
+Untuk heading besar:
+
+- Character Reveal
+- Word Reveal
+- Mask Reveal
+
+Plugin:
+
+SplitText
 
 Digunakan pada:
 
-- Project Grid
-- Experience Cards
-- Achievement Cards
+- Hero Title
+- Section Titles
+- CTA Headlines
 
 ---
 
 ## Counter Animation
 
-Digunakan untuk:
+Digunakan pada:
 
+- Total Projects
 - Years Experience
-- Finished Projects
-- Certifications
 - Achievements
+- Certifications
+
+Plugin:
+
+GSAP
 
 ---
 
-# Decorative Elements
+## Bento Grid Animation
 
-Gunakan elemen berikut secara terbatas:
+Project cards muncul menggunakan:
 
-- Geometric Shapes
-- Sticker Elements
-- Doodle Arrows
-- Dot Patterns
-- Highlight Labels
-- Floating Tech Badges
+- Stagger Animation
+- Scale Animation
+- Progressive Reveal
 
-Tujuannya adalah memperkuat karakter Neo Brutalism tanpa mengganggu fokus pengguna.
+Plugin:
 
----
-
-# Responsive Design
-
-## Mobile
-
-- Single Column Layout
-- Large Typography
-- Simplified Grid
-- Full Width Components
+GSAP + ScrollTrigger
 
 ---
 
-## Tablet
+## Marquee Animation
 
-- Hybrid Grid System
-- 2 Column Layout
+Digunakan pada:
 
----
+- Tech Stack
+- Skills
+- Tools
+- Achievement Highlights
 
-## Desktop
+Karakter:
 
-- Full Bento Layout
-- Advanced Hover Effects
-- Maximum Visual Impact
+- Infinite Loop
+- Smooth Motion
+- Non-stop Movement
 
----
+Plugin:
 
-# Dashboard Design
-
-Dashboard Admin menggunakan pendekatan:
-
-- Clean SaaS Interface
-- Productivity First
-- Modern Admin Panel
-
-Dashboard tidak menggunakan Neo Brutalism penuh agar tetap nyaman digunakan untuk manajemen konten harian.
+GSAP
 
 ---
 
-# Desired User Impression
+## Floating Decorative Elements
 
-Ketika recruiter membuka website:
+Elemen dekoratif seperti:
 
-"Portfolio ini berbeda dari kebanyakan portfolio."
+- Stickers
+- Shapes
+- Doodles
+- Labels
 
-"Visualnya kuat tetapi tetap profesional."
+bergerak secara perlahan menggunakan:
 
-"Informasinya mudah dibaca."
+- Floating Motion
+- Rotate Motion
+- Parallax Motion
 
-"Project yang ditampilkan terlihat berkualitas."
+Plugin:
 
-"Personal branding kandidat sangat kuat."
+GSAP
 
-"Saya tertarik untuk melihat CV dan menghubungi kandidat."
+---
+
+## Page Transition
+
+Jika menggunakan Next.js App Router:
+
+Gunakan:
+
+- GSAP
+- Transition Overlay
+- Fade Transition
+- Shared Element Transition
+
+Tujuan:
+
+Menciptakan pengalaman navigasi yang modern dan premium.
+
+---
+
+## Motion Rules
+
+Wajib:
+
+- 60 FPS
+- GPU Accelerated Animation
+- Transform-based Animation
+- Opacity Animation
+
+Hindari:
+
+- Layout Thrashing
+- Heavy Blur Animation
+- Width Animation
+- Height Animation
+- Expensive Repaint
+
+---
+
+## Desired Motion Impression
+
+Saat recruiter menggunakan website, animasi harus terasa:
+
+"Website ini modern."
+
+"Interaksinya halus."
+
+"Terlihat dibuat dengan sangat detail."
+
+"Profesional namun tetap kreatif."
+
+"Motion mendukung konten, bukan mengganggu konten."
