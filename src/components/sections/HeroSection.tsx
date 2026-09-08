@@ -209,7 +209,7 @@ export function HeroSection({
 
 
                 {/* Inner Image Box with Portrait Aspect Ratio */}
-                <div className="relative w-full h-[340px] sm:h-[400px] lg:h-[480px] rounded-[24px] overflow-hidden bg-neo-surface border-4 border-neo-border shrink-0 flex items-center justify-center">
+                <div className="relative w-full aspect-[4/5] sm:aspect-square lg:aspect-auto lg:h-[480px] rounded-[24px] overflow-hidden bg-neo-surface border-4 border-neo-border shrink-0 flex items-center justify-center">
                   {profile.profile_photo ? (
                     <Image 
                       src={profile.profile_photo} 
@@ -217,7 +217,7 @@ export function HeroSection({
                       fill
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 400px, 440px"
                       priority
-                      className="object-cover object-top hover:scale-105 transition-transform duration-500"
+                      className="object-cover object-[center_20%] sm:object-top hover:scale-105 transition-transform duration-500"
                     />
                   ) : (
                     <div className="w-full h-full bg-neo-surface flex flex-col items-center justify-center p-8 text-center">

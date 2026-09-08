@@ -40,7 +40,7 @@ export function CvForm({ initialData }: { initialData?: any }) {
       )}
 
       <div className="space-y-2">
-        <label className="block text-xs font-black uppercase text-neo-text tracking-wider">Resume / CV Document (PDF format)</label>
+        <label htmlFor="fileUrl" className="block text-xs font-black uppercase text-neo-text tracking-wider">Resume / CV Document (PDF format)</label>
         <Controller
           name="fileUrl"
           control={control}

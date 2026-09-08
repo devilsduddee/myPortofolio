@@ -52,8 +52,9 @@ export function ProjectForm({ initialData }: { initialData?: any }) {
       )}
 
       <div className="space-y-2">
-        <label className="block text-xs font-black uppercase text-neo-text tracking-wider">Project Name</label>
+        <label htmlFor="projectName" className="block text-xs font-black uppercase text-neo-text tracking-wider">Project Name</label>
         <input 
+          id="projectName"
           {...register('projectName')} 
           placeholder="e.g. Questify — AI EdTech Web Platform"
           className="w-full px-4 py-3 bg-neo-surface border-3 border-neo-border rounded-xl font-bold text-neo-text placeholder:text-neo-muted/60 focus:bg-neo-yellow/10 focus:shadow-brutal-sm outline-none transition-all" 
@@ -62,8 +63,9 @@ export function ProjectForm({ initialData }: { initialData?: any }) {
       </div>
 
       <div className="space-y-2">
-        <label className="block text-xs font-black uppercase text-neo-text tracking-wider">Tech Stack (comma separated)</label>
+        <label htmlFor="techStack" className="block text-xs font-black uppercase text-neo-text tracking-wider">Tech Stack (comma separated)</label>
         <input 
+          id="techStack"
           {...register('techStack')} 
           placeholder="React, TypeScript, Vite, Tailwind CSS, Supabase" 
           className="w-full px-4 py-3 bg-neo-surface border-3 border-neo-border rounded-xl font-bold text-neo-text placeholder:text-neo-muted/60 focus:bg-neo-yellow/10 focus:shadow-brutal-sm outline-none transition-all" 
@@ -72,7 +74,7 @@ export function ProjectForm({ initialData }: { initialData?: any }) {
       </div>
 
       <div className="space-y-2">
-        <label className="block text-xs font-black uppercase text-neo-text tracking-wider">Project Cover Image</label>
+        <label htmlFor="imageUrl" className="block text-xs font-black uppercase text-neo-text tracking-wider">Project Cover Image</label>
         <Controller
           name="imageUrl"
           control={control}
@@ -90,8 +92,9 @@ export function ProjectForm({ initialData }: { initialData?: any }) {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="space-y-2">
-          <label className="block text-xs font-black uppercase text-neo-text tracking-wider">Live Demo URL</label>
+          <label htmlFor="demoUrl" className="block text-xs font-black uppercase text-neo-text tracking-wider">Live Demo URL</label>
           <input 
+            id="demoUrl"
             {...register('demoUrl')} 
             type="url" 
             placeholder="https://..."
@@ -100,8 +103,9 @@ export function ProjectForm({ initialData }: { initialData?: any }) {
           {errors.demoUrl && <p className="text-neo-pink text-xs font-black mt-1">{errors.demoUrl.message}</p>}
         </div>
         <div className="space-y-2">
-          <label className="block text-xs font-black uppercase text-neo-text tracking-wider">Repository URL</label>
+          <label htmlFor="repositoryUrl" className="block text-xs font-black uppercase text-neo-text tracking-wider">Repository URL</label>
           <input 
+            id="repositoryUrl"
             {...register('repositoryUrl')} 
             type="url" 
             placeholder="https://github.com/..."
@@ -112,8 +116,9 @@ export function ProjectForm({ initialData }: { initialData?: any }) {
       </div>
 
       <div className="space-y-2">
-        <label className="block text-xs font-black uppercase text-neo-text tracking-wider">Project Description</label>
+        <label htmlFor="description" className="block text-xs font-black uppercase text-neo-text tracking-wider">Project Description</label>
         <textarea 
+          id="description"
           {...register('description')} 
           rows={5} 
           placeholder="Describe your project, key problems solved, architecture, and features..."

@@ -44,8 +44,9 @@ export function ContactForm({ initialData }: { initialData?: any }) {
       )}
 
       <div className="space-y-2">
-        <label className="block text-xs font-black uppercase text-neo-text tracking-wider">Primary Email Address</label>
+        <label htmlFor="email" className="block text-xs font-black uppercase text-neo-text tracking-wider">Primary Email Address</label>
         <input 
+          id="email"
           type="email" 
           {...register('email')} 
           placeholder="your.email@domain.com"
@@ -56,8 +57,9 @@ export function ContactForm({ initialData }: { initialData?: any }) {
       </div>
 
       <div className="space-y-2">
-        <label className="block text-xs font-black uppercase text-neo-text tracking-wider">Phone Number (Optional)</label>
+        <label htmlFor="phoneNumber" className="block text-xs font-black uppercase text-neo-text tracking-wider">Phone Number (Optional)</label>
         <input 
+          id="phoneNumber"
           type="text" 
           {...register('phoneNumber')} 
           placeholder="+62 812-3456-7890"
@@ -67,8 +69,9 @@ export function ContactForm({ initialData }: { initialData?: any }) {
       </div>
 
       <div className="space-y-2">
-        <label className="block text-xs font-black uppercase text-neo-text tracking-wider">LinkedIn Profile URL</label>
+        <label htmlFor="linkedinUrl" className="block text-xs font-black uppercase text-neo-text tracking-wider">LinkedIn Profile URL</label>
         <input 
+          id="linkedinUrl"
           type="url" 
           {...register('linkedinUrl')} 
           placeholder="https://linkedin.com/in/username"
@@ -78,8 +81,9 @@ export function ContactForm({ initialData }: { initialData?: any }) {
       </div>
 
       <div className="space-y-2">
-        <label className="block text-xs font-black uppercase text-neo-text tracking-wider">GitHub Profile URL</label>
+        <label htmlFor="githubUrl" className="block text-xs font-black uppercase text-neo-text tracking-wider">GitHub Profile URL</label>
         <input 
+          id="githubUrl"
           type="url" 
           {...register('githubUrl')} 
           placeholder="https://github.com/username"
@@ -89,8 +93,9 @@ export function ContactForm({ initialData }: { initialData?: any }) {
       </div>
 
       <div className="space-y-2">
-        <label className="block text-xs font-black uppercase text-neo-text tracking-wider">Personal Website URL (Optional)</label>
+        <label htmlFor="personalWebsite" className="block text-xs font-black uppercase text-neo-text tracking-wider">Personal Website URL (Optional)</label>
         <input 
+          id="personalWebsite"
           type="url" 
           {...register('personalWebsite')} 
           placeholder="https://yourwebsite.com"

@@ -51,8 +51,9 @@ export function ExperienceForm({ initialData }: { initialData?: any }) {
       )}
 
       <div className="space-y-2">
-        <label className="block text-xs font-black uppercase text-neo-text tracking-wider">Company Name</label>
+        <label htmlFor="companyName" className="block text-xs font-black uppercase text-neo-text tracking-wider">Company Name</label>
         <input 
+          id="companyName"
           {...register('companyName')} 
           placeholder="e.g. GoTo, Tokopedia, Google"
           className="w-full px-4 py-3 bg-neo-surface border-3 border-neo-border rounded-xl font-bold text-neo-text placeholder:text-neo-muted/60 focus:bg-neo-yellow/10 focus:shadow-brutal-sm outline-none transition-all" 
@@ -61,8 +62,9 @@ export function ExperienceForm({ initialData }: { initialData?: any }) {
       </div>
 
       <div className="space-y-2">
-        <label className="block text-xs font-black uppercase text-neo-text tracking-wider">Position Title</label>
+        <label htmlFor="position" className="block text-xs font-black uppercase text-neo-text tracking-wider">Position Title</label>
         <input 
+          id="position"
           {...register('position')} 
           placeholder="e.g. Senior Data Analyst / Product Manager"
           className="w-full px-4 py-3 bg-neo-surface border-3 border-neo-border rounded-xl font-bold text-neo-text placeholder:text-neo-muted/60 focus:bg-neo-yellow/10 focus:shadow-brutal-sm outline-none transition-all" 
@@ -72,8 +74,9 @@ export function ExperienceForm({ initialData }: { initialData?: any }) {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="space-y-2">
-          <label className="block text-xs font-black uppercase text-neo-text tracking-wider">Start Date</label>
+          <label htmlFor="startDate" className="block text-xs font-black uppercase text-neo-text tracking-wider">Start Date</label>
           <input 
+            id="startDate"
             type="date" 
             {...register('startDate')} 
             className="w-full px-4 py-3 bg-neo-surface border-3 border-neo-border rounded-xl font-bold text-neo-text focus:bg-neo-yellow/10 focus:shadow-brutal-sm outline-none transition-all" 
@@ -81,8 +84,9 @@ export function ExperienceForm({ initialData }: { initialData?: any }) {
           {errors.startDate && <p className="text-neo-pink text-xs font-black mt-1">{errors.startDate.message}</p>}
         </div>
         <div className="space-y-2">
-          <label className="block text-xs font-black uppercase text-neo-text tracking-wider">End Date (Leave empty if current role)</label>
+          <label htmlFor="endDate" className="block text-xs font-black uppercase text-neo-text tracking-wider">End Date (Leave empty if current role)</label>
           <input 
+            id="endDate"
             type="date" 
             {...register('endDate')} 
             className="w-full px-4 py-3 bg-neo-surface border-3 border-neo-border rounded-xl font-bold text-neo-text focus:bg-neo-yellow/10 focus:shadow-brutal-sm outline-none transition-all" 
@@ -92,8 +96,9 @@ export function ExperienceForm({ initialData }: { initialData?: any }) {
       </div>
 
       <div className="space-y-2">
-        <label className="block text-xs font-black uppercase text-neo-text tracking-wider">Description & Key Contributions</label>
+        <label htmlFor="description" className="block text-xs font-black uppercase text-neo-text tracking-wider">Description & Key Contributions</label>
         <textarea 
+          id="description"
           {...register('description')} 
           rows={5} 
           placeholder="Detail your responsibilities, impacts, and achievements in this role..."
