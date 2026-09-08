@@ -40,7 +40,7 @@ export function TechMarquee({ projects = [] }: { projects?: Project[] }) {
   return (
     <div 
       ref={marqueeRef}
-      className="w-full overflow-hidden bg-neo-surface border-y-4 border-neo-border py-4 relative z-20 select-none shadow-brutal-sm"
+      className="w-full overflow-hidden bg-neo-surface border-y-4 border-neo-border py-4 my-6 md:my-10 relative z-20 select-none shadow-brutal-sm"
     >
       <div ref={trackRef} className="flex whitespace-nowrap gap-4 w-max">
         {/* Double the list for smooth seamless looping */}

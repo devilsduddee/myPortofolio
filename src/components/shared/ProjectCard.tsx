@@ -67,7 +67,7 @@ export function ProjectCard({ project }: { project: Project }) {
               {project.project_name}
             </h3>
             
-            <p className="text-neo-muted text-sm sm:text-base font-medium leading-relaxed line-clamp-3">
+            <p className="text-neo-muted text-sm sm:text-base font-medium leading-[1.6] line-clamp-3">
               {project.description}
             </p>
           </div>
@@ -158,6 +158,7 @@ export function ProjectCard({ project }: { project: Project }) {
                       src={project.image_url} 
                       alt={project.project_name}
                       fill
+                      sizes="(max-width: 768px) 100vw, 672px"
                       className="object-cover"
                     />
                   </div>

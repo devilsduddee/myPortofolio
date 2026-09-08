@@ -51,16 +51,10 @@ export function HeroSection({
 
     // Neo Brutalist Entrance Stagger Animation
     tl.fromTo(
-      '.hero-badge',
-      { opacity: 0, y: -25, scale: 0.8, rotate: -4 },
-      { opacity: 1, y: 0, scale: 1, rotate: 0, duration: 0.6, ease: 'back.out(2)' }
+      '.hero-title',
+      { opacity: 0, y: 35 },
+      { opacity: 1, y: 0, duration: 0.65, ease: 'back.out(1.4)' }
     )
-      .fromTo(
-        '.hero-title',
-        { opacity: 0, y: 35 },
-        { opacity: 1, y: 0, duration: 0.65, ease: 'back.out(1.4)' },
-        '-=0.4'
-      )
       .fromTo(
         '.hero-tag',
         { opacity: 0, y: 25, scale: 0.85, rotate: (i) => (i % 2 === 0 ? -3 : 3) },
@@ -125,7 +119,7 @@ export function HeroSection({
             {/* Candidate Name Heading */}
 
             <div className="space-y-3 w-full">
-              <h1 className="hero-title text-4xl sm:text-5xl lg:text-6xl font-black text-neo-text uppercase tracking-tighter leading-[1.08]">
+              <h1 className="hero-title text-4xl sm:text-5xl lg:text-6xl font-black text-neo-text uppercase tracking-tighter leading-[1.05]">
                 {profile.full_name}
               </h1>
 

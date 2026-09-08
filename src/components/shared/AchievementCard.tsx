@@ -83,7 +83,7 @@ export function AchievementCard({ achievement }: { achievement: Achievement }) {
                 </span>
               </div>
 
-              <p className="text-neo-muted text-sm md:text-base leading-relaxed font-medium tracking-tight line-clamp-3">
+              <p className="text-neo-muted text-sm md:text-base leading-[1.6] font-medium tracking-tight line-clamp-3">
                 {achievement.description}
               </p>
             </div>
@@ -145,6 +145,7 @@ export function AchievementCard({ achievement }: { achievement: Achievement }) {
                         src={achievement.certificate_url} 
                         alt={achievement.title}
                         fill
+                        sizes="(max-width: 768px) 100vw, 672px"
                         className="object-cover"
                       />
                     )}
