@@ -17,7 +17,7 @@ export function ContactSection({ contact, profile }: { contact: Contact | null, 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 relative z-10 mb-10">
           {contact?.email && (
             <CTAButton href={`mailto:${contact.email}`} variant="primary" className="w-full sm:w-auto text-lg px-8 py-4">
-              GET IN TOUCH
+              SEND EMAIL TO ME
             </CTAButton>
           )}
           

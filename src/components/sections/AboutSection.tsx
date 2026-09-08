@@ -55,7 +55,7 @@ export function AboutSection({ profile }: { profile: Profile | null }) {
           </div>
 
           <h3 className="text-2xl sm:text-3xl font-black text-neo-text uppercase tracking-tight mb-4">
-            {profile.full_name} — {profile.title}
+            {profile.full_name}: {profile.title}
           </h3>
 
           <div className="text-neo-text text-base sm:text-lg font-medium leading-relaxed whitespace-pre-line">

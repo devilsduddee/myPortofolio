@@ -1,62 +1,22 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import type { Project } from '@prisma/client';
 import Image from 'next/image';
 import { ExternalLink, Github, X, Eye } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { gsap } from 'gsap';
-import { useGSAP } from '@gsap/react';
+import { use3DTilt } from '@/lib/animation/use3DTilt';
 
 export function ProjectCard({ project }: { project: Project }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
-  const cardRef = useRef<HTMLDivElement>(null);
+  const cardRef = use3DTilt<HTMLDivElement>({ maxTiltX: 10, maxTiltY: 10 });
   const techStackList = project.tech_stack ? project.tech_stack.split(',').map(s => s.trim()) : [];
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
-
-  useGSAP(() => {
-    if (!cardRef.current) return;
-    const card = cardRef.current;
-
-    const handleMouseMove = (e: MouseEvent) => {
-      if (window.matchMedia('(pointer: coarse)').matches) return;
-
-      const rect = card.getBoundingClientRect();
-
-      const x = (e.clientX - rect.left - rect.width / 2) / (rect.width / 2);
-      const y = (e.clientY - rect.top - rect.height / 2) / (rect.height / 2);
-
-      gsap.to(card, {
-        rotateY: x * 10,
-        rotateX: -y * 10,
-        transformPerspective: 800,
-        duration: 0.3,
-        ease: 'power2.out',
-      });
-    };
-
-    const handleMouseLeave = () => {
-      gsap.to(card, {
-        rotateY: 0,
-        rotateX: 0,
-        duration: 0.7,
-        ease: 'elastic.out(1, 0.4)',
-      });
-    };
-
-    card.addEventListener('mousemove', handleMouseMove);
-    card.addEventListener('mouseleave', handleMouseLeave);
-
-    return () => {
-      card.removeEventListener('mousemove', handleMouseMove);
-      card.removeEventListener('mouseleave', handleMouseLeave);
-    };
-  }, { scope: cardRef });
 
   return (
     <>
@@ -107,18 +67,9 @@ export function ProjectCard({ project }: { project: Project }) {
               {project.project_name}
             </h3>
             
-            <p className="text-neo-muted text-sm sm:text-base font-medium leading-relaxed mb-3 line-clamp-3">
+            <p className="text-neo-muted text-sm sm:text-base font-medium leading-relaxed line-clamp-3">
               {project.description}
             </p>
-
-            {/* Read More Trigger Button */}
-            <button 
-              type="button"
-              onClick={() => setIsModalOpen(true)}
-              className="text-xs font-black uppercase tracking-wider text-neo-blue hover:text-neo-pink underline decoration-2 underline-offset-4 transition-colors mb-2 inline-flex items-center gap-1"
-            >
-              <span>Read Full Details →</span>
-            </button>
           </div>
         </div>
 
@@ -184,17 +135,17 @@ export function ProjectCard({ project }: { project: Project }) {
 
               {/* Modal Dialog Card */}
               <motion.div 
-                initial={{ opacity: 0, scale: 0.85, y: 30, rotate: -2 }}
-                animate={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
-                exit={{ opacity: 0, scale: 0.85, y: 30, rotate: -2 }}
-                transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                initial={{ opacity: 0, scale: 0.95, y: 16 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: 16 }}
+                transition={{ type: "spring", duration: 0.35, bounce: 0.15 }}
                 className="relative z-10 bg-neo-surface border-4 border-neo-border shadow-brutal-lg rounded-[24px] max-w-2xl w-full p-6 sm:p-8 my-auto max-h-[85vh] overflow-y-auto no-scrollbar"
               >
 
                 {/* Close Button Top Right */}
                 <button 
                   onClick={() => setIsModalOpen(false)}
-                  className="absolute top-4 right-4 sm:top-6 sm:right-6 w-10 h-10 rounded-xl bg-neo-pink text-white border-3 border-neo-border shadow-brutal-sm flex items-center justify-center font-black hover:scale-105 active:translate-y-0.5 transition-all z-20"
+                  className="absolute top-4 right-4 sm:top-6 sm:right-6 w-10 h-10 rounded-xl bg-neo-pink text-white border-3 border-neo-border shadow-brutal-sm flex items-center justify-center font-black hover:scale-105 active:translate-y-0.5 focus-visible:ring-4 focus-visible:ring-neo-border focus-visible:outline-none transition-all z-20"
                   aria-label="Close modal"
                 >
                   <X className="w-6 h-6 stroke-[3]" />

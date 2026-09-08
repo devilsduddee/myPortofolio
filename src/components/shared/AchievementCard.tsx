@@ -1,77 +1,37 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import type { Achievement } from '@prisma/client';
 import { format } from 'date-fns';
 import Image from 'next/image';
 import { ExternalLink, X, Calendar, Trophy, Eye } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { gsap } from 'gsap';
-import { useGSAP } from '@gsap/react';
+import { use3DTilt } from '@/lib/animation/use3DTilt';
 
 export function AchievementCard({ achievement }: { achievement: Achievement }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
-  const cardRef = useRef<HTMLDivElement>(null);
+  const cardRef = use3DTilt<HTMLDivElement>({ maxTiltX: 10, maxTiltY: 10 });
   const isPdf = achievement.certificate_url?.toLowerCase().endsWith('.pdf');
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
-  useGSAP(() => {
-    if (!cardRef.current) return;
-    const card = cardRef.current;
-
-    const handleMouseMove = (e: MouseEvent) => {
-      if (window.matchMedia('(pointer: coarse)').matches) return;
-
-      const rect = card.getBoundingClientRect();
-
-      const x = (e.clientX - rect.left - rect.width / 2) / (rect.width / 2);
-      const y = (e.clientY - rect.top - rect.height / 2) / (rect.height / 2);
-
-      gsap.to(card, {
-        rotateY: x * 10,
-        rotateX: -y * 10,
-        transformPerspective: 800,
-        duration: 0.3,
-        ease: 'power2.out',
-      });
-    };
-
-    const handleMouseLeave = () => {
-      gsap.to(card, {
-        rotateY: 0,
-        rotateX: 0,
-        duration: 0.7,
-        ease: 'elastic.out(1, 0.4)',
-      });
-    };
-
-    card.addEventListener('mousemove', handleMouseMove);
-    card.addEventListener('mouseleave', handleMouseLeave);
-
-    return () => {
-      card.removeEventListener('mousemove', handleMouseMove);
-      card.removeEventListener('mouseleave', handleMouseLeave);
-    };
-  }, { scope: cardRef });
-
   return (
     <>
       {/* Achievement Card */}
       <div 
         ref={cardRef}
-        className="h-full group relative brutal-card-hover bg-neo-surface border-4 border-neo-border shadow-brutal rounded-[20px] flex flex-col justify-between overflow-hidden"
+        className="h-full group relative brutal-card-hover bg-neo-surface border-4 border-neo-border shadow-brutal rounded-[20px] flex flex-col justify-between overflow-hidden cursor-pointer"
+        onClick={() => setIsModalOpen(true)}
       >
 
         <div className="flex flex-col flex-1">
           {achievement.certificate_url && (
             <div 
-              onClick={() => setIsModalOpen(true)}
-              className="relative w-full aspect-video overflow-hidden bg-neo-bg flex items-center justify-center shrink-0 border-b-4 border-neo-border cursor-pointer group/img"
+              className="relative w-full aspect-video overflow-hidden bg-neo-bg flex items-center justify-center shrink-0 border-b-4 border-neo-border group/img"
             >
               {isPdf ? (
                 <div className="w-full h-full relative group/pdf overflow-hidden bg-neo-surface">
@@ -114,8 +74,7 @@ export function AchievementCard({ achievement }: { achievement: Achievement }) {
             <div>
               <div className="flex justify-between items-start mb-4 gap-3">
                 <h3 
-                  onClick={() => setIsModalOpen(true)}
-                  className="text-xl font-black text-neo-text leading-snug group-hover:text-neo-pink transition-colors tracking-tight line-clamp-2 cursor-pointer"
+                  className="text-xl font-black text-neo-text leading-snug group-hover:text-neo-pink transition-colors tracking-tight line-clamp-2"
                 >
                   {achievement.title}
                 </h3>
@@ -124,19 +83,10 @@ export function AchievementCard({ achievement }: { achievement: Achievement }) {
                 </span>
               </div>
 
-              <p className="text-neo-muted text-sm md:text-base leading-relaxed font-medium tracking-tight line-clamp-3 mb-3">
+              <p className="text-neo-muted text-sm md:text-base leading-relaxed font-medium tracking-tight line-clamp-3">
                 {achievement.description}
               </p>
             </div>
-
-            {/* Read More Trigger Link */}
-            <button 
-              type="button"
-              onClick={() => setIsModalOpen(true)}
-              className="text-xs font-black uppercase tracking-wider text-neo-pink hover:text-neo-blue underline decoration-2 underline-offset-4 transition-colors pt-2 self-start inline-flex items-center gap-1"
-            >
-              <span>Read Full Details →</span>
-            </button>
           </div>
         </div>
       </div>
@@ -157,10 +107,10 @@ export function AchievementCard({ achievement }: { achievement: Achievement }) {
 
               {/* Modal Dialog Box */}
               <motion.div 
-                initial={{ opacity: 0, scale: 0.85, y: 30, rotate: -2 }}
-                animate={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
-                exit={{ opacity: 0, scale: 0.85, y: 30, rotate: -2 }}
-                transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                initial={{ opacity: 0, scale: 0.95, y: 16 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: 16 }}
+                transition={{ type: "spring", duration: 0.35, bounce: 0.15 }}
                 className="relative z-10 bg-neo-surface border-4 border-neo-border shadow-brutal-lg rounded-[24px] max-w-2xl w-full p-6 sm:p-8 my-auto max-h-[85vh] overflow-y-auto no-scrollbar"
               >
 

@@ -1,12 +1,13 @@
 'use client';
 
 import { useRef } from 'react';
-
 import Image from 'next/image';
 import { SectionContainer } from '../shared/SectionContainer';
 import type { Profile, Experience, Project, Achievement } from '@prisma/client';
 import { CTAButton } from '../shared/CTAButton';
-import { Download, Mail, Sparkles } from 'lucide-react';
+import { Download, Mail, User } from 'lucide-react';
+import { use3DTilt } from '@/lib/animation/use3DTilt';
+
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
@@ -14,7 +15,6 @@ import { useGSAP } from '@gsap/react';
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
 }
-
 
 export function HeroSection({ 
   profile, 
@@ -28,6 +28,7 @@ export function HeroSection({
   achievements?: Achievement[]
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const imageFrameRef = use3DTilt<HTMLDivElement>({ maxTiltX: 14, maxTiltY: 14 });
   const yearsRef = useRef<HTMLSpanElement>(null);
   const projectsRef = useRef<HTMLSpanElement>(null);
   const awardsRef = useRef<HTMLSpanElement>(null);
@@ -108,97 +109,6 @@ export function HeroSection({
       },
     });
 
-    // 3D Mouse Tilt Parallax Effect on Profile Image Frame & Floating Accent (Scoped exclusively to Hero Section)
-    const imageFrame = containerRef.current.querySelector<HTMLElement>('.hero-image-frame');
-    const profileAccent = containerRef.current.querySelector<HTMLElement>('.hero-profile-accent');
-
-    if (imageFrame && containerRef.current) {
-      const heroContainer = containerRef.current;
-
-      const handleMouseMove = (e: MouseEvent) => {
-        if (window.matchMedia('(pointer: coarse)').matches) return;
-
-        const heroRect = heroContainer.getBoundingClientRect();
-
-        if (!heroRect.width || !heroRect.height) return;
-
-        const frameRect = imageFrame.getBoundingClientRect();
-        const frameCenterX = frameRect.left + frameRect.width / 2;
-        const frameCenterY = frameRect.top + frameRect.height / 2;
-
-        // Normalized vectors relative to frame center inside hero section
-        const x = (e.clientX - frameCenterX) / (heroRect.width / 2);
-        const y = (e.clientY - frameCenterY) / (heroRect.height / 2);
-
-        // Safety check for NaN values
-        if (isNaN(x) || isNaN(y)) return;
-
-        // Main frame 3D tilt
-        gsap.to(imageFrame, {
-          rotateY: x * 24,
-          rotateX: -y * 24,
-          x: x * 18,
-          y: y * 18,
-          transformPerspective: 750,
-          duration: 0.3,
-          ease: 'power2.out',
-        });
-
-        // Floating accent sticker badge counter parallax depth
-        if (profileAccent) {
-          gsap.to(profileAccent, {
-            x: -x * 12,
-            y: -y * 12,
-            rotate: 3 + x * 8,
-            duration: 0.35,
-            ease: 'power2.out',
-          });
-        }
-      };
-
-      const handleReset = () => {
-        gsap.to(imageFrame, {
-          rotateY: 0,
-          rotateX: 0,
-          x: 0,
-          y: 0,
-          duration: 0.9,
-          ease: 'elastic.out(1.1, 0.4)',
-        });
-
-        if (profileAccent) {
-          gsap.to(profileAccent, {
-            x: 0,
-            y: 0,
-            rotate: 3,
-            duration: 0.8,
-            ease: 'elastic.out(1.1, 0.4)',
-          });
-        }
-      };
-
-      // 1. Mousemove and Mouseleave event listeners attached ONLY to heroContainer
-      heroContainer.addEventListener('mousemove', handleMouseMove);
-      heroContainer.addEventListener('mouseleave', handleReset);
-
-      // 2. ScrollTrigger to automatically reset to initial state when scrolling past Hero section
-      const st = ScrollTrigger.create({
-        trigger: heroContainer,
-        start: 'top top',
-        end: 'bottom top',
-        onLeave: handleReset,
-        onLeaveBack: handleReset,
-      });
-
-      return () => {
-        heroContainer.removeEventListener('mousemove', handleMouseMove);
-        heroContainer.removeEventListener('mouseleave', handleReset);
-        st.kill();
-      };
-    }
-
-
-
   }, { scope: containerRef });
 
 
@@ -212,15 +122,10 @@ export function HeroSection({
           {/* Left Column: Headline & Info (7 cols desktop) */}
           <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6">
             
-            {/* Candidate Name Sticker Badge */}
-            <div className="hero-badge inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-neo-yellow text-neo-text font-black tracking-wider text-xs uppercase border-3 border-neo-border shadow-brutal-sm">
-              <Sparkles className="w-4 h-4 text-neo-pink stroke-[3]" />
-              <span>{profile.full_name}</span>
-            </div>
-
             {/* Candidate Name Heading */}
+
             <div className="space-y-3 w-full">
-              <h1 className="hero-title text-4xl sm:text-5xl lg:text-6xl font-black text-neo-text uppercase tracking-tight leading-[1.08]">
+              <h1 className="hero-title text-4xl sm:text-5xl lg:text-6xl font-black text-neo-text uppercase tracking-tighter leading-[1.08]">
                 {profile.full_name}
               </h1>
 
@@ -294,13 +199,13 @@ export function HeroSection({
 
           {/* Right Column: Profile Image / Avatar Box (5 cols desktop) */}
           <div className="lg:col-span-5 flex justify-center lg:justify-end w-full">
-            <div className="hero-image-frame relative w-full max-w-[440px]">
+            <div ref={imageFrameRef} className="hero-image-frame relative w-full max-w-[440px]">
               {/* Outer Neo Brutalist Frame */}
               <div className="relative p-3.5 bg-neo-yellow border-4 border-neo-border shadow-brutal-lg rounded-[32px] hover:rotate-1 transition-transform duration-300">
                 
                 {/* Floating Corner Accent Badge */}
                 <div className="hero-profile-accent absolute -top-4 -right-3 z-20 bg-neo-pink text-white font-black text-xs uppercase px-3.5 py-1.5 rounded-full border-3 border-neo-border shadow-brutal-sm flex items-center gap-1.5 rotate-3 transition-transform">
-                  <Sparkles className="w-3.5 h-3.5 stroke-[3]" />
+                  <User className="w-3.5 h-3.5 stroke-[3]" />
                   <span>PROFILE</span>
                 </div>
 

@@ -15,28 +15,22 @@ export function AnimatedBackground() {
   useGSAP(() => {
     if (!containerRef.current) return;
 
+    // Respect user reduced-motion setting
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
     const floaters = containerRef.current.querySelectorAll('.parallax-sticker');
 
     floaters.forEach((sticker, index) => {
-      // 1. Continuous gentle floating & tilt rotation loop
+      // Gentle ScrollTrigger Parallax Scrubbing only (Continuous sine bounce loop removed to eliminate un-triggered motion noise - R-19)
+      const speed = 40 + (index % 4) * 30;
       gsap.to(sticker, {
-        y: (index % 2 === 0 ? 18 : -18),
-        rotation: (index % 2 === 0 ? 12 : -12),
-        duration: 3.5 + (index % 4) * 0.8,
-        repeat: -1,
-        yoyo: true,
-        ease: 'sine.inOut',
-      });
-
-      // 2. ScrollTrigger Parallax Scrubbing
-      const speed = 80 + (index % 5) * 60; // Different speed layers
-      gsap.to(sticker, {
-        yPercent: -speed * 0.15,
+        yPercent: -speed * 0.12,
         scrollTrigger: {
           trigger: document.documentElement,
           start: 'top top',
           end: 'bottom bottom',
-          scrub: 0.8,
+          scrub: 0.5,
         },
       });
     });
@@ -44,12 +38,11 @@ export function AnimatedBackground() {
 
   return (
     <div ref={containerRef} className="fixed inset-0 overflow-hidden pointer-events-none -z-10 bg-neo-bg select-none">
-      {/* Decorative Neo Brutalist Floating Sticker Badges & Icons */}
+      {/* Decorative Neo Brutalist Static & Parallax Sticker Badges */}
 
-      
       {/* 1. Top Left: [DEV] Badge */}
       <div className="parallax-sticker absolute top-28 left-6 md:left-12 px-3.5 py-1.5 bg-neo-yellow border-3 border-neo-border text-neo-text font-black text-xs uppercase tracking-wider rounded-xl shadow-brutal-sm rotate-6 hidden sm:flex items-center gap-1.5 opacity-60">
-        <span className="w-2 h-2 rounded-full bg-neo-pink border border-black animate-ping" />
+        <span className="w-2 h-2 rounded-full bg-neo-pink border border-black" />
         <span>[DEV_MODE]</span>
       </div>
 
@@ -93,8 +86,3 @@ export function AnimatedBackground() {
     </div>
   );
 }
-
-
-
-
-

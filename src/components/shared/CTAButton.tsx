@@ -29,14 +29,22 @@ export function CTAButton({
     const btn = buttonRef.current;
 
     const handleMouseMove = (e: MouseEvent) => {
+      // Gate behind pointer: fine, desktop width, & prefers-reduced-motion
+      const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+      const isDesktop = window.innerWidth >= 1024;
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (!isFinePointer || !isDesktop || prefersReducedMotion) return;
+
       const rect = wrapper.getBoundingClientRect();
-      const x = (e.clientX - rect.left - rect.width / 2) * 0.55;
-      const y = (e.clientY - rect.top - rect.height / 2) * 0.55;
+
+      const x = (e.clientX - rect.left - rect.width / 2) * 0.45;
+      const y = (e.clientY - rect.top - rect.height / 2) * 0.45;
 
       gsap.to(btn, {
         x,
         y,
-        rotate: x * 0.12,
+        rotate: x * 0.1,
         duration: 0.25,
         ease: 'power2.out',
       });
@@ -68,7 +76,7 @@ export function CTAButton({
     outline: "bg-neo-surface text-neo-text hover:bg-slate-100"
   };
   
-  const brutalStyle = `inline-flex items-center justify-center font-extrabold text-base tracking-wide border-3 md:border-4 border-neo-border shadow-brutal-sm rounded-2xl px-6 py-3.5 brutal-btn-hover transition-transform cursor-pointer ${variantStyles[variant]} ${className}`;
+  const brutalStyle = `inline-flex items-center justify-center font-extrabold text-base tracking-wide border-3 md:border-4 border-neo-border shadow-brutal-sm rounded-2xl px-6 py-3.5 brutal-btn-hover transition-transform cursor-pointer focus-visible:ring-4 focus-visible:ring-neo-border focus-visible:outline-none active:scale-[0.97] active:translate-x-0.5 active:translate-y-0.5 ${variantStyles[variant]} ${className}`;
   
   return (
     <div ref={wrapperRef} className="relative inline-block p-6 sm:p-8 -m-6 sm:-m-8 pointer-events-auto">
