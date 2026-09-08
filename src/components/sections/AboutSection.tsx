@@ -48,12 +48,6 @@ export function AboutSection({ profile }: { profile: Profile | null }) {
           ref={cardRef}
           className="bg-neo-surface border-4 border-neo-border p-6 sm:p-8 lg:p-12 rounded-[20px] shadow-brutal brutal-card-hover relative"
         >
-          {/* Header Badge */}
-          <div className="inline-flex items-center gap-2 bg-neo-yellow border-3 border-neo-border px-3.5 py-1.5 rounded-full text-xs font-black uppercase tracking-wider mb-6 shadow-brutal-sm">
-            <Sparkles className="w-4 h-4 stroke-[3] text-neo-text" />
-            <span>Profile Summary</span>
-          </div>
-
           <h3 className="text-2xl sm:text-3xl font-black text-neo-text uppercase tracking-tight mb-4">
             {profile.full_name}: {profile.title}
           </h3>

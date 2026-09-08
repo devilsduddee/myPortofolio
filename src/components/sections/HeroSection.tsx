@@ -200,14 +200,6 @@ export function HeroSection({
             <div ref={imageFrameRef} className="hero-image-frame relative w-full max-w-[440px]">
               {/* Outer Neo Brutalist Frame */}
               <div className="relative p-3.5 bg-neo-yellow border-4 border-neo-border shadow-brutal-lg rounded-[32px] hover:rotate-1 transition-transform duration-300">
-                
-                {/* Floating Corner Accent Badge */}
-                <div className="hero-profile-accent absolute -top-4 -right-3 z-20 bg-neo-pink text-white font-black text-xs uppercase px-3.5 py-1.5 rounded-full border-3 border-neo-border shadow-brutal-sm flex items-center gap-1.5 rotate-3 transition-transform">
-                  <User className="w-3.5 h-3.5 stroke-[3]" />
-                  <span>PROFILE</span>
-                </div>
-
-
                 {/* Inner Image Box with Portrait Aspect Ratio */}
                 <div className="relative w-full aspect-[4/5] sm:aspect-square lg:aspect-auto lg:h-[480px] rounded-[24px] overflow-hidden bg-neo-surface border-4 border-neo-border shrink-0 flex items-center justify-center">
                   {profile.profile_photo ? (

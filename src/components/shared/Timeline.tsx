@@ -88,15 +88,6 @@ export function Timeline({ items }: { items: TimelineItemProps[] }) {
   return (
     <div className="max-w-4xl mx-auto pt-6 pb-8">
       
-      {/* Start Header Badge */}
-      <div className="flex items-center gap-3 mb-8">
-        <div className="px-5 py-2.5 bg-neo-yellow border-3 border-neo-border shadow-brutal-sm rounded-2xl text-xs sm:text-sm font-black uppercase text-neo-text tracking-wider inline-flex items-center gap-2">
-          <Briefcase className="w-4.5 h-4.5 text-neo-pink stroke-[2.5]" />
-          <span>Career Milestone Journey</span>
-        </div>
-      </div>
-
-
       {/* Main Timeline Container with Dynamic Animated Progress Line */}
       <div ref={containerRef} className="relative pl-7 sm:pl-12 ml-7 sm:ml-6">
         

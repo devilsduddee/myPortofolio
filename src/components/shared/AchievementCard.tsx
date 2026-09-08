@@ -112,7 +112,7 @@ export function AchievementCard({ achievement }: { achievement: Achievement }) {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 onClick={() => setIsModalOpen(false)}
-                className="fixed inset-0 bg-black/70 backdrop-blur-sm"
+                className="fixed inset-0 bg-black/80"
               />
 
               {/* Modal Dialog Box */}
@@ -127,7 +127,7 @@ export function AchievementCard({ achievement }: { achievement: Achievement }) {
                 {/* Close Button Top Right */}
                 <button 
                   onClick={() => setIsModalOpen(false)}
-                  className="absolute top-4 right-4 sm:top-6 sm:right-6 w-10 h-10 rounded-xl bg-neo-pink text-white border-3 border-neo-border shadow-brutal-sm flex items-center justify-center font-black hover:scale-105 active:translate-y-0.5 transition-all z-20"
+                  className="absolute top-4 right-4 sm:top-6 sm:right-6 w-10 h-10 rounded-xl bg-neo-pink text-white border-3 border-neo-border shadow-brutal-sm flex items-center justify-center font-black hover:scale-105 active:translate-y-0.5 transition-[transform,colors] z-20"
                   aria-label="Close modal"
                 >
                   <X className="w-6 h-6 stroke-[3]" />
