@@ -49,6 +49,11 @@ export function ProjectCard({ project }: { project: Project }) {
               </div>
             )}
             
+            {/* Mobile-only Subtle Tap Indicator */}
+            <div className="sm:hidden absolute top-2.5 right-2.5 z-10 bg-neo-yellow/90 backdrop-blur-xs border-2 border-neo-border p-1.5 rounded-lg shadow-[2px_2px_0px_#000000] text-neo-text">
+              <Eye className="w-3.5 h-3.5 stroke-[3]" />
+            </div>
+
             {/* Quick View Overlay on Hover */}
             <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center">
               <span className="inline-flex items-center gap-2 px-4 py-2 bg-neo-yellow text-neo-text font-black text-xs uppercase tracking-wider rounded-xl border-3 border-neo-border shadow-brutal-sm">

@@ -103,6 +103,7 @@ export function PublicNavbar() {
               <a
                 key={link.name}
                 href={link.href}
+                aria-current={isActive ? 'page' : undefined}
                 onClick={(e) => handleNavClick(e, link.href, link.id)}
                 className={`relative px-4 py-2 text-xs lg:text-sm font-black uppercase tracking-wider rounded-xl transition-transform duration-150 min-h-[44px] flex items-center gap-2 focus-visible:ring-4 focus-visible:ring-neo-border focus-visible:outline-none active:scale-[0.97] ${
                   isActive 
@@ -134,6 +135,8 @@ export function PublicNavbar() {
         {/* Mobile Hamburger Button */}
         <button 
           onClick={() => setIsOpen(!isOpen)}
+          aria-expanded={isOpen}
+          aria-controls="mobile-nav-menu"
           className="md:hidden flex items-center justify-center w-12 h-12 rounded-xl bg-neo-yellow border-3 border-neo-border text-neo-text shadow-brutal-sm active:scale-[0.96] focus-visible:ring-4 focus-visible:ring-neo-border focus-visible:outline-none transition-transform"
           aria-label="Toggle Navigation Menu"
         >
@@ -145,6 +148,7 @@ export function PublicNavbar() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            id="mobile-nav-menu"
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8, transition: { duration: 0.15 } }}
@@ -158,6 +162,7 @@ export function PublicNavbar() {
                   <a
                     key={link.name}
                     href={link.href}
+                    aria-current={isActive ? 'page' : undefined}
                     onClick={(e) => handleNavClick(e, link.href, link.id)}
                     className={`w-full text-center py-3 text-base font-black uppercase tracking-wider rounded-xl border-3 border-neo-border active:scale-[0.98] transition-transform flex items-center justify-center gap-2 focus-visible:ring-4 focus-visible:ring-neo-border focus-visible:outline-none ${
                       isActive 

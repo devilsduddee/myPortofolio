@@ -42,7 +42,7 @@ export function ProjectsSection({ projects }: { projects: Project[] }) {
             scrollTrigger: {
               trigger: card,
               start: 'top 88%',
-              toggleActions: 'play none play reset',
+              toggleActions: 'play none play none',
             },
           }
         );

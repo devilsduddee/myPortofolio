@@ -87,15 +87,19 @@ export function HeroSection({
       );
 
 
-    // Number Counter Animation
+    // Number Counter Animation triggered when stat box enters viewport
     const counterObj = { years: 0, projects: 0, awards: 0 };
     gsap.to(counterObj, {
       years: yearsExp,
       projects: projects.length,
       awards: achievements.length,
       duration: 1.8,
-      delay: 0.4,
       ease: 'power2.out',
+      scrollTrigger: {
+        trigger: '.hero-stats',
+        start: 'top 90%',
+        toggleActions: 'play none play reset',
+      },
       onUpdate: () => {
         if (yearsRef.current) yearsRef.current.innerText = `${Math.floor(counterObj.years)}+`;
         if (projectsRef.current) projectsRef.current.innerText = `${Math.floor(counterObj.projects)}+`;

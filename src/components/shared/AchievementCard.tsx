@@ -43,6 +43,11 @@ export function AchievementCard({ achievement }: { achievement: Achievement }) {
                       style={{ border: 'none' }}
                     />
                   </div>
+                  {/* Mobile-only Subtle Tap Indicator */}
+                  <div className="sm:hidden absolute top-2.5 right-2.5 z-20 bg-neo-yellow/90 backdrop-blur-xs border-2 border-neo-border p-1.5 rounded-lg shadow-[2px_2px_0px_#000000] text-neo-text">
+                    <Eye className="w-3.5 h-3.5 stroke-[3]" />
+                  </div>
+
                   <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/40 opacity-0 group-hover/img:opacity-100 transition-opacity">
                     <div className="flex items-center gap-2 bg-neo-yellow border-3 border-neo-border text-neo-text text-xs font-black uppercase px-4 py-2 rounded-xl shadow-brutal-sm">
                       <Eye size={16} className="stroke-[3]" />
@@ -59,6 +64,11 @@ export function AchievementCard({ achievement }: { achievement: Achievement }) {
                     className="object-cover group-hover/img:scale-105 transition-transform duration-500"
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
+                  {/* Mobile-only Subtle Tap Indicator */}
+                  <div className="sm:hidden absolute top-2.5 right-2.5 z-20 bg-neo-yellow/90 backdrop-blur-xs border-2 border-neo-border p-1.5 rounded-lg shadow-[2px_2px_0px_#000000] text-neo-text">
+                    <Eye className="w-3.5 h-3.5 stroke-[3]" />
+                  </div>
+
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center">
                     <div className="flex items-center gap-2 bg-neo-yellow border-3 border-neo-border text-neo-text text-xs font-black uppercase px-4 py-2 rounded-xl shadow-brutal-sm">
                       <Eye size={16} className="stroke-[3]" />
