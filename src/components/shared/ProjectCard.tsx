@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import type { Project } from '@prisma/client';
 import Image from 'next/image';
@@ -12,11 +12,73 @@ export function ProjectCard({ project }: { project: Project }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const cardRef = use3DTilt<HTMLDivElement>({ maxTiltX: 10, maxTiltY: 10 });
+  const triggerRef = useRef<HTMLHeadingElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
   const techStackList = project.tech_stack ? project.tech_stack.split(',').map(s => s.trim()) : [];
+  const modalTitleId = `project-modal-title-${project.id}`;
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
+
+  // Handle Escape key, focus trapping, and body scroll lock
+  useEffect(() => {
+    if (!isModalOpen) return;
+
+    // 1. Lock body scroll
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    // 2. Focus first focusable element inside modal
+    const focusableSelectors = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+    const modalEl = modalRef.current;
+    
+    // Focus initial element
+    const initialTimer = setTimeout(() => {
+      if (modalEl) {
+        const firstFocusable = modalEl.querySelector<HTMLElement>(focusableSelectors);
+        firstFocusable?.focus();
+      }
+    }, 50);
+
+    // 3. Keydown handler for Escape and Focus Trap
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsModalOpen(false);
+        return;
+      }
+
+      if (e.key === 'Tab' && modalEl) {
+        const focusableElements = modalEl.querySelectorAll<HTMLElement>(focusableSelectors);
+        if (focusableElements.length === 0) return;
+
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+
+        if (e.shiftKey) {
+          if (document.activeElement === firstElement) {
+            e.preventDefault();
+            lastElement.focus();
+          }
+        } else {
+          if (document.activeElement === lastElement) {
+            e.preventDefault();
+            firstElement.focus();
+          }
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      clearTimeout(initialTimer);
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+      // Restore focus to trigger
+      triggerRef.current?.focus();
+    };
+  }, [isModalOpen]);
 
   return (
     <>
@@ -25,9 +87,7 @@ export function ProjectCard({ project }: { project: Project }) {
         ref={cardRef}
         className="h-full group brutal-card-hover bg-neo-surface border-4 border-neo-border shadow-brutal rounded-[20px] overflow-hidden flex flex-col justify-between"
       >
-
-        
-        <div>
+        <div className="flex flex-col flex-1">
           {/* Image Banner */}
           <div 
             onClick={() => setIsModalOpen(true)}
@@ -64,10 +124,19 @@ export function ProjectCard({ project }: { project: Project }) {
           </div>
           
           {/* Content Header & Body */}
-          <div className="p-6 md:p-7">
+          <div className="p-6 md:p-7 flex flex-col flex-1">
             <h3 
+              ref={triggerRef}
+              tabIndex={0}
+              role="button"
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  setIsModalOpen(true);
+                }
+              }}
               onClick={() => setIsModalOpen(true)}
-              className="text-2xl font-black text-neo-text group-hover:text-neo-blue transition-colors uppercase tracking-tight mb-3 line-clamp-2 cursor-pointer"
+              className="text-xl sm:text-2xl font-black text-neo-text group-hover:text-neo-blue transition-colors uppercase tracking-tight mb-2.5 line-clamp-2 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neo-blue rounded"
             >
               {project.project_name}
             </h3>
@@ -79,11 +148,11 @@ export function ProjectCard({ project }: { project: Project }) {
         </div>
 
         {/* Footer Area: Tech Stack & Actions */}
-        <div className="px-6 pb-6 md:px-7 md:pb-7 pt-0">
+        <div className="px-6 pb-6 md:px-7 md:pb-7 pt-0 mt-auto">
           {/* Tech Stack Badges */}
           {techStackList.length > 0 && (
-            <div className="flex flex-wrap gap-2 pt-4 border-t-3 border-neo-border mb-5">
-              {techStackList.map((tech, i) => (
+            <div className="flex flex-wrap gap-1.5 pt-4 border-t-3 border-neo-border mb-5">
+              {techStackList.slice(0, 4).map((tech, i) => (
                 <span 
                   key={i} 
                   className={`brutal-badge ${i % 3 === 0 ? 'bg-neo-yellow text-neo-text' : i % 3 === 1 ? 'bg-neo-blue text-white' : 'bg-neo-pink text-white'}`}
@@ -91,6 +160,11 @@ export function ProjectCard({ project }: { project: Project }) {
                   {tech}
                 </span>
               ))}
+              {techStackList.length > 4 && (
+                <span className="brutal-badge bg-neo-bg text-neo-text">
+                  +{techStackList.length - 4}
+                </span>
+              )}
             </div>
           )}
 
@@ -128,7 +202,12 @@ export function ProjectCard({ project }: { project: Project }) {
       {isMounted && createPortal(
         <AnimatePresence>
           {isModalOpen && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+            <div 
+              className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby={modalTitleId}
+            >
               {/* Backdrop Overlay */}
               <motion.div 
                 initial={{ opacity: 0 }}
@@ -140,6 +219,7 @@ export function ProjectCard({ project }: { project: Project }) {
 
               {/* Modal Dialog Card */}
               <motion.div 
+                ref={modalRef}
                 initial={{ opacity: 0, scale: 0.95, y: 16 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, y: 16 }}
@@ -170,10 +250,9 @@ export function ProjectCard({ project }: { project: Project }) {
                 )}
 
                 {/* Modal Title */}
-                <h2 className="text-2xl sm:text-3xl font-black text-neo-text uppercase tracking-tight mb-4 pr-12">
+                <h2 id={modalTitleId} className="text-2xl sm:text-3xl font-black text-neo-text uppercase tracking-tight mb-4 pr-12">
                   {project.project_name}
                 </h2>
-
 
                 {/* Tech Stack List */}
                 {techStackList.length > 0 && (

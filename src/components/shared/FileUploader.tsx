@@ -2,6 +2,7 @@
 
 import { useState, useRef } from 'react';
 import { uploadFileAction } from '@/features/storage/actions';
+import { toast } from 'sonner';
 
 interface FileUploaderProps {
   value: string;
@@ -41,11 +42,15 @@ export function FileUploader({ value, onChange, bucket = 'portfolio', pathPrefix
 
       if (result.error) {
         setError(result.error);
+        toast.error(result.error);
       } else if (result.url) {
         onChange(result.url);
+        toast.success('Document uploaded successfully!');
       }
     } catch (err: any) {
-      setError(err.message || 'Upload failed');
+      const errorMsg = err.message || 'Upload failed';
+      setError(errorMsg);
+      toast.error(errorMsg);
     } finally {
       setIsUploading(false);
       if (fileInputRef.current) {
@@ -79,7 +84,7 @@ export function FileUploader({ value, onChange, bucket = 'portfolio', pathPrefix
           type="button"
           onClick={() => fileInputRef.current?.click()}
           disabled={isUploading}
-          className="px-5 py-2.5 bg-neo-yellow text-neo-text font-black text-xs uppercase tracking-wider rounded-xl border-3 border-neo-border shadow-brutal-sm hover:-translate-y-0.5 active:translate-y-0.5 transition-all disabled:opacity-50"
+          className="px-5 py-2.5 bg-neo-yellow text-neo-text font-black text-xs uppercase tracking-wider rounded-xl border-3 border-neo-border shadow-brutal-sm hover:-translate-y-0.5 active:translate-y-0.5 transition-[transform,colors,box-shadow] disabled:opacity-50"
         >
           {isUploading ? 'Uploading Document...' : (value ? 'Update Document File' : 'Upload Document File')}
         </button>

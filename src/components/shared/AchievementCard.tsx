@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import type { Achievement } from '@prisma/client';
 import { format } from 'date-fns';
@@ -13,18 +13,92 @@ export function AchievementCard({ achievement }: { achievement: Achievement }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const cardRef = use3DTilt<HTMLDivElement>({ maxTiltX: 10, maxTiltY: 10 });
+  const triggerRef = useRef<HTMLDivElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
   const isPdf = achievement.certificate_url?.toLowerCase().endsWith('.pdf');
+  const modalTitleId = `achievement-modal-title-${achievement.id}`;
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
+  // Handle Escape key, focus trapping, and body scroll lock
+  useEffect(() => {
+    if (!isModalOpen) return;
+
+    // 1. Lock body scroll
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    // 2. Focus first focusable element inside modal
+    const focusableSelectors = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+    const modalEl = modalRef.current;
+    
+    // Focus initial element
+    const initialTimer = setTimeout(() => {
+      if (modalEl) {
+        const firstFocusable = modalEl.querySelector<HTMLElement>(focusableSelectors);
+        firstFocusable?.focus();
+      }
+    }, 50);
+
+    // 3. Keydown handler for Escape and Focus Trap
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsModalOpen(false);
+        return;
+      }
+
+      if (e.key === 'Tab' && modalEl) {
+        const focusableElements = modalEl.querySelectorAll<HTMLElement>(focusableSelectors);
+        if (focusableElements.length === 0) return;
+
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+
+        if (e.shiftKey) {
+          if (document.activeElement === firstElement) {
+            e.preventDefault();
+            lastElement.focus();
+          }
+        } else {
+          if (document.activeElement === lastElement) {
+            e.preventDefault();
+            firstElement.focus();
+          }
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      clearTimeout(initialTimer);
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+      // Restore focus to trigger
+      triggerRef.current?.focus();
+    };
+  }, [isModalOpen]);
+
   return (
     <>
       {/* Achievement Card */}
       <div 
-        ref={cardRef}
-        className="h-full group relative brutal-card-hover bg-neo-surface border-4 border-neo-border shadow-brutal rounded-[20px] flex flex-col justify-between overflow-hidden cursor-pointer"
+        ref={(el) => {
+          // Sync tilt ref and focus trigger ref
+          (cardRef as React.MutableRefObject<HTMLDivElement | null>).current = el;
+          (triggerRef as React.MutableRefObject<HTMLDivElement | null>).current = el;
+        }}
+        tabIndex={0}
+        role="button"
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            setIsModalOpen(true);
+          }
+        }}
+        className="h-full group relative brutal-card-hover bg-neo-surface border-4 border-neo-border shadow-brutal rounded-[20px] flex flex-col justify-between overflow-hidden cursor-pointer focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-neo-pink"
         onClick={() => setIsModalOpen(true)}
       >
 
@@ -105,7 +179,12 @@ export function AchievementCard({ achievement }: { achievement: Achievement }) {
       {isMounted && createPortal(
         <AnimatePresence>
           {isModalOpen && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
+            <div 
+              className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby={modalTitleId}
+            >
               {/* Backdrop Overlay */}
               <motion.div 
                 initial={{ opacity: 0 }}
@@ -117,6 +196,7 @@ export function AchievementCard({ achievement }: { achievement: Achievement }) {
 
               {/* Modal Dialog Box */}
               <motion.div 
+                ref={modalRef}
                 initial={{ opacity: 0, scale: 0.95, y: 16 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, y: 16 }}
@@ -127,7 +207,7 @@ export function AchievementCard({ achievement }: { achievement: Achievement }) {
                 {/* Close Button Top Right */}
                 <button 
                   onClick={() => setIsModalOpen(false)}
-                  className="absolute top-4 right-4 sm:top-6 sm:right-6 w-10 h-10 rounded-xl bg-neo-pink text-white border-3 border-neo-border shadow-brutal-sm flex items-center justify-center font-black hover:scale-105 active:translate-y-0.5 transition-[transform,colors] z-20"
+                  className="absolute top-4 right-4 sm:top-6 sm:right-6 w-10 h-10 rounded-xl bg-neo-pink text-white border-3 border-neo-border shadow-brutal-sm flex items-center justify-center font-black hover:scale-105 active:translate-y-0.5 transition-[transform,colors] z-20 focus-visible:ring-4 focus-visible:ring-neo-border focus-visible:outline-none"
                   aria-label="Close modal"
                 >
                   <X className="w-6 h-6 stroke-[3]" />
@@ -162,10 +242,9 @@ export function AchievementCard({ achievement }: { achievement: Achievement }) {
                   </div>
                 )}
 
-
                 {/* Title & Issued Date */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 pr-10">
-                  <h2 className="text-2xl sm:text-3xl font-black text-neo-text uppercase tracking-tight">
+                  <h2 id={modalTitleId} className="text-2xl sm:text-3xl font-black text-neo-text uppercase tracking-tight">
                     {achievement.title}
                   </h2>
                   

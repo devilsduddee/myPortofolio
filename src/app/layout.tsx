@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Space_Grotesk } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
+import { Toaster } from 'sonner';
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], weight: ["300", "400", "500", "600", "700"] });
@@ -45,6 +46,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={spaceGrotesk.className}>
         {children}
+        <Toaster 
+          position="top-right" 
+          toastOptions={{
+            className: '!bg-neo-surface !border-3 !border-neo-border !shadow-brutal-sm !rounded-xl !text-neo-text !font-bold font-sans',
+          }} 
+        />
         <Analytics />
       </body>
     </html>

@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { SectionContainer } from '../shared/SectionContainer';
 import type { Profile, Experience, Project, Achievement } from '@prisma/client';
 import { CTAButton } from '../shared/CTAButton';
-import { Download, Mail, User } from 'lucide-react';
+import { Download, Mail } from 'lucide-react';
 import { use3DTilt } from '@/lib/animation/use3DTilt';
 
 import { gsap } from 'gsap';
@@ -47,6 +47,21 @@ export function HeroSection({
   useGSAP(() => {
     if (!containerRef.current) return;
 
+    const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion) {
+      gsap.set(['.hero-title', '.hero-tag', '.hero-tagline', '.hero-cta', '.hero-stats', '.hero-image-frame'], {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        rotate: 0,
+      });
+      if (yearsRef.current) yearsRef.current.innerText = `${yearsExp}+`;
+      if (projectsRef.current) projectsRef.current.innerText = `${projects.length}+`;
+      if (awardsRef.current) awardsRef.current.innerText = `${achievements.length}+`;
+      return;
+    }
+
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
     // Neo Brutalist Entrance Stagger Animation
@@ -86,7 +101,6 @@ export function HeroSection({
         '-=0.8'
       );
 
-
     // Number Counter Animation triggered when stat box enters viewport
     const counterObj = { years: 0, projects: 0, awards: 0 };
     gsap.to(counterObj, {
@@ -98,7 +112,7 @@ export function HeroSection({
       scrollTrigger: {
         trigger: '.hero-stats',
         start: 'top 90%',
-        toggleActions: 'play none play reset',
+        toggleActions: 'play none none reverse',
       },
       onUpdate: () => {
         if (yearsRef.current) yearsRef.current.innerText = `${Math.floor(counterObj.years)}+`;
@@ -121,18 +135,17 @@ export function HeroSection({
           <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6">
             
             {/* Candidate Name Heading */}
-
             <div className="space-y-3 w-full">
               <h1 className="hero-title text-4xl sm:text-5xl lg:text-6xl font-black text-neo-text uppercase tracking-tighter leading-[1.05]">
                 {profile.full_name}
               </h1>
 
               {/* Dynamic Professional Titles (Pill Badges or Clean Subheading) */}
-              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2.5 pt-1">
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 pt-1">
                 {titleItems.map((item, idx) => (
                   <span 
                     key={idx}
-                    className={`hero-tag px-4 py-2 rounded-2xl border-3 border-neo-border shadow-brutal-sm font-black text-sm sm:text-base uppercase tracking-tight ${
+                    className={`hero-tag px-3.5 py-1.5 rounded-xl border-3 border-neo-border shadow-brutal-sm font-black text-xs sm:text-sm uppercase tracking-tight ${
                       idx === 0 
                         ? 'bg-neo-blue text-white' 
                         : idx === 1 
@@ -148,13 +161,13 @@ export function HeroSection({
 
             {/* Tagline */}
             {profile.tagline && (
-              <p className="hero-tagline text-base sm:text-lg text-neo-muted max-w-xl font-medium leading-relaxed pt-1">
+              <p className="hero-tagline text-base sm:text-lg text-neo-muted max-w-xl font-medium leading-relaxed">
                 {profile.tagline}
               </p>
             )}
 
             {/* CTA Buttons */}
-            <div className="hero-cta flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto pt-2">
+            <div className="hero-cta flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto pt-1">
               {profile.cv_file && (
                 <CTAButton 
                   href={profile.cv_file} 
@@ -178,7 +191,7 @@ export function HeroSection({
             </div>
 
             {/* Dynamic Stat Box */}
-            <div className="hero-stats grid grid-cols-3 gap-3 sm:gap-6 bg-neo-surface border-4 border-neo-border shadow-brutal rounded-[20px] p-4 sm:p-5 w-full max-w-md mt-4 divide-x-2 sm:divide-x-3 divide-neo-border">
+            <div className="hero-stats grid grid-cols-3 gap-3 sm:gap-6 bg-neo-surface border-4 border-neo-border shadow-brutal rounded-[20px] p-4 sm:p-5 w-full max-w-md mt-6 divide-x-2 sm:divide-x-3 divide-neo-border">
               <div className="flex flex-col items-center justify-center text-center px-1">
                 <span ref={yearsRef} className="text-2xl sm:text-3xl font-black text-neo-blue">0+</span>
                 <span className="text-[11px] sm:text-xs font-extrabold uppercase text-neo-text mt-0.5">Years Exp</span>

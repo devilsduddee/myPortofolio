@@ -19,7 +19,16 @@ export function AchievementSection({ achievements }: { achievements: Achievement
   useGSAP(() => {
     if (!containerRef.current) return;
 
+    const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const cards = containerRef.current.querySelectorAll('.achievement-card-wrapper');
+
+    if (prefersReducedMotion) {
+      if (cards.length > 0) {
+        gsap.set(cards, { opacity: 1, y: 0, scale: 1, rotate: 0 });
+      }
+      return;
+    }
+
     if (cards.length > 0) {
       cards.forEach((card, index) => {
         gsap.fromTo(
@@ -30,7 +39,6 @@ export function AchievementSection({ achievements }: { achievements: Achievement
             scale: 0.9, 
             rotate: 0 
           },
-
           {
             opacity: 1,
             y: 0,
@@ -42,7 +50,7 @@ export function AchievementSection({ achievements }: { achievements: Achievement
             scrollTrigger: {
               trigger: card,
               start: 'top 88%',
-              toggleActions: 'play none play reset',
+              toggleActions: 'play none none reverse',
             },
           }
         );

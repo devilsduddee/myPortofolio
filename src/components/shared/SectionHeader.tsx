@@ -15,8 +15,15 @@ export function SectionHeader({ title, subtitle }: { title: string, subtitle?: s
   useGSAP(() => {
     if (!containerRef.current) return;
 
+    const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const chars = containerRef.current.querySelectorAll('.header-char');
     const badge = containerRef.current.querySelector('.header-badge');
+
+    if (prefersReducedMotion) {
+      if (chars.length > 0) gsap.set(chars, { opacity: 1, y: 0, rotate: 0, scale: 1 });
+      if (badge) gsap.set(badge, { opacity: 1, scale: 1, x: 0 });
+      return;
+    }
 
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -54,10 +61,14 @@ export function SectionHeader({ title, subtitle }: { title: string, subtitle?: s
 
   return (
     <div ref={containerRef} className="mb-8 md:mb-12 flex flex-col items-start gap-3 select-none">
-      <h2 className="text-3xl md:text-4xl lg:text-5xl font-black tracking-tighter text-neo-text uppercase bg-neo-yellow border-4 border-neo-border px-6 py-2 shadow-[6px_6px_0px_#000000] inline-flex flex-wrap gap-x-[0.2em]">
+      <h2 
+        aria-label={title}
+        className="text-3xl md:text-4xl lg:text-5xl font-black tracking-tighter text-neo-text uppercase bg-neo-yellow border-4 border-neo-border px-6 py-2 shadow-[6px_6px_0px_#000000] inline-flex flex-wrap gap-x-[0.2em]"
+      >
         {title.split('').map((char, index) => (
           <span
             key={index}
+            aria-hidden="true"
             className="header-char inline-block"
           >
             {char === ' ' ? '\u00A0' : char}

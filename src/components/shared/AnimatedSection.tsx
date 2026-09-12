@@ -21,6 +21,13 @@ export function AnimatedSection({ children, className = '', delay = 0 }: Animate
   useGSAP(() => {
     if (!containerRef.current) return;
 
+    const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion) {
+      gsap.set(containerRef.current, { opacity: 1, y: 0 });
+      return;
+    }
+
     gsap.fromTo(
       containerRef.current,
       { opacity: 0, y: 40 },
@@ -33,7 +40,7 @@ export function AnimatedSection({ children, className = '', delay = 0 }: Animate
         scrollTrigger: {
           trigger: containerRef.current,
           start: 'top 85%',
-          toggleActions: 'play none play reset',
+          toggleActions: 'play none none reverse',
         },
       }
     );

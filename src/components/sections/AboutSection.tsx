@@ -4,7 +4,6 @@ import { useRef } from 'react';
 import { SectionContainer } from '../shared/SectionContainer';
 import { SectionHeader } from '../shared/SectionHeader';
 import type { Profile } from '@prisma/client';
-import { Sparkles } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
@@ -19,6 +18,13 @@ export function AboutSection({ profile }: { profile: Profile | null }) {
   useGSAP(() => {
     if (!cardRef.current) return;
 
+    const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion) {
+      gsap.set(cardRef.current, { opacity: 1, y: 0, scale: 1 });
+      return;
+    }
+
     gsap.fromTo(
       cardRef.current,
       { opacity: 0, y: 35, scale: 0.97 },
@@ -31,7 +37,7 @@ export function AboutSection({ profile }: { profile: Profile | null }) {
         scrollTrigger: {
           trigger: cardRef.current,
           start: 'top 85%',
-          toggleActions: 'play none play reset',
+          toggleActions: 'play none none reverse',
         },
       }
     );

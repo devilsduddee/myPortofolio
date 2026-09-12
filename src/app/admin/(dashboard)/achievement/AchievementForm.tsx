@@ -4,13 +4,12 @@ import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AchievementSchema, AchievementFormValues } from '@/features/achievement/validation/schema';
 import { createAchievementAction, updateAchievementAction } from '@/features/achievement/actions/actions';
-import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ImageUploader } from '@/components/shared/ImageUploader';
 import { format } from 'date-fns';
+import { toast } from 'sonner';
 
 export function AchievementForm({ initialData }: { initialData?: any }) {
-  const [status, setStatus] = useState<{ type: 'success' | 'error', msg: string } | null>(null);
   const router = useRouter();
   
   const { register, control, handleSubmit, formState: { errors, isSubmitting } } = useForm<AchievementFormValues>({
@@ -24,31 +23,25 @@ export function AchievementForm({ initialData }: { initialData?: any }) {
   });
 
   const onSubmit = async (data: AchievementFormValues) => {
-    setStatus(null);
-    
-    const result = initialData 
-      ? await updateAchievementAction(initialData.id, data)
-      : await createAchievementAction(data);
-    
-    if (result.error) {
-      setStatus({ type: 'error', msg: result.error });
-    } else {
-      setStatus({ type: 'success', msg: 'Achievement saved successfully!' });
-      router.push('/admin/achievement');
-      router.refresh();
+    try {
+      const result = initialData 
+        ? await updateAchievementAction(initialData.id, data)
+        : await createAchievementAction(data);
+      
+      if (result.error) {
+        toast.error(result.error);
+      } else {
+        toast.success(initialData ? 'Achievement updated successfully!' : 'Achievement created successfully!');
+        router.push('/admin/achievement');
+        router.refresh();
+      }
+    } catch (err: any) {
+      toast.error(err.message || 'Failed to save achievement');
     }
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 bg-neo-surface border-4 border-neo-border rounded-[20px] shadow-brutal p-6 sm:p-8">
-      
-      {status && (
-        <div className={`p-4 rounded-xl border-3 border-neo-border font-extrabold text-sm shadow-brutal-sm ${
-          status.type === 'success' ? 'bg-emerald-100 text-emerald-950' : 'bg-neo-pink/20 text-neo-pink'
-        }`}>
-          {status.msg}
-        </div>
-      )}
 
       <div className="space-y-2">
         <label className="block text-xs font-black uppercase text-neo-text tracking-wider">Achievement Title</label>

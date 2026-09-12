@@ -19,7 +19,16 @@ export function ProjectsSection({ projects }: { projects: Project[] }) {
   useGSAP(() => {
     if (!containerRef.current) return;
 
+    const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const cards = containerRef.current.querySelectorAll('.project-card-wrapper');
+
+    if (prefersReducedMotion) {
+      if (cards.length > 0) {
+        gsap.set(cards, { opacity: 1, y: 0, scale: 1, rotate: 0 });
+      }
+      return;
+    }
+
     if (cards.length > 0) {
       cards.forEach((card, index) => {
         gsap.fromTo(
@@ -30,7 +39,6 @@ export function ProjectsSection({ projects }: { projects: Project[] }) {
             scale: 0.9, 
             rotate: 0 
           },
-
           {
             opacity: 1,
             y: 0,

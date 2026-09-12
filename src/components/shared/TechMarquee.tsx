@@ -22,6 +22,9 @@ export function TechMarquee({ projects = [] }: { projects?: Project[] }) {
   useGSAP(() => {
     if (!trackRef.current || allTechs.length === 0) return;
 
+    const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
     // Infinite GSAP Marquee Loop
     const totalWidth = trackRef.current.scrollWidth / 2;
 
@@ -40,7 +43,7 @@ export function TechMarquee({ projects = [] }: { projects?: Project[] }) {
   return (
     <div 
       ref={marqueeRef}
-      className="w-full overflow-hidden bg-neo-surface border-y-4 border-neo-border py-4 my-6 md:my-10 relative z-20 select-none shadow-brutal-sm"
+      className="w-full overflow-hidden bg-neo-surface border-y-4 border-neo-border py-4 my-6 md:my-10 relative z-20 select-none"
     >
       <div ref={trackRef} className="flex whitespace-nowrap gap-4 w-max">
         {/* Double the list for smooth seamless looping */}

@@ -3,6 +3,7 @@
 import { useState, useRef } from 'react';
 import { uploadFileAction } from '@/features/storage/actions';
 import Image from 'next/image';
+import { toast } from 'sonner';
 
 interface ImageUploaderProps {
   value: string;
@@ -22,7 +23,9 @@ export function ImageUploader({ value, onChange, bucket = 'portfolio', pathPrefi
     if (!file) return;
 
     if (file.size > 5 * 1024 * 1024) {
-      setError('File size must be less than 5MB');
+      const msg = 'File size must be less than 5MB';
+      setError(msg);
+      toast.error(msg);
       return;
     }
 
@@ -30,7 +33,9 @@ export function ImageUploader({ value, onChange, bucket = 'portfolio', pathPrefi
     const isPdf = file.type === 'application/pdf';
     
     if (!isImage && !(isPdf && accept.includes('application/pdf'))) {
-      setError(accept.includes('pdf') ? 'Only image and PDF files are allowed' : 'Only image files are allowed');
+      const msg = accept.includes('pdf') ? 'Only image and PDF files are allowed' : 'Only image files are allowed';
+      setError(msg);
+      toast.error(msg);
       return;
     }
 
@@ -50,11 +55,15 @@ export function ImageUploader({ value, onChange, bucket = 'portfolio', pathPrefi
 
       if (result.error) {
         setError(result.error);
+        toast.error(result.error);
       } else if (result.url) {
         onChange(result.url);
+        toast.success('Media uploaded successfully!');
       }
     } catch (err: any) {
-      setError(err.message || 'Upload failed');
+      const errorMsg = err.message || 'Upload failed';
+      setError(errorMsg);
+      toast.error(errorMsg);
     } finally {
       setIsUploading(false);
       if (fileInputRef.current) {
@@ -101,7 +110,7 @@ export function ImageUploader({ value, onChange, bucket = 'portfolio', pathPrefi
           type="button"
           onClick={() => fileInputRef.current?.click()}
           disabled={isUploading}
-          className="px-4 py-2.5 bg-neo-yellow text-neo-text font-black text-xs uppercase tracking-wider rounded-xl border-3 border-neo-border shadow-brutal-sm hover:-translate-y-0.5 active:translate-y-0.5 transition-all disabled:opacity-50"
+          className="px-4 py-2.5 bg-neo-yellow text-neo-text font-black text-xs uppercase tracking-wider rounded-xl border-3 border-neo-border shadow-brutal-sm hover:-translate-y-0.5 active:translate-y-0.5 transition-[transform,colors,box-shadow] disabled:opacity-50"
         >
           {isUploading ? 'Uploading File...' : (value ? 'Change Uploaded File' : 'Upload File')}
         </button>
