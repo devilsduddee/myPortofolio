@@ -191,18 +191,18 @@ export function HeroSection({
             </div>
 
             {/* Dynamic Stat Box */}
-            <div className="hero-stats grid grid-cols-3 gap-3 sm:gap-6 bg-neo-surface border-4 border-neo-border shadow-brutal rounded-[20px] p-4 sm:p-5 w-full max-w-md mt-6 divide-x-2 sm:divide-x-3 divide-neo-border">
-              <div className="flex flex-col items-center justify-center text-center px-1">
-                <span ref={yearsRef} className="text-2xl sm:text-3xl font-black text-neo-blue">0+</span>
-                <span className="text-[11px] sm:text-xs font-extrabold uppercase text-neo-text mt-0.5">Years Exp</span>
+            <div className="hero-stats grid grid-cols-3 gap-2 sm:gap-6 bg-neo-surface border-4 border-neo-border shadow-brutal rounded-[20px] p-3 sm:p-5 w-full max-w-md mt-4 sm:mt-6 divide-x-2 sm:divide-x-3 divide-neo-border">
+              <div className="flex flex-col items-center justify-center text-center px-0.5 sm:px-1">
+                <span ref={yearsRef} className="text-xl sm:text-3xl font-black text-neo-blue">0+</span>
+                <span className="text-[10px] sm:text-xs font-extrabold uppercase text-neo-text mt-0.5">Years Exp</span>
               </div>
-              <div className="flex flex-col items-center justify-center text-center px-1">
-                <span ref={projectsRef} className="text-2xl sm:text-3xl font-black text-neo-pink">0+</span>
-                <span className="text-[11px] sm:text-xs font-extrabold uppercase text-neo-text mt-0.5">Projects</span>
+              <div className="flex flex-col items-center justify-center text-center px-0.5 sm:px-1">
+                <span ref={projectsRef} className="text-xl sm:text-3xl font-black text-neo-pink">0+</span>
+                <span className="text-[10px] sm:text-xs font-extrabold uppercase text-neo-text mt-0.5">Projects</span>
               </div>
-              <div className="flex flex-col items-center justify-center text-center px-1">
-                <span ref={awardsRef} className="text-2xl sm:text-3xl font-black text-neo-green">0+</span>
-                <span className="text-[11px] sm:text-xs font-extrabold uppercase text-neo-text mt-0.5">Awards</span>
+              <div className="flex flex-col items-center justify-center text-center px-0.5 sm:px-1">
+                <span ref={awardsRef} className="text-xl sm:text-3xl font-black text-neo-green">0+</span>
+                <span className="text-[10px] sm:text-xs font-extrabold uppercase text-neo-text mt-0.5">Awards</span>
               </div>
             </div>
 
