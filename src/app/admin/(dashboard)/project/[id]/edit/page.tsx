@@ -1,4 +1,4 @@
-import { ProjectService } from '@/features/project/services/ProjectService';
+﻿import { ProjectService } from '@/features/project/ProjectService';
 import { PageHeader } from '@/components/admin/PageHeader';
 import { ProjectForm } from '../../ProjectForm';
 import { notFound } from 'next/navigation';

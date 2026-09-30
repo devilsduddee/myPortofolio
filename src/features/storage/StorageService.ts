@@ -1,4 +1,4 @@
-import { StorageRepository } from '../repositories/StorageRepository';
+﻿import { StorageRepository } from './StorageRepository';
 export class StorageService {
   static async upload(bucket: string, path: string, file: File) {
     try {

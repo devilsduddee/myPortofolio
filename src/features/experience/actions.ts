@@ -1,10 +1,22 @@
+﻿/**
+ * File        : src/features/experience/actions/actions.ts
+ * Deskripsi   : Server Actions untuk manajemen CRUD entitas pengalaman kerja (Experience).
+ */
+
 'use server';
 
-import { ExperienceService } from '../services/ExperienceService';
+import { ExperienceService } from './ExperienceService';
 import { ExperienceSchema, ExperienceFormValues } from '@/types/schema';
 import { revalidatePath, revalidateTag } from 'next/cache';
 import { requireAuth } from '@/lib/auth-guard';
 
+/**
+ * Membuat data pengalaman kerja baru di database.
+ *
+ * Kegunaan : Memvalidasi input formulir pengalaman, membuat entitas baru, dan memperbarui cache.
+ * Input    : data (Objek ExperienceFormValues)
+ * Hasil    : Objek status { success: boolean, data?: Experience, error?: string }.
+ */
 export async function createExperienceAction(data: ExperienceFormValues) {
   try {
     await requireAuth();
@@ -29,6 +41,13 @@ export async function createExperienceAction(data: ExperienceFormValues) {
   }
 }
 
+/**
+ * Memperbarui data pengalaman kerja yang ada.
+ *
+ * Kegunaan : Memvalidasi input, memperbarui pengalaman berdasarkan ID, dan membersihkan cache.
+ * Input    : id (String ID pengalaman), data (Objek ExperienceFormValues)
+ * Hasil    : Objek status { success: boolean, data?: Experience, error?: string }.
+ */
 export async function updateExperienceAction(id: string, data: ExperienceFormValues) {
   try {
     await requireAuth();
@@ -53,6 +72,13 @@ export async function updateExperienceAction(id: string, data: ExperienceFormVal
   }
 }
 
+/**
+ * Menghapus data pengalaman kerja.
+ *
+ * Kegunaan : Menghapus riwayat pengalaman berdasarkan ID dan memperbarui cache tampilan.
+ * Input    : id (String ID pengalaman kerja)
+ * Hasil    : Objek status { success: boolean, error?: string }.
+ */
 export async function deleteExperienceAction(id: string) {
   try {
     await requireAuth();
@@ -72,3 +98,4 @@ export async function deleteExperienceAction(id: string) {
     return { success: false, error: 'Failed to delete experience. Please try again.' };
   }
 }
+

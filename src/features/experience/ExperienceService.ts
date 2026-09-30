@@ -1,5 +1,5 @@
-import { ExperienceRepository } from '../repositories/ExperienceRepository';
-import { ExperienceSchema } from '../validation/schema';
+﻿import { ExperienceRepository } from './ExperienceRepository';
+import { ExperienceSchema } from './schema';
 
 export class ExperienceService {
   static async getAll() { return await ExperienceRepository.findAll(); }

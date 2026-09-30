@@ -1,10 +1,10 @@
-import { DashboardCard } from '@/components/admin/DashboardCard';
+﻿import { DashboardCard } from '@/components/admin/DashboardCard';
 import { PageHeader } from '@/components/admin/PageHeader';
 import { Briefcase, Award, FolderGit2, User } from 'lucide-react';
 
-import { ProjectService } from '@/features/project/services/ProjectService';
-import { ExperienceService } from '@/features/experience/services/ExperienceService';
-import { AchievementService } from '@/features/achievement/services/AchievementService';
+import { ProjectService } from '@/features/project/ProjectService';
+import { ExperienceService } from '@/features/experience/ExperienceService';
+import { AchievementService } from '@/features/achievement/AchievementService';
 import { ProfileService } from '@/services/ProfileService';
 
 export const dynamic = 'force-dynamic';
@@ -62,4 +62,5 @@ export default async function DashboardPage() {
     </div>
   );
 }
+
 

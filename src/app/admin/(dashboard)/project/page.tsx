@@ -1,8 +1,8 @@
-import { ProjectService } from '@/features/project/services/ProjectService';
+﻿import { ProjectService } from '@/features/project/ProjectService';
 import { PageHeader } from '@/components/admin/PageHeader';
 import { EmptyState } from '@/components/admin/EmptyState';
 import { DeleteButton } from '@/components/admin/DeleteButton';
-import { deleteProjectAction } from '@/features/project/actions/actions';
+import { deleteProjectAction } from '@/features/project/actions';
 import Link from 'next/link';
 import { Plus } from 'lucide-react';
 

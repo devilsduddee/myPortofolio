@@ -1,6 +1,20 @@
+﻿/**
+ * File        : src/lib/supabase/middleware.ts
+ * Deskripsi   : Pengelola sesi Supabase pada lapisan middleware HTTP Next.js.
+ *               Melindungi rute admin dan menangani pengalihan (redirection) pengguna.
+ */
+
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
+/**
+ * Memperbarui sesi cookie dan memeriksa proteksi rute admin.
+ *
+ * Kegunaan : Memperbarui token autentikasi pada cookie response, serta mengalihkan pengguna
+ *            yang belum login dari area admin ke halaman login.
+ * Input    : request (Objek NextRequest)
+ * Hasil    : Objek NextResponse (halaman asli atau pengalihan rute).
+ */
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
     request,
@@ -31,12 +45,10 @@ export async function updateSession(request: NextRequest) {
             supabaseResponse.cookies.set(name, value, sessionOptions);
           });
         },
-
       },
     }
   )
 
-  // This checks the session
   const {
     data: { user },
   } = await supabase.auth.getUser()
@@ -44,14 +56,14 @@ export async function updateSession(request: NextRequest) {
   const isAuthRoute = request.nextUrl.pathname.startsWith('/admin/login');
   const isAdminRoute = request.nextUrl.pathname.startsWith('/admin');
 
-  // If trying to access admin routes (except login) without user -> redirect to login
+  // Pengalihan 1: Belum login mencoba akses admin -> ke login
   if (!user && isAdminRoute && !isAuthRoute) {
     const url = request.nextUrl.clone()
     url.pathname = '/admin/login'
     return NextResponse.redirect(url)
   }
 
-  // If logged in and trying to access login page -> redirect to dashboard
+  // Pengalihan 2: Sudah login membuka login -> ke dashboard
   if (user && isAuthRoute) {
     const url = request.nextUrl.clone()
     url.pathname = '/admin/dashboard'

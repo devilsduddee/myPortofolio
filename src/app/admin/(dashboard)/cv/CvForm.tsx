@@ -1,9 +1,9 @@
-'use client';
+﻿'use client';
 
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { CvSchema, CvFormValues } from '@/features/cv/validation/schema';
-import { saveCvAction } from '@/features/cv/actions/actions';
+import { CvSchema, CvFormValues } from '@/features/cv/schema';
+import { saveCvAction } from '@/features/cv/actions';
 import { FileUploader } from '@/components/shared/FileUploader';
 import { toast } from 'sonner';
 
@@ -60,4 +60,5 @@ export function CvForm({ initialData }: { initialData?: any }) {
     </form>
   );
 }
+
 

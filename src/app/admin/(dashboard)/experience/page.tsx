@@ -1,8 +1,8 @@
-import { ExperienceService } from '@/features/experience/services/ExperienceService';
+﻿import { ExperienceService } from '@/features/experience/ExperienceService';
 import { PageHeader } from '@/components/admin/PageHeader';
 import { EmptyState } from '@/components/admin/EmptyState';
 import { DeleteButton } from '@/components/admin/DeleteButton';
-import { deleteExperienceAction } from '@/features/experience/actions/actions';
+import { deleteExperienceAction } from '@/features/experience/actions';
 import Link from 'next/link';
 import { Plus } from 'lucide-react';
 
@@ -48,7 +48,7 @@ export default async function ExperiencePage() {
                   <td className="px-6 py-4">{item.position}</td>
                   <td className="px-6 py-4 text-xs font-black uppercase text-neo-muted">
                     {new Date(item.start_date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })} 
-                    {' — '} 
+                    {' â€” '} 
                     {item.end_date ? new Date(item.end_date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' }) : 'Present'}
                   </td>
                   <td className="px-6 py-4 text-right space-x-2">

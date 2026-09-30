@@ -1,10 +1,22 @@
+﻿/**
+ * File        : src/features/contact/actions/actions.ts
+ * Deskripsi   : Server Action untuk memperbarui informasi kontak pengguna (email, LinkedIn, GitHub, WhatsApp).
+ */
+
 'use server';
 
-import { ContactService } from '../services/ContactService';
-import { ContactSchema, ContactFormValues } from '../validation/schema';
+import { ContactService } from './ContactService';
+import { ContactSchema, ContactFormValues } from './schema';
 import { revalidatePath, revalidateTag } from 'next/cache';
 import { requireAuth } from '@/lib/auth-guard';
 
+/**
+ * Menyimpan atau memperbarui data kontak pengguna.
+ *
+ * Kegunaan : Memvalidasi input kontak, menyimpannya di database, dan memperbarui cache.
+ * Input    : data (Objek ContactFormValues)
+ * Hasil    : Objek status { success: boolean, data?: Contact, error?: string }.
+ */
 export async function saveContactAction(data: ContactFormValues) {
   try {
     await requireAuth();
@@ -28,3 +40,4 @@ export async function saveContactAction(data: ContactFormValues) {
     return { success: false, error: 'Failed to save contact information. Please try again.' };
   }
 }
+

@@ -1,9 +1,22 @@
+﻿/**
+ * File        : src/components/shared/CTAButton.tsx
+ * Deskripsi   : Komponen tombol panggilan aksi (Call To Action) utama dengan efek magnetik GSAP.
+ * Perangkat   : Efek pengikutan kursor (magnetic hover) hanya diaktifkan pada desktop (pointer: fine).
+ */
+
 'use client';
 
 import { ReactNode, useRef } from 'react';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 
+/**
+ * Komponen Tombol CTA Magnetik.
+ *
+ * Kegunaan : Menampilkan tombol panggilan aksi dengan gaya Neo-Brutalism dan animasi magnetik kursor pada desktop.
+ * Input    : children, href, variant, className, target, rel
+ * Hasil    : Elemen tombol magnetik <CTAButton>.
+ */
 export function CTAButton({ 
   children, 
   href, 
@@ -25,17 +38,17 @@ export function CTAButton({
   useGSAP(() => {
     if (!wrapperRef.current || !buttonRef.current) return;
 
+    // Strategi Deteksi: Jangan pasang listener mousemove pada perangkat sentuh (pointer: coarse)
+    const isFinePointer = typeof window !== 'undefined' && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    const isDesktop = typeof window !== 'undefined' && window.innerWidth >= 1024;
+    const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!isFinePointer || !isDesktop || prefersReducedMotion) return;
+
     const wrapper = wrapperRef.current;
     const btn = buttonRef.current;
 
     const handleMouseMove = (e: MouseEvent) => {
-      // Gate behind pointer: fine, desktop width, & prefers-reduced-motion
-      const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-      const isDesktop = window.innerWidth >= 1024;
-      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-      if (!isFinePointer || !isDesktop || prefersReducedMotion) return;
-
       const rect = wrapper.getBoundingClientRect();
 
       const x = (e.clientX - rect.left - rect.width / 2) * 0.45;
@@ -92,6 +105,3 @@ export function CTAButton({
     </div>
   );
 }
-
-
-

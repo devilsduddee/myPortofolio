@@ -1,3 +1,8 @@
+﻿/**
+ * File        : src/components/sections/AboutSection.tsx
+ * Deskripsi   : Komponen section "About Me" yang menampilkan ringkasan profil dan latar belakang profesional.
+ */
+
 'use client';
 
 import { useRef } from 'react';
@@ -12,6 +17,13 @@ if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
 }
 
+/**
+ * Komponen Section "Tentang Saya" Publik.
+ *
+ * Kegunaan : Menampilkan teks narasi pengalaman dan latar belakang pengembang dalam kartu Neo-Brutalism.
+ * Input    : profile (Data profil pengguna dari Prisma)
+ * Hasil    : Blok section <AboutSection> dengan animasi ScrollTrigger.
+ */
 export function AboutSection({ profile }: { profile: Profile | null }) {
   const cardRef = useRef<HTMLDivElement>(null);
 
@@ -66,6 +78,3 @@ export function AboutSection({ profile }: { profile: Profile | null }) {
     </SectionContainer>
   );
 }
-
-
-

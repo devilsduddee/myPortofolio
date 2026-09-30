@@ -1,3 +1,11 @@
+﻿/**
+ * File        : src/components/sections/HeroSection.tsx
+ * Deskripsi   : Komponen Hero Section utama pada halaman depan portofolio.
+ *               Menampilkan nama kandidat, tag gelar profesional, tagline, tombol aksis utama,
+ *               penghitung statistik pengalamam & proyek, serta foto profil dengan efek tilt 3D.
+ * Kontras     : Dioptimalkan khusus untuk layar laptop 14 inch (1366x768, 1440x900, 1536x864) dan desktop (1920x1080).
+ */
+
 'use client';
 
 import { useRef } from 'react';
@@ -16,6 +24,15 @@ if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
 }
 
+/**
+ * Komponen Hero Section Utama Publik.
+ *
+ * Kegunaan : Menampilkan bagian pembuka portofolio yang atraktif dengan animasi GSAP,
+ *            statistik angka dinamis, serta bingkai foto bertema Neo-Brutalism.
+ * Input    : profile (Data profil kandidat), experiences (Daftar pengalaman),
+ *            projects (Daftar proyek), achievements (Daftar pencapaian)
+ * Hasil    : Elemen Hero Section lengkap dengan kontras dan hierarki visual yang tajam.
+ */
 export function HeroSection({ 
   profile, 
   experiences = [], 
@@ -33,7 +50,7 @@ export function HeroSection({
   const projectsRef = useRef<HTMLSpanElement>(null);
   const awardsRef = useRef<HTMLSpanElement>(null);
 
-  // Calculate Years of Experience dynamically from database records
+  // Menghitung total tahun pengalaman secara dinamis berdasarkan tanggal entri terkecil
   let yearsExp = 0;
   if (experiences.length > 0) {
     const earliestDate = new Date(Math.min(...experiences.map(e => new Date(e.start_date).getTime())));
@@ -41,7 +58,7 @@ export function HeroSection({
     yearsExp = Math.floor(diffTime / (1000 * 60 * 60 * 24 * 365));
   }
 
-  // Parse title into tags if comma-separated or keep clean
+  // Memecah string judul profesional menjadi array tag jika dipisahkan koma
   const titleItems = profile?.title ? profile.title.split(',').map(t => t.trim()) : [];
 
   useGSAP(() => {
@@ -56,15 +73,11 @@ export function HeroSection({
         scale: 1,
         rotate: 0,
       });
-      if (yearsRef.current) yearsRef.current.innerText = `${yearsExp}+`;
-      if (projectsRef.current) projectsRef.current.innerText = `${projects.length}+`;
-      if (awardsRef.current) awardsRef.current.innerText = `${achievements.length}+`;
       return;
     }
 
-    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    const tl = gsap.timeline();
 
-    // Neo Brutalist Entrance Stagger Animation
     tl.fromTo(
       '.hero-title',
       { opacity: 0, y: 35 },
@@ -101,7 +114,7 @@ export function HeroSection({
         '-=0.8'
       );
 
-    // Number Counter Animation triggered when stat box enters viewport
+    // Animasi angka statistik saat kotak statistik masuk ke area viewport
     const counterObj = { years: 0, projects: 0, awards: 0 };
     gsap.to(counterObj, {
       years: yearsExp,
@@ -123,7 +136,6 @@ export function HeroSection({
 
   }, { scope: containerRef });
 
-
   if (!profile) return null;
 
   return (
@@ -131,16 +143,16 @@ export function HeroSection({
       <div ref={containerRef} className="w-full relative z-10">
         <div className="flex flex-col-reverse lg:grid lg:grid-cols-12 gap-8 lg:gap-10 items-center">
           
-          {/* Left Column: Headline & Info (7 cols desktop) */}
+          {/* Kolom Kiri: Nama, Tag, Subtitle & Tombol Aksi */}
           <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6">
             
-            {/* Candidate Name Heading */}
-            <div className="space-y-3 w-full">
+            {/* Judul Nama Kandidat Utama */}
+            <div className="space-y-3.5 w-full">
               <h1 className="hero-title text-4xl sm:text-5xl lg:text-6xl font-black text-neo-text uppercase tracking-tighter leading-[1.05]">
                 {profile.full_name}
               </h1>
 
-              {/* Dynamic Professional Titles (Pill Badges or Clean Subheading) */}
+              {/* Tag Judul Profesional */}
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 pt-1">
                 {titleItems.map((item, idx) => (
                   <span 
@@ -159,14 +171,14 @@ export function HeroSection({
               </div>
             </div>
 
-            {/* Tagline */}
+            {/* Tagline dengan Kontras & Keterbacaan yang Ditingkatkan */}
             {profile.tagline && (
-              <p className="hero-tagline text-base sm:text-lg text-neo-muted max-w-xl font-medium leading-relaxed">
+              <p className="hero-tagline text-base sm:text-lg lg:text-xl text-neo-text font-bold leading-relaxed max-w-xl opacity-90">
                 {profile.tagline}
               </p>
             )}
 
-            {/* CTA Buttons */}
+            {/* Tombol CTA Utama & Sekunder */}
             <div className="hero-cta flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto pt-1">
               {profile.cv_file && (
                 <CTAButton 
@@ -190,30 +202,28 @@ export function HeroSection({
               </CTAButton>
             </div>
 
-            {/* Dynamic Stat Box */}
-            <div className="hero-stats grid grid-cols-3 gap-2 sm:gap-6 bg-neo-surface border-4 border-neo-border shadow-brutal rounded-[20px] p-3 sm:p-5 w-full max-w-md mt-4 sm:mt-6 divide-x-2 sm:divide-x-3 divide-neo-border">
-              <div className="flex flex-col items-center justify-center text-center px-0.5 sm:px-1">
-                <span ref={yearsRef} className="text-xl sm:text-3xl font-black text-neo-blue">0+</span>
-                <span className="text-[10px] sm:text-xs font-extrabold uppercase text-neo-text mt-0.5">Years Exp</span>
+            {/* Kotak Statistik Ringkas dengan Penegasan Kontras Surface & Border */}
+            <div className="hero-stats grid grid-cols-3 gap-2 sm:gap-6 bg-neo-surface border-4 border-neo-border shadow-brutal-lg rounded-[22px] p-3.5 sm:p-5 w-full max-w-md mt-4 sm:mt-6 divide-x-2 sm:divide-x-3 divide-neo-border">
+              <div className="flex flex-col items-center justify-center text-center px-1">
+                <span ref={yearsRef} className="text-2xl sm:text-3xl font-black text-neo-blue tracking-tight">0+</span>
+                <span className="text-[10px] sm:text-xs font-black uppercase text-neo-text mt-1 tracking-wider">Years Exp</span>
               </div>
-              <div className="flex flex-col items-center justify-center text-center px-0.5 sm:px-1">
-                <span ref={projectsRef} className="text-xl sm:text-3xl font-black text-neo-pink">0+</span>
-                <span className="text-[10px] sm:text-xs font-extrabold uppercase text-neo-text mt-0.5">Projects</span>
+              <div className="flex flex-col items-center justify-center text-center px-1">
+                <span ref={projectsRef} className="text-2xl sm:text-3xl font-black text-neo-pink tracking-tight">0+</span>
+                <span className="text-[10px] sm:text-xs font-black uppercase text-neo-text mt-1 tracking-wider">Projects</span>
               </div>
-              <div className="flex flex-col items-center justify-center text-center px-0.5 sm:px-1">
-                <span ref={awardsRef} className="text-xl sm:text-3xl font-black text-neo-green">0+</span>
-                <span className="text-[10px] sm:text-xs font-extrabold uppercase text-neo-text mt-0.5">Awards</span>
+              <div className="flex flex-col items-center justify-center text-center px-1">
+                <span ref={awardsRef} className="text-2xl sm:text-3xl font-black text-neo-green tracking-tight">0+</span>
+                <span className="text-[10px] sm:text-xs font-black uppercase text-neo-text mt-1 tracking-wider">Awards</span>
               </div>
             </div>
 
           </div>
 
-          {/* Right Column: Profile Image / Avatar Box (5 cols desktop) */}
+          {/* Kolom Kanan: Bingkai Foto Profil 3D Tilt */}
           <div className="lg:col-span-5 flex justify-center lg:justify-end w-full">
             <div ref={imageFrameRef} className="hero-image-frame relative w-full max-w-[440px]">
-              {/* Outer Neo Brutalist Frame */}
               <div className="relative p-3.5 bg-neo-yellow border-4 border-neo-border shadow-brutal-lg rounded-[32px] hover:rotate-1 transition-transform duration-300">
-                {/* Inner Image Box with Portrait Aspect Ratio */}
                 <div className="relative w-full aspect-[4/5] sm:aspect-square lg:aspect-auto lg:h-[480px] rounded-[24px] overflow-hidden bg-neo-surface border-4 border-neo-border shrink-0 flex items-center justify-center">
                   {profile.profile_photo ? (
                     <Image 
@@ -235,7 +245,6 @@ export function HeroSection({
                     </div>
                   )}
                 </div>
-
               </div>
             </div>
           </div>
@@ -245,7 +254,3 @@ export function HeroSection({
     </SectionContainer>
   );
 }
-
-
-
-

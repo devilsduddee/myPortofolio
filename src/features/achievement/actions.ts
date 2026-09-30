@@ -1,10 +1,22 @@
+﻿/**
+ * File        : src/features/achievement/actions/actions.ts
+ * Deskripsi   : Server Actions untuk manajemen CRUD entitas pencapaian/sertifikat (Achievement).
+ */
+
 'use server';
 
-import { AchievementService } from '../services/AchievementService';
-import { AchievementSchema, AchievementFormValues } from '../validation/schema';
+import { AchievementService } from './AchievementService';
+import { AchievementSchema, AchievementFormValues } from './schema';
 import { revalidatePath, revalidateTag } from 'next/cache';
 import { requireAuth } from '@/lib/auth-guard';
 
+/**
+ * Membuat data pencapaian baru di database.
+ *
+ * Kegunaan : Memvalidasi formulir pencapaian, menyimpan pencapaian baru, dan memperbarui cache.
+ * Input    : data (Objek AchievementFormValues)
+ * Hasil    : Objek status { success: boolean, data?: Achievement, error?: string }.
+ */
 export async function createAchievementAction(data: AchievementFormValues) {
   try {
     await requireAuth();
@@ -29,6 +41,13 @@ export async function createAchievementAction(data: AchievementFormValues) {
   }
 }
 
+/**
+ * Memperbarui data pencapaian yang ada.
+ *
+ * Kegunaan : Memvalidasi input, memperbarui pencapaian berdasarkan ID, dan membersihkan cache.
+ * Input    : id (String ID pencapaian), data (Objek AchievementFormValues)
+ * Hasil    : Objek status { success: boolean, data?: Achievement, error?: string }.
+ */
 export async function updateAchievementAction(id: string, data: AchievementFormValues) {
   try {
     await requireAuth();
@@ -53,6 +72,13 @@ export async function updateAchievementAction(id: string, data: AchievementFormV
   }
 }
 
+/**
+ * Menghapus data pencapaian.
+ *
+ * Kegunaan : Menghapus pencapaian berdasarkan ID dan memperbarui cache tampilan.
+ * Input    : id (String ID pencapaian)
+ * Hasil    : Objek status { success: boolean, error?: string }.
+ */
 export async function deleteAchievementAction(id: string) {
   try {
     await requireAuth();
@@ -72,3 +98,4 @@ export async function deleteAchievementAction(id: string) {
     return { success: false, error: 'Failed to delete achievement. Please try again.' };
   }
 }
+

@@ -1,10 +1,23 @@
+﻿/**
+ * File        : src/features/project/actions/actions.ts
+ * Deskripsi   : Server Actions untuk manajemen CRUD entitas proyek (Project).
+ *               Menangani penambahan, pembaruan, penghapusan proyek, serta pembaharuan cache halaman.
+ */
+
 'use server';
 
-import { ProjectService } from '../services/ProjectService';
+import { ProjectService } from './ProjectService';
 import { ProjectSchema, ProjectFormValues } from '@/types/schema';
 import { revalidatePath, revalidateTag } from 'next/cache';
 import { requireAuth } from '@/lib/auth-guard';
 
+/**
+ * Membuat data proyek baru di database.
+ *
+ * Kegunaan : Memvalidasi input formulir proyek, menambahkan proyek baru, dan memperbarui cache.
+ * Input    : data (Objek ProjectFormValues dari form proyek)
+ * Hasil    : Objek status { success: boolean, data?: Project, error?: string }.
+ */
 export async function createProjectAction(data: ProjectFormValues) {
   try {
     await requireAuth();
@@ -29,6 +42,13 @@ export async function createProjectAction(data: ProjectFormValues) {
   }
 }
 
+/**
+ * Memperbarui data proyek yang sudah ada.
+ *
+ * Kegunaan : Memvalidasi input, memperbarui entitas proyek berdasarkan ID, dan membersihkan cache.
+ * Input    : id (String ID proyek), data (Objek ProjectFormValues)
+ * Hasil    : Objek status { success: boolean, data?: Project, error?: string }.
+ */
 export async function updateProjectAction(id: string, data: ProjectFormValues) {
   try {
     await requireAuth();
@@ -53,6 +73,13 @@ export async function updateProjectAction(id: string, data: ProjectFormValues) {
   }
 }
 
+/**
+ * Menghapus data proyek dari database.
+ *
+ * Kegunaan : Menghapus proyek berdasarkan ID dan memperbarui cache tampilan publik dan admin.
+ * Input    : id (String ID proyek yang ingin dihapus)
+ * Hasil    : Objek status { success: boolean, error?: string }.
+ */
 export async function deleteProjectAction(id: string) {
   try {
     await requireAuth();
@@ -72,3 +99,4 @@ export async function deleteProjectAction(id: string) {
     return { success: false, error: 'Failed to delete project. Please try again.' };
   }
 }
+

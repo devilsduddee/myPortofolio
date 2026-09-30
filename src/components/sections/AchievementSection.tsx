@@ -1,3 +1,8 @@
+﻿/**
+ * File        : src/components/sections/AchievementSection.tsx
+ * Deskripsi   : Komponen section daftar pencapaian dan sertifikasi (Achievements) dalam kisi (grid).
+ */
+
 'use client';
 
 import { useRef } from 'react';
@@ -13,6 +18,13 @@ if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
 }
 
+/**
+ * Komponen Section Pencapaian & Sertifikat Publik.
+ *
+ * Kegunaan : Menampilkan kisi pencapaian (<AchievementCard>) dengan animasi stagger scroll.
+ * Input    : achievements (Array data pencapaian dari Prisma)
+ * Hasil    : Blok section <AchievementSection>.
+ */
 export function AchievementSection({ achievements }: { achievements: Achievement[] }) {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -58,7 +70,6 @@ export function AchievementSection({ achievements }: { achievements: Achievement
     }
   }, { scope: containerRef });
 
-
   if (!achievements || achievements.length === 0) return null;
 
   return (
@@ -78,5 +89,3 @@ export function AchievementSection({ achievements }: { achievements: Achievement
     </SectionContainer>
   );
 }
-
-

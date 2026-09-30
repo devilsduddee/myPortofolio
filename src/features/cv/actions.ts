@@ -1,10 +1,22 @@
+﻿/**
+ * File        : src/features/cv/actions/actions.ts
+ * Deskripsi   : Server Action untuk memperbarui URL tautan berkas CV/resume pengguna.
+ */
+
 'use server';
 
-import { CvService } from '../services/CvService';
-import { CvSchema, CvFormValues } from '../validation/schema';
+import { CvService } from './CvService';
+import { CvSchema, CvFormValues } from './schema';
 import { revalidatePath, revalidateTag } from 'next/cache';
 import { requireAuth } from '@/lib/auth-guard';
 
+/**
+ * Menyimpan URL berkas CV terbaru pengguna di database.
+ *
+ * Kegunaan : Memvalidasi URL berkas CV, menyimpannya di profil pengguna, dan membersihkan cache.
+ * Input    : data (Objek CvFormValues)
+ * Hasil    : Objek status { success: boolean, error?: string }.
+ */
 export async function saveCvAction(data: CvFormValues) {
   try {
     await requireAuth();
@@ -28,3 +40,4 @@ export async function saveCvAction(data: CvFormValues) {
     return { success: false, error: 'Failed to save CV. Please try again.' };
   }
 }
+

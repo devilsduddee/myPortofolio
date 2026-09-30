@@ -1,5 +1,5 @@
-import { CvRepository } from '../repositories/CvRepository';
-import { CvSchema } from '../validation/schema';
+﻿import { CvRepository } from './CvRepository';
+import { CvSchema } from './schema';
 
 export class CvService {
   static async get() {

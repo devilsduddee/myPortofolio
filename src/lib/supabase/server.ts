@@ -1,6 +1,18 @@
+﻿/**
+ * File        : src/lib/supabase/server.ts
+ * Deskripsi   : Membuat klien Supabase untuk lingkungan Server Components / Server Actions Next.js.
+ */
+
 import { createServerClient, type CookieOptions } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 
+/**
+ * Membuat instance klien server Supabase Auth & DB dengan manajemen cookie Next.js.
+ *
+ * Kegunaan : Menyiapkan klien Supabase server yang membaca dan memperbarui cookie autentikasi.
+ * Input    : Tanpa input.
+ * Hasil    : Objek SupabaseClient server (Promise).
+ */
 export async function createClient() {
   const cookieStore = await cookies();
 
@@ -15,17 +27,15 @@ export async function createClient() {
         setAll(cookiesToSet: any[]) {
           try {
             cookiesToSet.forEach(({ name, value, options }) => {
-              // Convert cookie to Session Cookie (expires on browser close)
               const sessionOptions = { ...options };
               delete sessionOptions.maxAge;
               delete sessionOptions.expires;
               cookieStore.set(name, value, sessionOptions);
             });
           } catch (error) {
-            // The `set` method was called from a Server Component.
+            // Dipanggil dari Server Component (baca-saja)
           }
         },
-
       },
     }
   );

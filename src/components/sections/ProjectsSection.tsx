@@ -1,3 +1,8 @@
+﻿/**
+ * File        : src/components/sections/ProjectsSection.tsx
+ * Deskripsi   : Komponen section daftar karya proyek (Projects) dalam tata letak kisi (grid).
+ */
+
 'use client';
 
 import { useRef } from 'react';
@@ -13,6 +18,13 @@ if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
 }
 
+/**
+ * Komponen Section Daftar Proyek Publik.
+ *
+ * Kegunaan : Menampilkan daftar kartu proyek (<ProjectCard>) dalam kisi responsif dengan animasi stagger.
+ * Input    : projects (Array data proyek dari Prisma)
+ * Hasil    : Blok section <ProjectsSection>.
+ */
 export function ProjectsSection({ projects }: { projects: Project[] }) {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -58,14 +70,12 @@ export function ProjectsSection({ projects }: { projects: Project[] }) {
     }
   }, { scope: containerRef });
 
-
   if (!projects || projects.length === 0) return null;
 
   return (
     <SectionContainer id="projects">
       <SectionHeader title="Projects" subtitle="Selected Work & Products" />
       
-      {/* Clean Bento / Uniform Grid Layout with GSAP Stagger */}
       <div 
         ref={containerRef}
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mt-8"
@@ -82,6 +92,3 @@ export function ProjectsSection({ projects }: { projects: Project[] }) {
     </SectionContainer>
   );
 }
-
-
-

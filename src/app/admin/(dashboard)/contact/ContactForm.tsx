@@ -1,9 +1,9 @@
-'use client';
+﻿'use client';
 
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ContactSchema, ContactFormValues } from '@/features/contact/validation/schema';
-import { saveContactAction } from '@/features/contact/actions/actions';
+import { ContactSchema, ContactFormValues } from '@/features/contact/schema';
+import { saveContactAction } from '@/features/contact/actions';
 import { toast } from 'sonner';
 
 export function ContactForm({ initialData }: { initialData?: any }) {
@@ -106,4 +106,5 @@ export function ContactForm({ initialData }: { initialData?: any }) {
     </form>
   );
 }
+
 

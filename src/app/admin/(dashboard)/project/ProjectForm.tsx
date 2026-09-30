@@ -1,9 +1,9 @@
-'use client';
+﻿'use client';
 
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ProjectSchema, ProjectFormValues } from '@/types/schema';
-import { createProjectAction, updateProjectAction } from '@/features/project/actions/actions';
+import { createProjectAction, updateProjectAction } from '@/features/project/actions';
 import { useRouter } from 'next/navigation';
 import { ImageUploader } from '@/components/shared/ImageUploader';
 import { toast } from 'sonner';
@@ -49,7 +49,7 @@ export function ProjectForm({ initialData }: { initialData?: any }) {
         <input 
           id="projectName"
           {...register('projectName')} 
-          placeholder="e.g. Questify — AI EdTech Web Platform"
+          placeholder="e.g. Questify â€” AI EdTech Web Platform"
           className="w-full px-4 py-3 bg-neo-surface border-3 border-neo-border rounded-xl font-bold text-neo-text placeholder:text-neo-muted/60 focus:bg-neo-yellow/10 focus:shadow-brutal-sm outline-none transition-[background-color,box-shadow]" 
         />
         {errors.projectName && <p className="text-neo-pink text-xs font-black mt-1">{errors.projectName.message}</p>}
@@ -130,4 +130,5 @@ export function ProjectForm({ initialData }: { initialData?: any }) {
     </form>
   );
 }
+
 

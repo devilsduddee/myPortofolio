@@ -1,8 +1,8 @@
-import { AchievementService } from '@/features/achievement/services/AchievementService';
+﻿import { AchievementService } from '@/features/achievement/AchievementService';
 import { PageHeader } from '@/components/admin/PageHeader';
 import { EmptyState } from '@/components/admin/EmptyState';
 import { DeleteButton } from '@/components/admin/DeleteButton';
-import { deleteAchievementAction } from '@/features/achievement/actions/actions';
+import { deleteAchievementAction } from '@/features/achievement/actions';
 import Link from 'next/link';
 import { Plus } from 'lucide-react';
 

@@ -1,5 +1,5 @@
-import { ProjectRepository } from '../repositories/ProjectRepository';
-import { ProjectSchema } from '../validation/schema';
+﻿import { ProjectRepository } from './ProjectRepository';
+import { ProjectSchema } from './schema';
 
 export class ProjectService {
   static async getAll() { return await ProjectRepository.findAll(); }
