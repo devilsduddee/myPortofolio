@@ -98,7 +98,7 @@ export function AchievementCard({ achievement }: { achievement: Achievement }) {
             setIsModalOpen(true);
           }
         }}
-        className="h-full group relative brutal-card-hover bg-neo-surface border-4 border-neo-border shadow-brutal rounded-[20px] flex flex-col justify-between overflow-hidden cursor-pointer focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-neo-pink"
+        className="h-full group relative bg-neo-surface border-4 border-neo-border shadow-brutal hover:shadow-brutal-lg transition-shadow duration-200 rounded-[20px] flex flex-col justify-between overflow-hidden cursor-pointer focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-neo-pink"
         onClick={() => setIsModalOpen(true)}
       >
 

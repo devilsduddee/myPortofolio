@@ -85,7 +85,7 @@ export function ProjectCard({ project }: { project: Project }) {
       {/* Project Card */}
       <div 
         ref={cardRef}
-        className="h-full group brutal-card-hover bg-neo-surface border-4 border-neo-border shadow-brutal rounded-[20px] overflow-hidden flex flex-col justify-between"
+        className="h-full group bg-neo-surface border-4 border-neo-border shadow-brutal hover:shadow-brutal-lg transition-shadow duration-200 rounded-[20px] overflow-hidden flex flex-col justify-between"
       >
         <div className="flex flex-col flex-1">
           {/* Image Banner */}

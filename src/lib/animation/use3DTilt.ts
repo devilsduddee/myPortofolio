@@ -2,7 +2,12 @@
  * File        : src/lib/animation/use3DTilt.ts
  * Deskripsi   : Hook React kustom untuk memberikan efek rotasi/kemiringan 3D interaktif (tilt)
  *               pada elemen HTML menggunakan pustaka GSAP berdasarkan pergerakan kursor mouse.
- * Perangkat   : Efek 3D tilt hanya diaktifkan pada perangkat desktop dengan kursor presisi (pointer: fine).
+ * Perangkat   : Efek 3D tilt HANYA aktif di desktop dengan mouse presisi.
+ *               Diblokir di HP dan tablet melalui 3 lapisan pengecekan:
+ *               1. CSS media query: (hover: hover) and (pointer: fine)
+ *               2. Deteksi layar sentuh: 'ontouchstart' di window
+ *               3. Lebar layar minimum 1024px (ukuran tablet landscape ke atas)
+ *               Tidak ada listener atau komputasi yang dipasang di perangkat sentuh.
  */
 
 'use client';
@@ -24,7 +29,7 @@ export interface Use3DTiltOptions {
  *
  * Kegunaan : Menghitung posisi kursor terhadap elemen lalu memutar elemen secara 3D (GSAP).
  *            Memastikan elemen selalu kembali ke posisi netral (rotateX: 0, rotateY: 0) saat interaksi berakhir.
- * Perangkat : Aktif hanya pada perangkat desktop dengan mouse presisi (pointer: fine).
+ * Perangkat : Aktif hanya pada perangkat desktop dengan mouse presisi via capability detection (hover: hover) dan (pointer: fine).
  * Input    : options (Ukuran sudut kemiringan maksimal, durasi animasi, dan perspektif)
  * Hasil    : React Ref (containerRef) yang harus dipasangkan pada elemen HTML target.
  */
@@ -41,13 +46,28 @@ export function use3DTilt<T extends HTMLElement = HTMLDivElement>(options: Use3D
 
   useGSAP(() => {
     if (!containerRef.current) return;
+    if (typeof window === 'undefined') return;
 
-    // Strategi Deteksi: Jangan pasang listener pada perangkat layar sentuh atau preferensi reduced motion
-    const isFinePointer = typeof window !== 'undefined' && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-    const isDesktop = typeof window !== 'undefined' && window.innerWidth >= 1024;
-    const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // --- Lapisan 1: CSS Media Query ---
+    // (hover: hover) artinya perangkat punya kemampuan hover (mouse)
+    // (pointer: fine) artinya pointer presisi seperti mouse, bukan jari
+    const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-    if (!isFinePointer || !isDesktop || prefersReducedMotion) return;
+    // --- Lapisan 2: Deteksi Layar Sentuh ---
+    // Jika browser punya event 'ontouchstart', artinya perangkat sentuh (HP/tablet)
+    const adalahPerangkatSentuh = 'ontouchstart' in window;
+
+    // --- Lapisan 3: Lebar Layar Minimum ---
+    // Tilt hanya aktif jika lebar layar >= 1024px (setara laptop/desktop)
+    const LEBAR_LAYAR_MINIMUM_DESKTOP = 1024;
+    const lebarLayarCukup = window.innerWidth >= LEBAR_LAYAR_MINIMUM_DESKTOP;
+
+    // Pengguna yang memilih gerakan minimal (aksesibilitas) juga dikecualikan
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Jika salah satu syarat tidak terpenuhi, langsung keluar — tidak ada listener yang dipasang
+    const bolehAktif = isFinePointer && !adalahPerangkatSentuh && lebarLayarCukup && !prefersReducedMotion;
+    if (!bolehAktif) return;
 
     const element = containerRef.current;
 
@@ -55,11 +75,11 @@ export function use3DTilt<T extends HTMLElement = HTMLDivElement>(options: Use3D
      * Mengatur rotasi 3D elemen berdasarkan koordinat kursor mouse.
      *
      * Kegunaan : Menghitung offset kursor dari titik tengah elemen dan menjalankan animasi tilt GSAP.
-     * Input    : e (PointerEvent atau MouseEvent dari pergerakan mouse)
+     * Input    : e (PointerEvent dari pergerakan mouse kursor)
      * Hasil    : Memperbarui transformasi rotasi X dan Y elemen secara halus.
      */
     const handlePointerMove = (e: PointerEvent) => {
-      // Abaikan jika pointer bukan mouse biasa (misal sentuhan jari atau pen)
+      // Abaikan jika pointer bukan mouse biasa (misal sentuhan jari atau pen digital)
       if (e.pointerType && e.pointerType !== 'mouse') return;
 
       const rect = element.getBoundingClientRect();
@@ -85,7 +105,7 @@ export function use3DTilt<T extends HTMLElement = HTMLDivElement>(options: Use3D
      *
      * Kegunaan : Menghilangkan efek tilt dan memastikan transform dibersihkan sempurna ke posisi semula.
      * Input    : Tidak ada
-     * Hasil    : Animasi reset rotasi X dan Y kembali ke 0 derajat dengan pembersihan active tween.
+     * Hasil    : Animasi reset rotasi X dan Y kembali ke 0 derajat dengan pembersihan transform total.
      */
     const resetTilt = () => {
       gsap.killTweensOf(element);
@@ -97,13 +117,14 @@ export function use3DTilt<T extends HTMLElement = HTMLDivElement>(options: Use3D
         ease: 'power2.out',
         overwrite: true,
         onComplete: () => {
-          // Bersihkan style inline rotate jika sudah kembali netral agar tidak meninggalkan transform residu
-          gsap.set(element, { clearProps: 'rotateX,rotateY' });
+          // Bersihkan hanya properti tilt (rotateX, rotateY, perspective) agar tidak menghapus
+          // properti transform lain seperti opacity/scale yang diatur oleh animasi GSAP lain
+          gsap.set(element, { clearProps: 'rotateX,rotateY,perspective' });
         },
       });
     };
 
-    // Gunakan pointer events untuk penanganan kursor yang lebih andal di semua browser modern
+    // Pasang listener interaksi HANYA untuk desktop dengan fine pointer
     element.addEventListener('pointermove', handlePointerMove);
     element.addEventListener('pointerleave', resetTilt);
     element.addEventListener('pointercancel', resetTilt);
@@ -117,7 +138,8 @@ export function use3DTilt<T extends HTMLElement = HTMLDivElement>(options: Use3D
       element.removeEventListener('mouseleave', resetTilt);
       window.removeEventListener('blur', resetTilt);
       gsap.killTweensOf(element);
-      gsap.set(element, { clearProps: 'rotateX,rotateY' });
+      // Hanya bersihkan properti tilt, bukan semua transform
+      gsap.set(element, { clearProps: 'rotateX,rotateY,perspective' });
     };
   }, { scope: containerRef });
 
