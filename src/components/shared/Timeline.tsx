@@ -2,7 +2,6 @@
 
 import { useRef } from 'react';
 import { Building2, Calendar, CheckCircle2, Briefcase } from 'lucide-react';
-import { use3DTilt } from '@/lib/animation/use3DTilt';
 
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
