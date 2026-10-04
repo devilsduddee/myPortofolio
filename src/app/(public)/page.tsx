@@ -1,4 +1,4 @@
-﻿/**
+/**
  * File        : src/app/(public)/page.tsx
  * Deskripsi   : Halaman utama (Landing Page) publik portofolio Ahmad Ridho Syafaat.
  *               Menampilkan kumpulan section: Navbar, Hero, Tech Marquee, About, Experience, Projects, Achievements, Contact, dan Footer.
@@ -27,7 +27,6 @@ import { unstable_cache } from 'next/cache';
 export const revalidate = 3600; // Pembaharuan halaman otomatis (ISR) setiap 1 jam
 
 export const metadata: Metadata = {
-  title: "Portofolio Ahmad Ridho Syafaat",
   description: "Portofolio profesional yang menampilkan proyek berbasis data, pengalaman manajemen produk, dan karya teknis.",
 };
 

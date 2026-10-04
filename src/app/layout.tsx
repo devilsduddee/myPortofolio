@@ -15,7 +15,7 @@ export const viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000'),
   title: {
-    default: "Portofolio Ahmad Ridho Syafaat",
+    default: "Ahmad Ridho Syafaat",
     template: "%s | Ahmad Ridho Syafaat"
   },
   description: "Data Analyst • Product Thinker • Builder. Professional portfolio showcasing data-driven projects, product management experience, and technical builds.",
