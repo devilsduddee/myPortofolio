@@ -179,12 +179,12 @@ export function HeroSection({
             )}
 
             {/* Tombol CTA Utama & Sekunder */}
-            <div className="hero-cta flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto pt-1">
+            <div className="hero-cta flex flex-row items-center gap-3 w-full pt-1">
               {profile.cv_file && (
                 <CTAButton 
                   href={profile.cv_file} 
                   variant="primary" 
-                  className="w-full sm:w-auto gap-2"
+                  className="flex-1 sm:flex-none sm:w-auto gap-2 text-sm px-4"
                   target="_blank"
                 >
                   <Download className="w-5 h-5 stroke-[3]" />
@@ -195,7 +195,7 @@ export function HeroSection({
               <CTAButton 
                 href="#contact" 
                 variant="secondary" 
-                className="w-full sm:w-auto gap-2"
+                className="flex-1 sm:flex-none sm:w-auto gap-2 text-sm px-4"
               >
                 <Mail className="w-5 h-5 stroke-[3]" />
                 Contact Me
