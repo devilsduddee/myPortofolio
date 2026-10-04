@@ -222,9 +222,9 @@ export function HeroSection({
 
           {/* Kolom Kanan: Bingkai Foto Profil 3D Tilt */}
           <div className="lg:col-span-5 flex justify-center lg:justify-end w-full">
-            <div ref={imageFrameRef} className="hero-image-frame relative w-full max-w-[440px]">
-              <div className="relative p-3.5 bg-neo-yellow border-4 border-neo-border shadow-brutal-lg rounded-[32px] hover:rotate-1 transition-transform duration-300">
-                <div className="relative w-full aspect-[4/5] sm:aspect-square lg:aspect-auto lg:h-[480px] rounded-[24px] overflow-hidden bg-neo-surface border-4 border-neo-border shrink-0 flex items-center justify-center">
+            <div ref={imageFrameRef} className="hero-image-frame relative w-full max-w-[280px] sm:max-w-[360px] lg:max-w-[440px]">
+              <div className="relative p-2.5 sm:p-3.5 bg-neo-yellow border-4 border-neo-border shadow-brutal-lg rounded-[28px] sm:rounded-[32px] hover:rotate-1 transition-transform duration-300">
+                <div className="relative w-full aspect-[3/4] sm:aspect-square lg:aspect-auto lg:h-[480px] rounded-[20px] sm:rounded-[24px] overflow-hidden bg-neo-surface border-4 border-neo-border shrink-0 flex items-center justify-center">
                   {profile.profile_photo ? (
                     <Image 
                       src={profile.profile_photo} 
