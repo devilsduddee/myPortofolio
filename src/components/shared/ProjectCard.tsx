@@ -124,7 +124,7 @@ export function ProjectCard({ project }: { project: Project }) {
           </div>
           
           {/* Content Header & Body */}
-          <div className="p-6 md:p-7 flex flex-col flex-1">
+          <div className="p-4 lg:p-5 xl:p-6 flex flex-col flex-1">
             <h3 
               ref={triggerRef}
               tabIndex={0}
@@ -136,7 +136,7 @@ export function ProjectCard({ project }: { project: Project }) {
                 }
               }}
               onClick={() => setIsModalOpen(true)}
-              className="text-xl sm:text-2xl font-black text-neo-text group-hover:text-neo-blue transition-colors uppercase tracking-tight mb-2.5 line-clamp-2 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neo-blue rounded"
+              className="text-lg xl:text-xl font-black text-neo-text group-hover:text-neo-blue transition-colors uppercase tracking-tight mb-2 line-clamp-2 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neo-blue rounded"
             >
               {project.project_name}
             </h3>
@@ -148,7 +148,7 @@ export function ProjectCard({ project }: { project: Project }) {
         </div>
 
         {/* Footer Area: Tech Stack & Actions */}
-        <div className="px-6 pb-6 md:px-7 md:pb-7 pt-0 mt-auto">
+        <div className="px-4 lg:px-5 xl:px-6 pb-4 lg:pb-5 xl:pb-6 pt-0 mt-auto">
           {/* Tech Stack Badges */}
           {techStackList.length > 0 && (
             <div className="flex flex-wrap gap-1.5 pt-4 border-t-3 border-neo-border mb-5">

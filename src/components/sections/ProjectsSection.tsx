@@ -1,4 +1,4 @@
-﻿/**
+/**
  * File        : src/components/sections/ProjectsSection.tsx
  * Deskripsi   : Komponen section daftar karya proyek (Projects) dalam tata letak kisi (grid).
  */
@@ -78,7 +78,7 @@ export function ProjectsSection({ projects }: { projects: Project[] }) {
       
       <div 
         ref={containerRef}
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mt-8"
+        className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 lg:gap-6 xl:gap-8 mt-6 lg:mt-8"
       >
         {projects.map((project) => (
           <div 

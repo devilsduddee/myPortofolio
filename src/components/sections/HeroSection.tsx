@@ -1,4 +1,4 @@
-﻿/**
+/**
  * File        : src/components/sections/HeroSection.tsx
  * Deskripsi   : Komponen Hero Section utama pada halaman depan portofolio.
  *               Menampilkan nama kandidat, tag gelar profesional, tagline, tombol aksis utama,

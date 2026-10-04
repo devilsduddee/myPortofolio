@@ -60,10 +60,10 @@ export function SectionHeader({ title, subtitle }: { title: string, subtitle?: s
   }, { scope: containerRef });
 
   return (
-    <div ref={containerRef} className="mb-8 md:mb-12 flex flex-col items-start gap-3 select-none">
+    <div ref={containerRef} className="mb-6 md:mb-8 xl:mb-12 flex flex-col items-start gap-3 select-none">
       <h2 
         aria-label={title}
-        className="text-3xl md:text-4xl lg:text-5xl font-black tracking-tighter text-neo-text uppercase bg-neo-yellow border-4 border-neo-border px-6 py-2 shadow-[6px_6px_0px_#000000] inline-flex flex-wrap gap-x-[0.2em]"
+        className="text-3xl md:text-4xl xl:text-5xl font-black tracking-tighter text-neo-text uppercase bg-neo-yellow border-4 border-neo-border px-5 py-2 shadow-[6px_6px_0px_#000000] inline-flex flex-wrap gap-x-[0.2em]"
       >
         {title.split('').map((char, index) => (
           <span

@@ -1,4 +1,4 @@
-﻿/**
+/**
  * File        : src/components/sections/AchievementSection.tsx
  * Deskripsi   : Komponen section daftar pencapaian dan sertifikasi (Achievements) dalam kisi (grid).
  */
@@ -78,7 +78,7 @@ export function AchievementSection({ achievements }: { achievements: Achievement
       
       <div 
         ref={containerRef}
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mt-8"
+        className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 lg:gap-6 xl:gap-8 mt-6 lg:mt-8"
       >
         {achievements.map((achievement) => (
           <div key={achievement.id} className="achievement-card-wrapper">

@@ -154,11 +154,11 @@ export function AchievementCard({ achievement }: { achievement: Achievement }) {
             </div>
           )}
 
-          <div className="p-5 md:p-6 flex flex-col flex-1 bg-neo-surface justify-between">
+          <div className="p-4 lg:p-5 xl:p-6 flex flex-col flex-1 bg-neo-surface justify-between">
             <div>
               <div className="flex justify-between items-start mb-4 gap-3">
                 <h3 
-                  className="text-xl font-black text-neo-text leading-snug group-hover:text-neo-pink transition-colors tracking-tight line-clamp-2"
+                  className="text-base xl:text-xl font-black text-neo-text leading-snug group-hover:text-neo-pink transition-colors tracking-tight line-clamp-2"
                 >
                   {achievement.title}
                 </h3>
