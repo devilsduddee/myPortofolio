@@ -1,4 +1,4 @@
-﻿/**
+/**
  * File        : src/components/shared/PublicNavbar.tsx
  * Deskripsi   : Komponen navigasi utama (header) untuk pengunjung publik.
  *               Menyediakan logo brand AR, tautan navigasi dengan indikator posisi (ScrollSpy),
@@ -31,6 +31,7 @@ export function PublicNavbar() {
     { name: 'Experience', id: 'experience', href: '#experience' },
     { name: 'Projects', id: 'projects', href: '#projects' },
     { name: 'Achievements', id: 'achievements', href: '#achievements' },
+    { name: 'Soundtrack', id: 'soundtrack', href: '#soundtrack' },
     { name: 'Contact', id: 'contact', href: '#contact' },
   ];
 
@@ -66,18 +67,21 @@ export function PublicNavbar() {
         return;
       }
 
-      // 3. Periksa posisi tiap section dari bawah ke atas
-      const sectionIds = ['contact', 'achievements', 'projects', 'experience', 'about', 'hero'];
+      // 3. Cari section yang paling relevan (tengah viewport berada di dalam elemen, atau paling dominan)
+      const sectionIds = ['hero', 'about', 'experience', 'projects', 'achievements', 'soundtrack', 'contact'];
+      const scrollPosition = window.scrollY + 140; // 140px di bawah viewport top untuk kompensasi navbar
+
+      let currentSection = 'hero';
       for (const id of sectionIds) {
         const el = document.getElementById(id);
         if (el) {
-          const rect = el.getBoundingClientRect();
-          if (rect.top <= 350 && rect.bottom >= 100) {
-            setActiveSection(id);
-            break;
+          const top = el.offsetTop;
+          if (scrollPosition >= top) {
+            currentSection = id;
           }
         }
       }
+      setActiveSection(currentSection);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });

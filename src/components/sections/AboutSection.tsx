@@ -1,4 +1,4 @@
-﻿/**
+/**
  * File        : src/components/sections/AboutSection.tsx
  * Deskripsi   : Komponen section "About Me" yang menampilkan ringkasan profil dan latar belakang profesional.
  */

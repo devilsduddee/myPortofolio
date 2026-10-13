@@ -10,6 +10,7 @@ import { AboutSection } from '@/components/sections/AboutSection';
 import { ExperienceSection } from '@/components/sections/ExperienceSection';
 import { ProjectsSection } from '@/components/sections/ProjectsSection';
 import { AchievementSection } from '@/components/sections/AchievementSection';
+import { MusicSection } from '@/components/sections/MusicSection';
 import { ContactSection } from '@/components/sections/ContactSection';
 import { FooterSection } from '@/components/sections/FooterSection';
 import { PublicNavbar } from '@/components/shared/PublicNavbar';
@@ -63,6 +64,7 @@ export default async function Home() {
       <ExperienceSection experiences={experiences} />
       <ProjectsSection projects={projects} />
       <AchievementSection achievements={achievements} />
+      <MusicSection />
       <ContactSection contact={contact} profile={profile} />
       <FooterSection contact={contact} profile={profile} />
     </>
