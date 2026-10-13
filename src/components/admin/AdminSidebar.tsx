@@ -63,35 +63,8 @@ export function AdminSidebar({ isOpen, setIsOpen }: { isOpen?: boolean, setIsOpe
 
 
   return (
-    <>
-      {/* Desktop Sidebar */}
-      <aside className="w-64 bg-neo-surface text-neo-text flex-shrink-0 flex-col min-h-screen hidden md:flex border-r-4 border-neo-border relative z-20">
-        <SidebarContent />
-      </aside>
-
-      {/* Mobile Sidebar Overlay */}
-      <AnimatePresence>
-        {isOpen && (
-          <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setIsOpen && setIsOpen(false)}
-              className="fixed inset-0 bg-neo-bg/80 backdrop-blur-sm z-40 md:hidden"
-            />
-            <motion.aside
-              initial={{ x: '-100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '-100%' }}
-              transition={{ type: 'spring', bounce: 0, duration: 0.4 }}
-              className="fixed inset-y-0 left-0 w-72 bg-neo-surface text-neo-text flex flex-col z-50 md:hidden border-r-4 border-neo-border shadow-brutal-lg"
-            >
-              <SidebarContent />
-            </motion.aside>
-          </>
-        )}
-      </AnimatePresence>
-    </>
+    <aside className="w-64 bg-neo-surface text-neo-text flex-shrink-0 flex-col min-h-screen hidden md:flex border-r-4 border-neo-border relative z-20">
+      <SidebarContent />
+    </aside>
   );
 }
