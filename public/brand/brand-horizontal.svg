@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 100" width="320" height="100">
+  <title>Ahmad Ridho Syafaat - Logo</title>
+  
+  <!-- Symbol Block (Squircle Badge with Hard Shadow) -->
+  <g transform="translate(4, 4)">
+    <!-- Hard Shadow -->
+    <rect x="14" y="14" width="72" height="72" rx="16" fill="#000000" />
+    <!-- Yellow Tile with Border -->
+    <rect x="10" y="10" width="72" height="72" rx="16" fill="#FFD60A" stroke="#000000" stroke-width="4" stroke-linejoin="round" />
+    
+    <!-- Left Bar (Data/Input) -->
+    <rect x="23" y="44" width="10" height="26" rx="3" fill="#000000" />
+    <!-- Middle Bar (Analytics/Decision) -->
+    <rect x="38" y="30" width="10" height="40" rx="3" fill="#2563EB" stroke="#000000" stroke-width="2" />
+    <!-- Right Spark (AI Vibecoding Sparkle / 4-point star) -->
+    <path d="M 62 18 Q 62 29 51 29 Q 62 29 62 40 Q 62 29 73 29 Q 62 29 62 18 Z" fill="#FF006E" stroke="#000000" stroke-width="2" stroke-linejoin="round" />
+    <!-- Micro anchor dot -->
+    <circle cx="62" cy="58" r="4" fill="#000000" />
+  </g>
+
+  <!-- Wordmark 'RIDHO' (Vectorized Geometry) -->
+  <g fill="#000000" transform="translate(0, -6)">
+    <!-- Letter R: x=112..144 -->
+    <path d="M 112 34 L 132 34 C 140 34 145 38 145 45 C 145 51 141 55 134 56 L 146 84 L 133 84 L 123 58 L 122 58 L 122 84 L 112 84 Z M 122 43 L 122 50 L 130 50 C 134 50 136 48 136 46.5 C 136 44.5 134 43 130 43 Z" />
+    
+    <!-- Letter I: x=155..165 -->
+    <path d="M 155 34 L 165 34 L 165 84 L 155 84 Z" />
+
+    <!-- Letter D: x=175..209 -->
+    <path d="M 175 34 L 194 34 C 204 34 211 41 211 59 C 211 77 204 84 194 84 L 175 84 Z M 185 43 L 185 75 L 193 75 C 199 75 202 70 202 59 C 202 48 199 43 193 43 Z" />
+
+    <!-- Letter H: x=221..254 -->
+    <path d="M 221 34 L 231 34 L 231 54 L 244 54 L 244 34 L 254 34 L 254 84 L 244 84 L 244 63 L 231 63 L 231 84 L 221 84 Z" />
+
+    <!-- Letter O: x=264..301 -->
+    <path d="M 282.5 33 C 294 33 301 42 301 59 C 301 76 294 85 282.5 85 C 271 85 264 76 264 59 C 264 42 271 33 282.5 33 Z M 282.5 42 C 277 42 273.5 48 273.5 59 C 273.5 70 277 76 282.5 76 C 288 76 291.5 70 291.5 59 C 291.5 48 288 42 282.5 42 Z" />
+  </g>
+
+  <!-- Tagline badge: DATA * PRODUCT [AI] -->
+  <g transform="translate(112, 76)">
+    <rect x="0" y="0" width="168" height="18" rx="4" fill="#E2E8F0" stroke="#000000" stroke-width="1.5" />
+    <!-- Subtitle letter paths: DATA * PRODUCT -->
+    <!-- D -->
+    <path d="M 10 4 L 14 4 C 16.5 4 18 5.5 18 9 C 18 12.5 16.5 14 14 14 L 10 14 Z M 12 6 L 12 12 L 14 12 C 15.5 12 16 11 16 9 C 16 7 15.5 6 14 6 Z" fill="#000000" />
+    <!-- A -->
+    <path d="M 23 4 L 27 4 L 30 14 L 28 14 L 27.2 11.5 L 22.8 11.5 L 22 14 L 20 14 Z M 23.3 9.8 L 26.7 9.8 L 25 4.8 Z" fill="#000000" />
+    <!-- T -->
+    <path d="M 32 4 L 39 4 L 39 6 L 36.5 6 L 36.5 14 L 34.5 14 L 34.5 6 L 32 6 Z" fill="#000000" />
+    <!-- A -->
+    <path d="M 43 4 L 47 4 L 50 14 L 48 14 L 47.2 11.5 L 42.8 11.5 L 42 14 L 40 14 Z M 43.3 9.8 L 46.7 9.8 L 45 4.8 Z" fill="#000000" />
+    <!-- Bullet -->
+    <circle cx="58" cy="9" r="1.5" fill="#FF006E" />
+    <!-- P -->
+    <path d="M 66 4 L 70.5 4 C 73 4 74.5 5.5 74.5 8 C 74.5 10.5 73 12 70.5 12 L 68 12 L 68 14 L 66 14 Z M 68 6 L 68 10 L 70.5 10 C 71.8 10 72.5 9.2 72.5 8 C 72.5 6.8 71.8 6 70.5 6 Z" fill="#000000" />
+    <!-- R -->
+    <path d="M 77 4 L 81.5 4 C 83.5 4 84.8 5.2 84.8 7.2 C 84.8 8.8 83.8 9.8 82.2 10.1 L 85 14 L 82.8 14 L 80.3 10.5 L 79 10.5 L 79 14 L 77 14 Z M 79 6 L 79 9 L 81.2 9 C 82.2 9 82.8 8.4 82.8 7.5 C 82.8 6.6 82.2 6 81.2 6 Z" fill="#000000" />
+    <!-- O -->
+    <path d="M 91 3.8 C 94 3.8 96 6 96 9 C 96 12 94 14.2 91 14.2 C 88 14.2 86 12 86 9 C 86 6 88 3.8 91 3.8 Z M 91 5.6 C 89.2 5.6 88 7 88 9 C 88 11 89.2 12.4 91 12.4 C 92.8 12.4 94 11 94 9 C 94 7 92.8 5.6 91 5.6 Z" fill="#000000" />
+    <!-- D -->
+    <path d="M 99 4 L 103 4 C 105.5 4 107 5.5 107 9 C 107 12.5 105.5 14 103 14 L 99 14 Z M 101 6 L 101 12 L 103 12 C 104.5 12 105 11 105 9 C 105 7 104.5 6 103 6 Z" fill="#000000" />
+    <!-- U -->
+    <path d="M 110 4 L 112 4 L 112 10 C 112 11.8 113 12.4 114.5 12.4 C 116 12.4 117 11.8 117 10 L 117 4 L 119 4 L 119 10 C 119 13.2 117.2 14.2 114.5 14.2 C 111.8 14.2 110 13.2 110 10 Z" fill="#000000" />
+    <!-- C -->
+    <path d="M 128.5 6 L 126.8 7.3 C 126 6.3 125 5.8 124 5.8 C 122.2 5.8 121 7.2 121 9 C 121 10.8 122.2 12.2 124 12.2 C 125 12.2 126 11.7 126.8 10.7 L 128.5 12 C 127.3 13.5 125.7 14.2 124 14.2 C 121 14.2 119 12 119 9 C 119 6 121 3.8 124 3.8 C 125.7 3.8 127.3 4.5 128.5 6 Z" fill="#000000" />
+    <!-- T -->
+    <path d="M 131 4 L 138 4 L 138 6 L 135.5 6 L 135.5 14 L 133.5 14 L 133.5 6 L 131 6 Z" fill="#000000" />
+    <!-- AI Tag -->
+    <rect x="144" y="3" width="18" height="12" rx="3" fill="#2563EB" />
+    <!-- A -->
+    <polygon points="149,4.5 152,11.5 150.8,11.5 150.3,10 148.5,10 148,11.5 146.8,11.5" fill="#FFFFFF" />
+    <!-- I -->
+    <rect x="153.5" y="4.5" width="1.5" height="7" fill="#FFFFFF" />
+  </g>
+</svg>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <title>Ahmad Ridho Syafaat - Symbol</title>
+  <!-- Hard Shadow -->
+  <rect x="22" y="22" width="76" height="76" rx="16" fill="#000000" />
+  <!-- Neo-Brutalist Tile Container -->
+  <rect x="18" y="18" width="76" height="76" rx="16" fill="#FFD60A" stroke="#000000" stroke-width="4" stroke-linejoin="round" />
+  
+  <!-- Modern Graphic Symbol: Data Ascending Bars + AI Spark Star -->
+  <!-- Left Bar (Data/Input) -->
+  <rect x="32" y="52" width="10" height="28" rx="3" fill="#000000" />
+  <!-- Middle Bar (Analytics/Decision) -->
+  <rect x="47" y="38" width="10" height="42" rx="3" fill="#2563EB" stroke="#000000" stroke-width="2" />
+  <!-- Right Spark (AI Vibecoding Sparkle / 4-point star) -->
+  <path d="M 73 24 Q 73 36 61 36 Q 73 36 73 48 Q 73 36 85 36 Q 73 36 73 24 Z" fill="#FF006E" stroke="#000000" stroke-width="2" stroke-linejoin="round" />
+  <!-- Micro anchor dot -->
+  <circle cx="73" cy="68" r="4.5" fill="#000000" />
+</svg>

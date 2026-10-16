@@ -20,13 +20,22 @@ export function FooterSection({ profile }: { profile?: Profile | null, contact?:
     <footer className="border-t-3 sm:border-t-4 border-neo-border bg-neo-surface py-6 sm:py-8 lg:py-10 relative z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6">
         
-        {/* Brand Mark & Tagline */}
-        <div className="flex flex-col sm:flex-row items-center gap-2.5 sm:gap-3 text-center sm:text-left">
-          <div className="bg-neo-yellow border-2 sm:border-3 border-neo-border px-3.5 py-1 sm:py-1.5 rounded-xl font-black text-sm sm:text-lg shadow-brutal-sm text-neo-text shrink-0">
-            AR
+        {/* Brand Mark & Tagline Resmi */}
+        <div className="flex flex-col sm:flex-row items-center gap-3 text-center sm:text-left">
+          {/* Simbol Ikonik Spark Pivot */}
+          <div className="relative w-10 h-10 shrink-0">
+            <div className="absolute inset-0 bg-neo-border translate-x-1 translate-y-1 rounded-xl" />
+            <div className="relative w-full h-full bg-neo-yellow border-2 border-neo-border rounded-xl flex items-center justify-center p-1.5 overflow-hidden">
+              <svg viewBox="0 0 120 120" className="w-full h-full" fill="none">
+                <rect x="24" y="56" width="16" height="42" rx="4" fill="#000000" />
+                <rect x="48" y="34" width="16" height="64" rx="4" fill="#2563EB" stroke="#000000" strokeWidth="3" />
+                <path d="M 88 16 Q 88 34 70 34 Q 88 34 88 52 Q 88 34 106 34 Q 88 34 88 16 Z" fill="#FF006E" stroke="#000000" strokeWidth="3" />
+                <circle cx="88" cy="80" r="7" fill="#000000" />
+              </svg>
+            </div>
           </div>
           <div>
-            <p className="font-extrabold uppercase text-neo-text text-xs sm:text-sm tracking-wider leading-tight">
+            <p className="font-black uppercase text-neo-text text-sm sm:text-base tracking-wider leading-tight">
               {profile?.full_name || 'Ahmad Ridho Syafaat'}
             </p>
             <p className="text-[10px] sm:text-xs font-bold text-neo-muted tracking-wide mt-1 sm:mt-0.5">

@@ -109,18 +109,43 @@ export function PublicNavbar() {
       {/* Fixed Top Navbar dengan z-index teratas z-[9999] */}
       <header className="fixed top-0 left-0 right-0 z-[9999] h-[80px] bg-neo-surface border-b-4 border-neo-border flex items-center px-4 sm:px-8 md:px-12 justify-between">
         
-        {/* Brand Logo / Badge Utama AR */}
+        {/* Brand Logo Resmi: Spark Pivot Symbol + RIDHO Wordmark */}
         <a 
           href="#hero" 
           onClick={(e) => handleNavClick(e, '#hero', 'hero')}
-          className="flex items-center font-black text-xl tracking-tight text-neo-text group"
+          className="flex items-center gap-2.5 group"
           aria-label="Ahmad Ridho Syafaat Home"
         >
           <motion.div 
-            whileHover={{ scale: 1.05, rotate: -3 }}
-            className="bg-neo-yellow border-3 border-neo-border px-3.5 py-1 rounded-xl shadow-brutal-sm group-hover:bg-neo-pink group-hover:text-white transition-colors"
+            whileHover={{ scale: 1.05, rotate: -2 }}
+            className="flex items-center gap-2.5"
           >
-            AR
+            {/* Simbol Ikonik Spark Pivot */}
+            <div className="relative w-9 h-9 shrink-0">
+              <div className="absolute inset-0 bg-neo-border translate-x-0.5 translate-y-0.5 rounded-xl" />
+              <div className="relative w-full h-full bg-neo-yellow border-2 border-neo-border rounded-xl flex items-center justify-center p-1.5 overflow-hidden group-hover:bg-neo-pink transition-colors">
+                <svg viewBox="0 0 120 120" className="w-full h-full" fill="none">
+                  {/* Bar Kiri (Data) */}
+                  <rect x="24" y="56" width="16" height="42" rx="4" fill="#000000" />
+                  {/* Bar Tengah (Analytics/Decision) */}
+                  <rect x="48" y="34" width="16" height="64" rx="4" fill="#2563EB" stroke="#000000" strokeWidth="3" />
+                  {/* Bintang Sparkle (AI Innovation) */}
+                  <path d="M 88 16 Q 88 34 70 34 Q 88 34 88 52 Q 88 34 106 34 Q 88 34 88 16 Z" fill="#FF006E" stroke="#000000" strokeWidth="3" />
+                  {/* Titik Jangkar */}
+                  <circle cx="88" cy="80" r="7" fill="#000000" />
+                </svg>
+              </div>
+            </div>
+
+            {/* Wordmark RIDHO & Tagline Ringkas */}
+            <div className="flex flex-col text-left">
+              <span className="font-black text-lg leading-none tracking-tight text-neo-text uppercase">
+                RIDHO
+              </span>
+              <span className="text-[9px] font-black tracking-widest text-neo-muted uppercase leading-none mt-0.5">
+                DATA • PRODUCT
+              </span>
+            </div>
           </motion.div>
         </a>
 
