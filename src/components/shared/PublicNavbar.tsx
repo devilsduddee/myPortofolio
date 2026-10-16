@@ -218,7 +218,7 @@ export function PublicNavbar() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10, transition: { duration: 0.15 } }}
               transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
-              className="fixed inset-x-0 top-[80px] z-[9990] md:hidden bg-neo-surface border-b-4 border-neo-border p-6"
+              className="fixed inset-x-0 top-[80px] z-[9990] md:hidden bg-neo-surface border-b-4 border-neo-border p-5 sm:p-6 max-h-[calc(100dvh-80px)] overflow-y-auto overscroll-contain pb-[calc(1.5rem+env(safe-area-inset-bottom,0px))]"
             >
               <div className="flex flex-col gap-3">
                 {navLinks.map((link) => {

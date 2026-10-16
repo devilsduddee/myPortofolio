@@ -33,7 +33,7 @@ export function AdminBottomNav() {
   ];
 
   return (
-    <div className="md:hidden fixed bottom-2 inset-x-0 z-50 px-2 sm:px-4 pointer-events-none pb-[env(safe-area-inset-bottom)]">
+    <div className="md:hidden fixed bottom-1.5 inset-x-0 z-50 px-2 sm:px-4 pointer-events-none pb-[env(safe-area-inset-bottom,0px)]">
       <nav 
         aria-label="Admin Mobile Navigation"
         className="pointer-events-auto w-full max-w-lg mx-auto bg-neo-surface border-3 border-neo-border rounded-[20px] shadow-[3px_3px_0px_#000000] p-1 flex items-center justify-between backdrop-blur-md"
@@ -47,10 +47,10 @@ export function AdminBottomNav() {
               key={item.name}
               href={item.href}
               aria-current={isActive ? 'page' : undefined}
-              className={`relative flex flex-col items-center justify-center flex-1 py-1.5 px-0.5 rounded-[14px] transition-all duration-150 min-h-[46px] group ${
+              className={`relative flex flex-col items-center justify-center flex-1 py-1 px-0.5 rounded-[14px] transition-all duration-150 min-h-[46px] active:scale-95 group select-none touch-manipulation ${
                 isActive
                   ? `${item.activeColor} font-black border-2 border-neo-border shadow-[1.5px_1.5px_0px_#000000] -translate-y-0.5`
-                  : 'text-neo-muted hover:text-neo-text hover:bg-neo-yellow/20 active:scale-95 font-bold border-2 border-transparent'
+                  : 'text-neo-muted hover:text-neo-text hover:bg-neo-yellow/20 font-bold border-2 border-transparent'
               }`}
             >
               {/* Ikon Menu */}

@@ -224,13 +224,13 @@ export function ProjectCard({ project }: { project: Project }) {
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, y: 16 }}
                 transition={{ type: "spring", duration: 0.35, bounce: 0.15 }}
-                className="relative z-10 bg-neo-surface border-4 border-neo-border shadow-brutal-lg rounded-[24px] max-w-2xl w-full p-6 sm:p-8 my-auto max-h-[85vh] overflow-y-auto no-scrollbar"
+                className="relative z-10 bg-neo-surface border-4 border-neo-border shadow-brutal-lg rounded-[24px] max-w-2xl w-full p-5 sm:p-8 my-auto max-h-[85vh] sm:max-h-[85dvh] overflow-y-auto overscroll-contain no-scrollbar pb-[calc(1.25rem+env(safe-area-inset-bottom,0px))]"
               >
 
                 {/* Close Button Top Right */}
                 <button 
                   onClick={() => setIsModalOpen(false)}
-                  className="absolute top-4 right-4 sm:top-6 sm:right-6 w-10 h-10 rounded-xl bg-neo-pink text-white border-3 border-neo-border shadow-brutal-sm flex items-center justify-center font-black hover:scale-105 active:translate-y-0.5 focus-visible:ring-4 focus-visible:ring-neo-border focus-visible:outline-none transition-[transform,colors] z-20"
+                  className="absolute top-3.5 right-3.5 sm:top-6 sm:right-6 w-10 h-10 rounded-xl bg-neo-pink text-white border-3 border-neo-border shadow-brutal-sm flex items-center justify-center font-black hover:scale-105 active:scale-95 active:translate-y-0.5 focus-visible:ring-4 focus-visible:ring-neo-border focus-visible:outline-none transition-[transform,colors] z-20"
                   aria-label="Close modal"
                 >
                   <X className="w-6 h-6 stroke-[3]" />

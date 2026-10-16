@@ -15,7 +15,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
   }
 
   return (
-    <div className="h-screen overflow-hidden flex text-neo-text bg-neo-bg relative z-0 selection:bg-neo-blue selection:text-white">
+    <div className="h-[100dvh] overflow-hidden flex text-neo-text bg-neo-bg relative z-0 selection:bg-neo-blue selection:text-white">
       <AdminLayoutWrapper>
         {children}
       </AdminLayoutWrapper>
