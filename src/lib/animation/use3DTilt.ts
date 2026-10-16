@@ -48,25 +48,20 @@ export function use3DTilt<T extends HTMLElement = HTMLDivElement>(options: Use3D
     if (!containerRef.current) return;
     if (typeof window === 'undefined') return;
 
-    // --- Lapisan 1: CSS Media Query ---
-    // (hover: hover) artinya perangkat punya kemampuan hover (mouse)
-    // (pointer: fine) artinya pointer presisi seperti mouse, bukan jari
+    // --- Lapisan 1: Kemampuan Pointer Presisi (Mouse / Trackpad Desktop) ---
+    // (hover: hover) dan (pointer: fine) memastikan pengguna memakai mouse presisi, bukan touch screen biasa
     const isFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-    // --- Lapisan 2: Deteksi Layar Sentuh ---
-    // Jika browser punya event 'ontouchstart', artinya perangkat sentuh (HP/tablet)
-    const adalahPerangkatSentuh = 'ontouchstart' in window;
-
-    // --- Lapisan 3: Lebar Layar Minimum ---
-    // Tilt hanya aktif jika lebar layar >= 1024px (setara laptop/desktop)
+    // --- Lapisan 2: Lebar Layar Minimum Desktop ---
+    // Tilt hanya aktif jika lebar layar >= 1024px (laptop / desktop)
     const LEBAR_LAYAR_MINIMUM_DESKTOP = 1024;
     const lebarLayarCukup = window.innerWidth >= LEBAR_LAYAR_MINIMUM_DESKTOP;
 
-    // Pengguna yang memilih gerakan minimal (aksesibilitas) juga dikecualikan
+    // Pengguna yang mengaktifkan reduced-motion (aksesibilitas) dikecualikan
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Jika salah satu syarat tidak terpenuhi, langsung keluar — tidak ada listener yang dipasang
-    const bolehAktif = isFinePointer && !adalahPerangkatSentuh && lebarLayarCukup && !prefersReducedMotion;
+    // Efek aktif jika memakai mouse presisi di layar desktop dan tidak meminta reduced motion
+    const bolehAktif = isFinePointer && lebarLayarCukup && !prefersReducedMotion;
     if (!bolehAktif) return;
 
     const element = containerRef.current;
